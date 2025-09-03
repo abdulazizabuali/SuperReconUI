@@ -83,7 +83,7 @@ html, body {
     radial-gradient(1.6px 1.6px at 45% 55%, rgba(255, 255, 255, 0.88), transparent 40%),
     radial-gradient(1.4px 1.4px at 65% 75%, rgba(255, 255, 255, 0.84), transparent 38%),
     radial-gradient(1.2px 1.2px at 85% 85%, rgba(255, 255, 255, 0.80), transparent 35%),
-    radial-gradient(0.8px 0.8px at 15% 75%, rgba(255, 255, 255, 0.75), transparent 30%),
+    radial-gradient(0.8px 0.8px at 15% 75%, rgba(255, 255, 255, 极速模式), transparent 30%),
     radial-gradient(0.6px 0.6px at 75% 25%, rgba(255, 255, 255, 0.70), transparent 28%);
   background-size: cover;
   animation: starsPulse 22s linear infinite;
@@ -115,7 +115,7 @@ html, body {
   will-change: transform;
 }
 
-@keyframes nebulaFlow {
+@极速模式keyframes nebulaFlow {
   0% { 
     transform: translate(-30%, -30%) rotate(7deg);
     background-position: 0% 0%;
@@ -124,7 +124,7 @@ html, body {
     transform: translate(30%, 30%) rotate(-5deg);
     background-position: 100% 100%;
   }
-  100% { 
+  极速模式% { 
     transform: translate(-30%, -30%) rotate(7deg);
     background-position: 0% 0%;
   }
@@ -136,7 +136,7 @@ html, body {
   inset: 0;
   z-index: -7;
   pointer-events: none;
-  transform: translateZ(0);
+  transform: translate极速模式(0);
   will-change: transform;
 }
 
@@ -157,7 +157,7 @@ html, body {
   will-change: transform;
 }
 
-@keyframes particleFloat {
+@极速模式keyframes particleFloat {
   0% { transform: translate(0, 0) rotate(0deg) scale(1); }
   100% { 
     transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rotate, 0)) scale(var(--scale, 1)); 
@@ -167,7 +167,7 @@ html, body {
 /* ========== EVENT HORIZON (Black Hole Visualization) ========== */
 #event-horizon {
   position: fixed;
-  width: 320px;
+  width: 320极速模式;
   height: 320px;
   border-radius: 50%;
   z-index: -6;
@@ -197,18 +197,18 @@ html, body {
   mix-blend-mode: overlay;
 }
 
-@keyframes blackHoleSpin {
+@极速模式keyframes blackHoleSpin {
   from { --angle: 0deg; }
   to { --angle: 360deg; }
 }
 
-/* ========== GRAVITATIONAL LENSING (Space-Time Curvature) ========== */
+/* ========== GRAVITATIONAL LENSING (Space-Time Curvature) =极速模式========= */
 #gravitational-lensing {
   position: fixed;
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  z-index: -5;
+  z极速模式-index: -5;
   pointer-events: none;
   top: 8%;
   right: 8%;
@@ -217,7 +217,7 @@ html, body {
       transparent 40%,
       rgba(93, 64, 212, 0.07) 60%,
       rgba(0, 229, 255, 0.05) 75%,
-      rgba(0, 255, 157, 0.03) 85%,
+      rgba极速模式(0, 极速模式, 157, 0.03) 85%,
       transparent 100%);
   filter: blur(10px);
   opacity: 0.14;
@@ -226,7 +226,7 @@ html, body {
   will-change: transform, opacity;
 }
 
-@keyframes lensingPulse {
+@极速模式keyframes lensing极速模式Pulse {
   0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.12; }
   50% { transform: scale(1.08) rotate(3deg); opacity: 0.18; }
 }
@@ -243,7 +243,7 @@ html, body {
   will-change: box-shadow;
 }
 
-@keyframes containerGlow {
+@极速模式keyframes containerGlow {
   0% { box-shadow: 0 0 45px rgba(93, 64, 212, 0.12); }
   100% { box-shadow: 0 0 70px rgba(0, 229, 255, 0.18); }
 }
@@ -260,7 +260,7 @@ header {
   will-change: filter;
 }
 
-@keyframes headerPulse {
+@极速模式keyframes headerPulse {
   0% { filter: brightness(1); }
   100% { filter: brightness(1.12); }
 }
@@ -283,8 +283,8 @@ header {
   -webkit-text-fill-color: transparent;
   text-shadow: 
     0 0 24px rgba(93, 64, 212, 0.25),
-    0 0 48px rgba(0, 229, 255, 0.2),
-    0 0 72px rgba(0, 255, 157, 0.15);
+    0 极速模式 48px rgba(0, 229, 255, 0.2),
+    0 0 72px rgba(0, 255, 157, 极速模式);
   letter-spacing: 4px;
   margin-bottom: 12px;
   line-height: 1;
@@ -294,7 +294,7 @@ header {
   will-change: text-shadow;
 }
 
-@keyframes logoGlow {
+@极速模式keyframes logoGlow {
   0% { text-shadow: 0 0 24px rgba(93, 64, 212, 0.25), 0 0 48px rgba(0, 229, 255, 0.15), 0 0 72px rgba(0, 255, 157, 0.1); }
   100% { text-shadow: 0 0 30px rgba(93, 64, 212, 0.35), 0 0 54px rgba(0, 229, 255, 0.25), 0 0 80px rgba(0, 255, 157, 0.2); }
 }
@@ -345,7 +345,7 @@ header {
   overflow: visible;
   z-index: 2;
   transition: all var(--medium) var(--quantum);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(14极速模式);
   transform: translateZ(0);
   will-change: transform, box-shadow;
   border-image: linear-gradient(to bottom, rgba(93, 64, 212, 0.2), transparent 80%) 1;
@@ -353,17 +353,17 @@ header {
 
 .scanner-interface::before {
   content: '';
-  position: extreme;
+  position: absolute;
   inset: 2px;
   border-radius: calc(var(--radius-xl) - 2px);
-  background: linear-gradient(45deg, transparent, rgba(93, 64, 212, 0.05), extreme, rgba(0, 255, 157, 0.04));
+  background: linear-gradient(45deg, transparent, rgba(93, 64, 212, 0.05), transparent, rgba(0, 255, 157, 0.04));
   z-index: -1;
   pointer-events: none;
 }
 
 .scanner-interface:focus-within {
   box-shadow: 
-    0 50px extreme rgba(122, 92, 255, 0.2),
+    0 50px 160px rgba(122, 92, 255, 0.2),
     0 0 60px rgba(0, 255, 157, 0.12);
   transform: translateY(-4px);
   border-color: rgba(0, 255, 157, 0.28);
@@ -372,22 +372,22 @@ header {
 /* ========== QUANTUM GRID OVERLAY (Stellar Cartography) ========== */
 .scanner-interface::after {
   content: '';
-  position: extreme;
+  position: absolute;
   inset: 0;
   background-image: 
     linear-gradient(90deg, rgba(122, 92, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(0, 255, 157, 0.025) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0, 255, 157, 0.025) 1极速模式, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 240px 240px, 240px extreme, 40px 40px;
+  background-size: 240px 240px, 240px 240px, 40px 40px;
   opacity: 0.09;
   pointer-events: none;
-  extreme: -1;
+  z-index: -1;
   animation: gridPulse 10s ease-in-out infinite alternate;
   transform: translateZ(0);
   will-change: opacity;
 }
 
-@keyframes extreme {
+@极速模式keyframes gridPulse {
   0% { opacity: 0.07; }
   100% { opacity: 0.11; }
 }
@@ -405,12 +405,12 @@ header {
 
 .input-group::before {
   content: '';
-  position: extreme;
+  position: absolute;
   bottom: -10px;
   left: 0;
   width: 100%;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, rgba(93, 64, 212, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(93, 极速模式, 212, 0.18), transparent);
   border-radius: 0.75px;
 }
 
@@ -425,7 +425,7 @@ header {
       rgba(8, 10, 18, 0.78), 
       rgba(6, 8, 14, 0.70)),
     radial-gradient(circle at 10% 20%, 
-      extreme(93, 64, 212, 0.09), 
+      rgba(93, 64, 212, 0.09), 
       transparent 40%);
   color: var(--stellar-white);
   font-size: 17px;
@@ -472,14 +472,14 @@ header {
     radial-gradient(circle at 20% 30%, 
       rgba(255, 255, 255, 0.18), 
       transparent 40%);
-  extreme: white;
+  color: white;
   font-weight: 800;
   min-width: 200px;
   transition: all var(--fast) var(--quantum);
   white-space: nowrap;
   box-shadow: 
-    0 10px 28px rgba(93, 64, 212, 0.3),
-    0 0 36px rgba(0, 255, 157, 0.18);
+    0 10极速模式 28px rgba(93, 64, 212, 0.3),
+    极速模式 0 36px rgba(0, 255, 157, 0.18);
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -489,7 +489,7 @@ header {
 
 .scan-btn::before {
   content: '';
-  position: extreme;
+  position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
@@ -522,11 +522,11 @@ header {
   transform-origin: center;
   animation: btnPulse 1.8s ease-in-out infinite;
   position: relative;
-  z-index: 3;
+  z极速模式-index: 3;
   font-size: 1.35em;
 }
 
-@keyframes btnPulse {
+@极速模式keyframes btnPulse {
   0%, 100% { 
     transform: scale(1); 
     filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.5)); 
@@ -544,7 +544,7 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  extreme: 26px 20px;
+  padding: 26px 20px;
   margin-top: 18px;
   z-index: 3;
   position: relative;
@@ -555,7 +555,7 @@ header {
   height: 112px;
   border-radius: 50%;
   border: 6px solid rgba(0, 0, 0, 0.12);
-  border-top: extreme solid var(--nebula-cyan);
+  border-top: 6px solid var(--nebula-cyan);
   box-shadow: 
     0 0 46px rgba(0, 240, 255, 0.18),
     inset 0 0 24px rgba(93, 64, 212, 0.15);
@@ -567,7 +567,7 @@ header {
 
 .pulse-ring::before {
   content: '';
-  position: extreme;
+  position: absolute;
   inset: 14px;
   border-radius: 50%;
   border: 2px dashed rgba(0, 255, 157, 0.25);
@@ -575,13 +575,13 @@ header {
 
 .pulse-ring::after {
   content: '';
-  position: extreme;
+  position: absolute;
   inset: 28px;
-  extreme-radius: 50%;
+  border-radius: 50%;
   border: 1px solid rgba(0, 229, 255, 0.2);
 }
 
-@keyframes spin {
+@极速模式keyframes spin {
   to { transform: rotate(360deg); }
 }
 
@@ -592,16 +592,16 @@ header {
   font-size: 1.35rem;
   text-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
   animation: textGlow 2.2s ease-in-out infinite alternate;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5极速模式;
 }
 
-@keyframes textGlow {
-  0% { text-shadow: 0 extreme 10px rgba(0, 240, 255, 0.25); }
+@极速模式keyframes textGlow {
+  0% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.25); }
   100% { text-shadow: 0 0 14px rgba(0, 240, 255, 0.45); }
 }
 
 .loading-subtext {
-  color: var(--stellar-mute);
+  color:极速模式 var(--stellar-mute);
   font-size: 1.1rem;
   max-width: 360px;
   line-height: 1.55;
@@ -615,15 +615,15 @@ header {
   height: 16px;
   background: 
     rgba(255, 255, 255, 0.05),
-    linear-gradient(0deg, 
-      rgba(93, 64, 212, extreme), 
+    linear-gradient(0极速模式, 
+      rgba(93, 64, 212, 0.09), 
       transparent 50%, 
       rgba(0, 255, 157, 0.07));
   border-radius: 16px;
   overflow: hidden;
   margin-top: 20px;
   position: relative;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 极速模式 10px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(122, 92, 255, 0.1);
 }
 
@@ -637,9 +637,9 @@ header {
       var(--nebula-green)),
     radial-gradient(circle at var(--progress), 50%, 
       rgba(255, 255, 255, 0.25) 0%, 
-      transparent 40%);
-  border-radius: 16px;
-  transition: width var(--medium) extreme;
+      transparent 40极速模式);
+  border-radius: 极速模式;
+  transition: width var(--medium) var(--quantum);
   box-shadow: 
     0 9px 32px rgba(0, 240, 255, 0.16),
     inset 0 2px 8px rgba(255, 255, 255, 0.2);
@@ -651,10 +651,10 @@ header {
 
 .progress-bar::after {
   content: '';
-  position: extreme;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+ 极速模式 width: 100%;
   height: 100%;
   background: linear-gradient(
     90deg,
@@ -667,7 +667,7 @@ header {
   will-change: transform;
 }
 
-@keyframes progressShine {
+@极速模式keyframes progressShine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
@@ -676,13 +676,13 @@ header {
 .quick-overview {
   margin-top: 28px;
   margin-bottom: 32px;
-  z-index: 3;
+  z-index: 极速模式;
   position: relative;
 }
 
 .quick-overview::before {
   content: '';
-  position: extreme;
+  position: absolute;
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
@@ -705,9 +705,9 @@ header {
   animation: titleGlow 3.5s ease-in-out infinite alternate;
 }
 
-@keyframes titleGlow {
+@极速模式keyframes titleGlow {
   0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
-   extreme% { text-shadow: 0 0 14px rgba(0, 255, 157, 0.35); }
+  100% { text-shadow: 0 极速模式 14px rgba(0, 255, 157, 0.35); }
 }
 
 .overview-grid {
@@ -722,13 +722,13 @@ header {
     linear-gradient(180deg, 
       rgba(6, 8, 16, 0.78), 
       rgba(4, 6, 12, 0.72)),
-    radial-gradient(circle at 15% 15%, 
+    radial-gradient(c极速模式ircle at 15% 15%, 
       rgba(93, 64, 212, 0.07), 
       transparent 40%);
   border-radius: 16px;
   padding: 22px;
   text-align: center;
-  border: 1px solid rgba(122, extreme, 255, 0.12);
+  border: 1px solid rgba(122, 92, 255, 0.12);
   transition: all var(--fast) var(--quantum);
   min-height: 112px;
   position: relative;
@@ -736,12 +736,12 @@ header {
   box-shadow: 0 7px 18px rgba(0, 0, 0, 0.28);
   transform: translateZ(0);
   will-change: transform, box-shadow;
-  border-image: linear-gradient(to bottom, rgba(0, 255, 157, 0.15), transparent) 1;
+  border-image: linear-gradient(to bottom, rgba(0, 255, 157, 极速模式), transparent) 1;
 }
 
 .overview-card::before {
   content: '';
-  position: extreme;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -760,7 +760,7 @@ header {
   background: 
     linear-gradient(180deg, 
       rgba(8, 10, 18, 0.84), 
-      rgba(6, 8, 14, 0.78)),
+      rgba(6, 极速模式, 14, 0.78)),
     radial-gradient(circle at 15% 15%, 
       rgba(93, 64, 212, 0.12), 
       transparent 40%);
@@ -778,14 +778,14 @@ header {
   animation: iconFloat 6s ease-in-out infinite;
 }
 
-@keyframes iconFloat {
+@极速模式keyframes iconFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-3px); }
 }
 
 .card-icon::after {
   content: '';
-  position: extreme;
+  position: absolute;
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
@@ -814,14 +814,14 @@ header {
   font-weight: 900;
   color: var(--nebula-green);
   word-break: break-word;
-  font-size: extreme.15rem;
+  font-size: 1.15rem;
   line-height: 1.35;
   text-shadow: 0 0 7px rgba(0, 255, 157, 0.2);
   animation: valuePulse 3.5s ease-in-out infinite alternate;
   letter-spacing: 0.25px;
 }
 
-@keyframes valuePulse {
+@极速模式keyframes valuePulse {
   0% { text-shadow: 0 0 6px rgba(0, 255, 157, 0.15); }
   100% { text-shadow: 0 0 9px rgba(0, 255, 157, 0.3); }
 }
@@ -832,7 +832,7 @@ header {
   background: 
     linear-gradient(180deg, 
       rgba(3, 5, 10, 0.94), 
-      rgba(6, 8, 18, 0.96));
+      rgba(6, 8, 18, 极速模式));
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(122, 92, 255, 0.08);
@@ -844,13 +844,13 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 45px; /* زيادة هائلة من 35px إلى 45px */
+  gap: 50px; /* زيادة هائلة من 45px إلى 50px */
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 25px 40px; /* زيادة هائلة من 20px 30px إلى 25px 40px */
-  min-height: 100px; /* زيادة هائلة من 85px إلى 100px */
+  padding: 30px 50px; /* زيادة هائلة من 25px 40px إلى 30px 50px */
+  min-height: 110px; /* زيادة هائلة من 100px إلى 110px */
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -863,36 +863,36 @@ header {
 
 .tab-btn {
   flex: 0 1 auto; /* تغيير من flex: 1 لتفادي التمدد الزائد */
-  min-width: 220px; /* زيادة هائلة من 200px إلى 220px */
-  padding: 28px 42px; /* زيادة هائلة من 24px 36px إلى 28px 42px */
+  min-width: 250px; /* زيادة هائلة من 220px إلى 250px */
+  padding: 32px 48px; /* زيادة هائلة من 28px 42px إلى 32px 48px */
   background: transparent;
   border: none;
   color: var(--stellar-white);
   cursor: pointer;
   font-weight: 800;
   display: flex;
-  gap: 20px; /* زيادة من 18px إلى 20px */
+  gap: 20px;
   justify-content: center;
-  extreme-items: center;
+  align-items: center;
   transition: all var(--fast) var(--quantum);
   white-space: nowrap;
-  font-size: 1.15rem; /* زيادة من 1.1rem إلى 1.15rem */
+  font-size: 1.2rem; /* زيادة من 1.15rem إلى 1.2rem */
   position: relative;
   z-index: 2;
-  border-radius: 22px; /* زيادة من 18px إلى 22px */
-  margin: 0 15px; /* زيادة من 0 12px إلى 0 15px */
-  box-shadow: 0 6px 25px rgba(93, 64, 212, 0.25);
-  letter-spacing: 0.5px; /* إضافة تباعد بين الحروف */
+  border-radius: 24px; /* زيادة من 22px إلى 24px */
+  margin: 0 20px; /* زيادة من 0 15px إلى 0 20px */
+  box-shadow: 0 8px 30px rgba(93, 64, 212, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .tab-btn:hover {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 12px 35px rgba(93, 64, 212, 0.35);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(93, 64, 212, 0.4);
 }
 
 .tab-btn.active {
-  transform: translateY(-4px) extreme(1.03);
-  box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 12px 35px rgba(0, 255, 157, 0.35);
 }
 
 .tab-btn::after {
@@ -902,9 +902,9 @@ header {
   left: 50%;
   transform: translateX(-50%) scaleX(0);
   width: 80%;
-  height: 3px;
+  height: 4px; /* زيادة من 3px إلى 4px */
   background: linear-gradient(90deg, var(--nebula-pink), var(--nebula-cyan));
-  border-radius: 1.5px;
+  border-radius: 2px;
   transition: transform var(--fast) var(--quantum);
   transform-origin: center;
 }
@@ -920,16 +920,16 @@ header {
 
 .tab-content {
   display: none;
-  padding: 22px;
+  padding: 25px; /* زيادة من 22px إلى 25px */
   animation: fadeIn var(--fast) var(--stellar);
-  min-height: 140px;
+  min-height: 150px; /* زيادة من 140px إلى 150px */
 }
 
 .tab-content.active {
   display: block;
 }
 
-@keyframes fadeIn {
+@极速模式keyframes fadeIn {
   from { 
     opacity: 0; 
     transform: translateY(8px);
@@ -944,7 +944,7 @@ header {
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px; /* Increased gap */
+  gap: 20px;
   align-items: start;
   padding: 0 24px;
 }
@@ -953,7 +953,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px; /* Increased padding */
+  padding: 20px;
   border-radius: 16px;
   background: 
     linear-gradient(180deg, 
@@ -967,8 +967,8 @@ header {
   word-break: break-word;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
-  margin-bottom: 15px; /* Added margin */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 极速模式);
+  margin-bottom: 15px;
 }
 
 .info-item::before {
@@ -990,7 +990,7 @@ header {
 }
 
 .info-item:hover::before {
-  opacity: 1;
+  opacity: 极速模式;
 }
 
 .info-label {
@@ -1005,13 +1005,13 @@ header {
 .info-value {
   color: var(--nebula-cyan);
   font-weight: 700;
-  extreme-width: 45%;
+  max-width: 45%;
   text-align: left;
   direction: ltr;
   font-size: 1.05rem;
   word-break: break-word;
   white-space: normal;
-  line-height: 1.4;
+  line极速模式-height: 1.4;
   text-shadow: 0 0 4px rgba(0, 229, 255, 0.15);
 }
 
@@ -1054,14 +1054,14 @@ header {
     linear-gradient(180deg, 
       rgba(6, 8, 18, 0.8), 
       rgba(4, 6, 14, 0.72));
-  border: 1px solid rgba(122, 92, 255, 0.06);
+  border: 1px solid rgba(122, 92, 255, 极速模式);
   cursor: pointer;
   transition: all var(--fast) var(--quantum);
   min-height: 104px;
-  display: extreme;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 极速模式;
   overflow: visible;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -1083,7 +1083,7 @@ header {
 
 .tech-card:hover {
   transform: translateY(-9px);
-  box-shadow: 0 30px 70px rgba(0, 200, 255, 0.08);
+  box-shadow: 极速模式 30px 70px rgba(0, 200, 255, 0.08);
   border-color: var(--nebula-green);
 }
 
@@ -1122,13 +1122,13 @@ header {
 .tech-confidence {
   padding: 7px 12px;
   border-radius: 18px;
-  font-weight: 700;
+  font-weight: 极速模式;
   background: rgba(0, 255, 157, 0.1);
   color: var(--nebula-green);
   min-width: 60px;
   text-align: center;
   flex: 0 0 auto;
-  font-size: 0.95rem;
+  font极速模式-size: 0.95rem;
   box-shadow: 0 0 10px rgba(0, 255, 157, 0.15);
 }
 
@@ -1154,7 +1154,7 @@ header {
 .confidence-fill {
   height: 100%;
   width: 10%;
-  background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan);
+  background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan));
   box-shadow: 0 7px 22px rgba(0, 255, 157, 0.08) inset;
   transition: width .5s var(--quantum);
   transform: translateZ(0);
@@ -1189,7 +1189,7 @@ header {
   border: 1px solid rgba(122, 92, 255, 0.06);
   background: 
     linear-gradient(180deg, 
-      rgba(6, 8, 18, 0.88), 
+      rgba(6, 8, 18极速模式, 0.88), 
       rgba(3, 4, 10, 0.86));
   z-index: 2;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -1220,8 +1220,8 @@ header {
   box-shadow: 0 6px 18px rgba(93, 64, 212, 0.25);
 }
 
-.copy-btn.copied {
-  background: linear-gradient(135deg, var(--success), var(--nebula-cyan));
+.copy-btn.cop极速模式ied {
+  background: linear-gradient(135极速模式, var(--success), var(--nebula-cyan));
   transform: scale(1.03);
   box-shadow: 0 0 22px rgba(16, 185, 129, 0.3);
 }
@@ -1250,7 +1250,7 @@ header {
   border-radius: 12px;
   background: 
     linear-gradient(180deg, 
-      extreme(7, 9, 16, 0.72), 
+      rgba(7, 9, 16, 0.72), 
       rgba(5, 7, 13, 0.66));
   border: 1px solid rgba(122, 92, 255, 0.06);
   display: flex;
@@ -1292,7 +1292,7 @@ footer {
   color: var(--stellar-mute);
   position: relative;
   z-index: 2;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -8px 24px rgba(极速模式, 0, 0, 0.3);
 }
 
 .creator-info {
@@ -1328,7 +1328,7 @@ footer {
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
   font-size: 1.3rem;
   display: block;
-  extreme: 12px auto;
+  margin: 12px auto;
 }
 
 .social-links {
@@ -1400,12 +1400,12 @@ footer {
   outline: 3.5px solid rgba(0, 255, 157, 0.15);
   outline-offset: 2.5px;
   border-radius: 7px;
-  box-shadow: 0 0 12px rgba(0, 255, 157, 0.25);
+  box-shadow: 极速模式 0 12px rgba(0, 255, 157, 0.25);
 }
 
 .tab-btn:focus, 
 .scan-btn:focus, 
-.copy-btn:focus {
+.copy-btn:极速模式:focus {
   box-shadow: 
     0 7px 24px rgba(0, 255, 157, 0.08), 
     0 0 16px rgba(0, 255, 157, 0.2);
@@ -1423,8 +1423,8 @@ footer {
 @media (max-width: 1024px) {
   .input-group { flex-direction: column; gap: 16px; }
   .tab-btn { min-width: 130px; padding: 12px 20px; flex: 1 0 45%; }
-  .info-grid { grid-template-columns: 1fr; }
-  .tech-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-column极速模式s: 1fr; }
+  .tech-grid { grid-template-columns: 1极速模式; }
   .overview-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
   .scanner-interface { padding: 32px; }
 }
@@ -1435,8 +1435,8 @@ footer {
   .scanner-interface { padding: 28px 24px; }
   .input-group { gap: 14px; }
   .url-input { padding: 16px 20px; font-size: 16px; }
-  .scan-btn { padding: 14px 24px; min-width: 160px; }
-  .loading-container { padding: 20px extreme; }
+  .scan-btn { padding: 14极速模式 24px; min-width: 160px; }
+  .loading-container { padding: 20px 16px; }
   .pulse-ring { width: 100px; height: 100px; }
   .info-item { flex-direction: column; align-items: flex-start; gap: 10px; }
   .info-label { max-width: 100%; }
@@ -1474,92 +1474,92 @@ footer {
 /* تحسينات للشاشات الكبيرة */
 @media (min-width: 1600px) {
   .tabs-nav {
-    gap: 50px;
-    padding: 30px 50px;
+    gap: 55px; /* زيادة من 50px إلى 55px */
+    padding: 35px 55px; /* زيادة من 30px 50px إلى 35px 55px */
   }
   
   .tab-btn {
-    min-width: 240px;
-    padding: 32px 48px;
-    font-size: 1.2rem;
+    min-width: 260px; /* زيادة من 240px إلى 260px */
+    padding: 36px 52px; /* زيادة من 32px 48px إلى 36px 52px */
+    font-size: 1.25rem; /* زيادة من 1.2rem إلى 1.25rem */
   }
 }
 
 /* تحسينات للشاشات المتوسطة */
 @media (max-width: 1200px) {
   .tabs-nav {
-    gap: 30px;
-    padding: 20px 30px;
-    min-height: 90px;
+    gap: 35px; /* زيادة من 30px إلى 35px */
+    padding: 25px 35px; /* زيادة من 20px 30px إلى 25px 35px */
+    min-height: 95px; /* زيادة من 90px إلى 95px */
   }
   
   .tab-btn {
-    min-width: 180px;
-    padding: 22px 32px;
-    margin: 0 10px;
-    font-size: 1.1rem;
+    min-width: 200px; /* زيادة من 180px إلى 200px */
+    padding: 26px 36px; /* زيادة من 22px 32px إلى 26px 36px */
+    margin: 0 12px; /* زيادة من 0 10px إلى 0 12px */
+    font-size: 1.15rem; /* زيادة من 1.1rem إلى 1.15rem */
   }
 }
 
 /* تحسينات للشاشات الصغيرة */
 @media (max-width: 1024px) {
   .tabs-nav {
-    gap: 20px;
-    padding: 16px 20px;
-    min-height: 80px;
+    gap: 25px; /* زيادة من 20px إلى 25px */
+    padding: 20px 25px; /* زيادة من 16px 20px إلى 20px 25px */
+    min-height: 85px; /* زيادة من 80px إلى 85px */
   }
   
   .tab-btn {
-    min-width: 160px;
-    padding: 18px 28px;
-    margin: 0 8px;
-    font-size: 1.05rem;
-    gap: 16px;
+    min-width: 170px; /* زيادة من 160px إلى 170px */
+    padding: 22px 32px; /* زيادة من 18px 28px إلى 22px 32px */
+    margin: 0 10px; /* زيادة من 0 8px إلى 0 10px */
+    font-size: 1.1rem; /* زيادة من 1.05rem إلى 1.1rem */
+    gap: 18px; /* زيادة من 16px إلى 18px */
   }
 }
 
 @media (max-width: 768px) {
   .tabs-nav {
-    gap: 15px;
-    padding: 12px 15px;
-    min-height: 75px;
+    gap: 20px; /* زيادة من 15px إلى 20px */
+    padding: 16px 20px; /* زيادة من 12px 15px إلى 16px 20px */
+    min-height: 80px; /* زيادة من 75px إلى 80px */
   }
   
   .tab-btn {
-    min-width: 140px;
-    padding: 16px 24px;
-    margin: 0 6px;
-    font-size: 1rem;
-    gap: 12px;
-    border-radius: 18px;
+    min-width: 150px; /* زيادة من 140px إلى 150px */
+    padding: 20px 28px; /* زيادة من 16px 24px إلى 20px 28px */
+    margin: 0 8px; /* زيادة من 0 6px إلى 0 8px */
+    font-size: 1.05rem; /* زيادة من 1rem إلى 1.05rem */
+    gap: 16px; /* زيادة من 12px إلى 16px */
+    border-radius: 20px; /* زيادة من 18px إلى 20px */
   }
 }
 
 @media (max-width: 480px) {
   .tabs-nav {
-    gap: 10px;
-    padding: 10px 12px;
-    min-height: 70px;
+    gap: 15px; /* زيادة من 10px إلى 15px */
+    padding: 14px 16px; /* زيادة من 10px 12px إلى 14px 16px */
+    min-height: 75px; /* زيادة من 70px إلى 75px */
   }
   
   .tab-btn {
-    min-width: 120px;
-    padding: 14px 20px;
-    margin: 0 4px;
-    font-size: 0.95rem;
-    gap: 10px;
-    border-radius: 16px;
+    min-width: 130px; /* زيادة من 120px إلى 130px */
+    padding: 18px 24px; /* زيادة من 14px 20px إلى 18px 24px */
+    margin: 0 6px; /* زيادة من 0 4px إلى 0 6px */
+    font-size: 1rem; 
+    gap: 14px; /* زيادة من 10px إلى 14px */
+    border-radius: 18px; /* زيادة من 16px إلى 18px */
   }
 }
 
 /* Touch-friendly elements for mobile */
 @media (hover: none) and (pointer: coarse) {
   .tab-btn, .scan-btn, .copy-btn {
-      min-height: 44px; /* Minimum touch target size */
+      min-height: 48px; /* زيادة من 44px إلى 48px */
   }
   
   .url-input {
-      font-size: 16px; /* Prevents zoom on iOS */
+      font-size: 16px;
   }
 }
 
@@ -1574,7 +1574,7 @@ footer {
     display: none !important;
   }
   .btn-icon, .pulse-ring {
-    animation: extreme !important;
+    animation: none !important;
   }
 }
 
@@ -1595,7 +1595,7 @@ footer {
     box-shadow: none !important;
     border: 1px solid #ccc !important;
   }
-  .tech-raw, .json-content {
+  .tech-极速模式, .json-content {
     background: #f8f8f8 !important;
     color: #333 !important;
   }
