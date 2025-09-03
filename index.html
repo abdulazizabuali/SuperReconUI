@@ -7,11 +7,6 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Cosmic Background Elements -->
-    <div id="starfield"></div>
-    <div id="aurora"></div>
-    <div id="cosmic-particles"></div>
-    
     <div class="cosmic-container">
         <header>
             <h1 class="logo-glow">SuperRecon</h1>
@@ -122,16 +117,11 @@
                         <div class="card-value" id="geolocation">-</div>
                     </div>
                 </div>
-                
-                <!-- قسم جديد لعرض الرد الخام -->
-                <h2 class="section-title">Cosmic Raw Data</h2>
-                <div class="raw-response-container">
-                    <div class="copy-section">
-                        <button class="copy-btn cosmic-glow" id="copyRawData">
-                            <span class="btn-icon">📋</span> Copy Cosmic Data
-                        </button>
-                    </div>
-                    <pre id="resultsJsonPre" class="cosmic-pre"></pre>
+
+                <h2 class="section-title">Raw JSON Response</h2>
+                <div class="json-response-container">
+                    <pre id="resultsJsonPre"></pre>
+                    <button class="copy-btn" id="copyJsonBtn">Copy Raw JSON</button>
                 </div>
             </div>
         </div>
@@ -139,7 +129,7 @@
         <footer>
             <div class="creator-info">
                 Created by <span class="creator-name">Abdulaziz Abu Ali</span><br>
-                 A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos.
+                A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos
             </div>
             
             <div class="social-links">
@@ -158,11 +148,8 @@
                     🔗 Explore Ember-Edge on LinkedIn
                 </a>
             </div>
-            
-            <!-- إضافة حقوق النشر -->
-            <div class="copyright-section">
-                <p class="copyright-text">&copy; 2025 SuperRecon - Cosmic Web Explorer. All rights reserved.</p>
-                <p class="copyright-subtext">Unveiling the digital universe, one scan at a time</p>
+            <div class="copyright-info">
+                &copy; 2025 SuperRecon. All rights reserved.
             </div>
         </footer>
     </div>
@@ -170,3 +157,7 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
+
+
