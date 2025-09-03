@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperRecon - Cosmic Web Explorer</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="cosmic-container">
+        <header>
+            <h1 class="logo-glow">SuperRecon</h1>
+            <p class="tagline">Cosmic Web Intelligence Explorer - Unveiling the digital universe, one scan at a time</p>
+        </header>
+        
+        <div class="scanner-interface">
+            <div class="input-group">
+                <input type="text" class="url-input" id="targetUrl" placeholder="Enter target website (e.g., example.com)" value="">
+                <button class="scan-btn" id="scanBtn">Initiate Cosmic Scan</button>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="loading-container" id="loadingContainer">
+                <div class="pulse-ring"></div>
+                <div class="loading-text">Deep Space Analysis in Progress</div>
+                <div class="loading-subtext">Scanning cosmic signatures across the digital universe...<br>Estimated time: 2-3 minutes</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+            
+            <div class="results-container" id="resultsContainer">
+                <h2 class="section-title">Target Intelligence</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="card-title">🌐 Target Domain</div>
+                        <div class="card-value" id="targetDomain">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">📡 IP Address</div>
+                        <div class="card-value" id="ipAddress">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🛡️ Security Level</div>
+                        <div class="card-value">
+                            <span class="security-level" id="securityLevel">-</span>
+                        </div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">⏱️ Scan Duration</div>
+                        <div class="card-value" id="scanDuration">-</div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Technology Profile</h2>
+                <div class="tech-grid" id="techGrid">
+                    <!-- Technology tags will be added here dynamically -->
+                </div>
+                
+                <h2 class="section-title">Security Analysis</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="card-title">🔒 SSL/TLS Status</div>
+                        <div class="card-value" id="sslStatus">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🛡️ Web Application Firewall</div>
+                        <div class="card-value" id="wafStatus">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🛡️ Security Headers</div>
+                        <div class="card-value" id="securityHeaders">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">⚠️ Vulnerabilities</div>
+                        <div class="card-value" id="vulnerabilities">-</div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Domain Intelligence</h2>
+                <div class="domain-info">
+                    <div class="info-row">
+                        <span class="info-label">Registrar:</span>
+                        <span id="domainRegistrar">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Creation Date:</span>
+                        <span id="domainCreation">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Expiration Date:</span>
+                        <span id="domainExpiration">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Name Servers:</span>
+                        <span id="nameServers">-</span>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Content Analysis</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="card-title">🔤 Page Title</div>
+                        <div class="card-value" id="pageTitle">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🔖 Meta Description</div>
+                        <div class="card-value" id="metaDescription">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🖼️ Server Technology</div>
+                        <div class="card-value" id="serverTechnology">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="card-title">🌍 Geolocation</div>
+                        <div class="card-value" id="geolocation">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="creator-info">
+                Created by <span class="creator-name">Abdulaziz Abu Ali</span><br>
+                Web Security Researcher & Cosmic Explorer
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/abdulaziz-abu-ali-979b84296" target="_blank" class="social-link">
+                    🔗 View Profile on LinkedIn
+                </a>
+            </div>
+            
+            <div class="team-info">
+                Developed by <span class="team-name">Ember-Edge</span><br>
+                Advanced Cybersecurity Research Team
+            </div>
+            
+            <div class="social-links">
+                <a href="https://lnkd.in/eRYvxkR6" target="_blank" class="social-link">
+                    🔗 Explore Ember-Edge on LinkedIn
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
