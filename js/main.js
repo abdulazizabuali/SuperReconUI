@@ -62,40 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Populate general intelligence
-    document.getElementById("targetDomain").textContent = jsonData.url || jsonData.scanned_url || "-";
-    document.getElementById("pageTitle").textContent = jsonData.title || "-";
-    document.getElementById("ipAddress").textContent = jsonData.dns_records?.A?.[0] || jsonData.ip_info?.network?.start_address || "-";
-    document.getElementById("geolocation").textContent = jsonData.ip_info?.country_name || jsonData.ip_info?.asn_country_code || "-";
-    document.getElementById("scanDuration").textContent = jsonData.scan_duration ? `${jsonData.scan_duration.toFixed(2)}s` : "-";
+    document.getElementById('targetDomain').textContent = jsonData.url || '-';
+    document.getElementById('pageTitle').textContent = jsonData.title || '-';
+    document.getElementById('ipAddress').textContent = jsonData.dns_records?.A?.[0] || '-';
+    document.getElementById('geolocation').textContent = jsonData.ip_info?.network?.country || '-';
 
     // Populate security analysis
-    document.getElementById("sslStatus").textContent = jsonData.ssl_info?.valid ? "Valid" : (jsonData.ssl_info?.error ? "Error" : "N/A");
-    document.getElementById("wafStatus").textContent = jsonData.waf?.detected ? (jsonData.waf.provider || "Detected") : "None";
-    document.getElementById("securityHeaders").textContent = Object.keys(jsonData.security_headers || {}).length > 0 ? "Present" : "Missing";
-    // For vulnerabilities, we'll need to check specific fields or add a new one if available in the API response
-    document.getElementById("vulnerabilities").textContent = jsonData.vulnerabilities?.length > 0 ? "Detected" : "None";
+    document.getElementById('sslStatus').textContent = jsonData.ssl_info?.valid ? 'Valid' : 'N/A';
+    document.getElementById('wafStatus').textContent = jsonData.waf?.detected ? (jsonData.waf.provider || 'Detected') : 'None';
+    document.getElementById('securityHeaders').textContent = Object.keys(jsonData.security_headers || {}).length > 0 ? 'Present' : 'Missing';
+    document.getElementById('vulnerabilities').textContent = 'N/A'; // Placeholder, as no direct vulnerabilities field in sample
 
     // Populate domain intelligence
-    document.getElementById("domainRegistrar").textContent = jsonData.whois_info?.registrar || "-";
-    document.getElementById("domainCreation").textContent = jsonData.whois_info?.creation_date?.split("T")[0] || "-";
-    document.getElementById("domainExpiration").textContent = jsonData.whois_info?.expiration_date?.split("T")[0] || "-";
-    document.getElementById("nameServers").textContent = (jsonData.dns_records?.NS || []).join(", ") || "-";
-
-    // Populate server technology
-    document.getElementById("serverTechnology").textContent = jsonData.headers?.server || "-";
-
-    // Populate meta description
-    const metaDescriptionTag = jsonData.meta_tags?.find(tag => tag.name === 'description');
-    document.getElementById("metaDescription").textContent = metaDescriptionTag?.content || "-";
-
-    // Populate security level (simple logic for now)
-    let securityLevel = "Low";
-    if (jsonData.ssl_info?.valid && jsonData.waf?.detected) {
-        securityLevel = "High";
-    } else if (jsonData.ssl_info?.valid || jsonData.waf?.detected) {
-        securityLevel = "Medium";
-    }
-    document.getElementById("securityLevel").textContent = securityLevel;
+    document.getElementById('domainRegistrar').textContent = jsonData.domain_info?.registrar || '-';
+    document.getElementById('domainCreation').textContent = jsonData.domain_info?.creation_date?.split('T')[0] || '-';
+    document.getElementById('domainExpiration').textContent = jsonData.domain_info?.expiration_date?.split('T')[0] || '-';
+    document.getElementById('nameServers').textContent = (jsonData.dns_records?.NS || []).join(', ') || '-';
 
     // Populate technology profile
     const techGrid = document.getElementById('techGrid');
@@ -114,17 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add copy button for raw JSON
-    const copyBtn = document.getElementById("copyJsonBtn");
-    if (copyBtn) {
+    let copyBtn = document.getElementById('copyJsonBtn');
+    if (!copyBtn) {
+      copyBtn = document.createElement('button');
+      copyBtn.id = 'copyJsonBtn';
+      copyBtn.className = 'copy-btn';
+      copyBtn.textContent = 'Copy Raw JSON';
       copyBtn.onclick = () => {
         navigator.clipboard.writeText(resultsPre.textContent).then(() => {
-          copyBtn.textContent = "Copied!";
-          setTimeout(() => copyBtn.textContent = "Copy Raw JSON", 2000);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => copyBtn.textContent = 'Copy Raw JSON', 2000);
         }).catch(err => {
-          console.error("Failed to copy text: ", err);
-          alert("Failed to copy text. Please copy manually.");
+          console.error('Failed to copy text: ', err);
         });
       };
+      resultsPre.parentNode.insertBefore(copyBtn, resultsPre);
     }
   }
 
@@ -263,5 +249,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // optional: set default value
   if (targetInput && !targetInput.value) targetInput.value = 'example.com';
 });
-
-
