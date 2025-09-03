@@ -844,13 +844,13 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 20px; /* Increased from 14px */
+  gap: 24px; /* زيادة من 20px إلى 24px */
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 10px 15px; /* Increased padding */
-  min-height: 60px; /* Added minimum height */
+  padding: 12px 18px; /* زيادة من 10px 15px إلى 12px 18px */
+  min-height: 64px; /* زيادة من 60px إلى 64px */
   align-items: center; /* Centered items */
 }
 
@@ -860,8 +860,8 @@ header {
 
 .tab-btn {
   flex: 1;
-  min-width: 150px;
-  padding: 16px 24px; /* Increased padding */
+  min-width: 160px; /* زيادة من 150px إلى 160px */
+  padding: 18px 28px; /* زيادة من 16px 24px إلى 18px 28px */
   background: transparent;
   border: none;
   color: var(--stellar-white);
@@ -876,8 +876,8 @@ header {
   font-size: 1.02rem;
   position: relative;
   z-index: 2;
-  border-radius: 10px;
-  margin: 0 4px; /* Added margin between tabs */
+  border-radius: 12px; /* زيادة من 10px إلى 12px */
+  margin: 0 6px; /* زيادة من 0 4px إلى 0 6px */
 }
 
 .tab-btn::after {
