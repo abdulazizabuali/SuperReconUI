@@ -7,17 +7,25 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+    <!-- Cosmic Background Elements -->
+    <div id="starfield"></div>
+    <div id="aurora"></div>
+    <div id="cosmic-particles"></div>
+    
     <div class="cosmic-container">
         <header>
             <h1 class="logo-glow">SuperRecon</h1>
             <p class="tagline">Cosmic Web Intelligence Explorer - Unveiling the digital universe, one scan at a time</p>
         </header>
+        
         <div class="scanner-interface">
             <div class="input-group">
                 <input type="text" class="url-input" id="targetUrl" placeholder="Enter target website (e.g., example.com)" value="">
                 <button class="scan-btn" id="scanBtn">Initiate Cosmic Scan</button>
             </div>
+            
             <div class="error-message" id="errorMessage"></div>
+            
             <div class="loading-container" id="loadingContainer">
                 <div class="pulse-ring"></div>
                 <div class="loading-text">Deep Space Analysis in Progress</div>
@@ -26,6 +34,7 @@
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
             </div>
+            
             <div class="results-container" id="resultsContainer">
                 <h2 class="section-title">Target Intelligence</h2>
                 <div class="results-grid">
@@ -48,10 +57,12 @@
                         <div class="card-value" id="scanDuration">-</div>
                     </div>
                 </div>
+                
                 <h2 class="section-title">Technology Profile</h2>
                 <div class="tech-grid" id="techGrid">
                     <!-- Technology tags will be added here dynamically -->
                 </div>
+                
                 <h2 class="section-title">Security Analysis</h2>
                 <div class="results-grid">
                     <div class="result-card">
@@ -71,6 +82,7 @@
                         <div class="card-value" id="vulnerabilities">-</div>
                     </div>
                 </div>
+                
                 <h2 class="section-title">Domain Intelligence</h2>
                 <div class="domain-info">
                     <div class="info-row">
@@ -90,6 +102,7 @@
                         <span id="nameServers">-</span>
                     </div>
                 </div>
+                
                 <h2 class="section-title">Content Analysis</h2>
                 <div class="results-grid">
                     <div class="result-card">
@@ -109,34 +122,51 @@
                         <div class="card-value" id="geolocation">-</div>
                     </div>
                 </div>
+                
+                <!-- قسم جديد لعرض الرد الخام -->
+                <h2 class="section-title">Cosmic Raw Data</h2>
+                <div class="raw-response-container">
+                    <div class="copy-section">
+                        <button class="copy-btn cosmic-glow" id="copyRawData">
+                            <span class="btn-icon">📋</span> Copy Cosmic Data
+                        </button>
+                    </div>
+                    <pre id="resultsJsonPre" class="cosmic-pre"></pre>
+                </div>
             </div>
         </div>
+        
         <footer>
             <div class="creator-info">
                 Created by <span class="creator-name">Abdulaziz Abu Ali</span><br>
-                A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos.
+                 A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos.
             </div>
+            
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/abdulaziz-abu-ali-979b84296" target="_blank" class="social-link">
                     🔗 View Profile on LinkedIn
                 </a>
             </div>
+            
             <div class="team-info">
                 Developed by <span class="team-name">Ember-Edge</span><br>
                 Advanced Cybersecurity Research Team
             </div>
+            
             <div class="social-links">
                 <a href="https://lnkd.in/eRYvxkR6" target="_blank" class="social-link">
                     🔗 Explore Ember-Edge on LinkedIn
                 </a>
             </div>
-            <div class="container">
-                <p>&copy; 2025 SuperRecon. All rights reserved.</p>
-                <p>By using this service, you agree to the <a href="https://www.arin.net/resources/registry/whois/tou/" target="_blank" class="text-cosmic">Whois Terms of Use</a></p>
-                <p class="footer-note">This tool is for educational and authorized security testing purposes only.</p>
+            
+            <!-- إضافة حقوق النشر -->
+            <div class="copyright-section">
+                <p class="copyright-text">&copy; 2025 SuperRecon - Cosmic Web Explorer. All rights reserved.</p>
+                <p class="copyright-subtext">Unveiling the digital universe, one scan at a time</p>
             </div>
         </footer>
     </div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
