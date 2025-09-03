@@ -1,312 +1,210 @@
-// main.js — نسخة مُحسّنة وكاملة
+// main.js — متوافق مع FastAPI /recon (GET & POST fallback)
 'use strict';
 
-document.addEventListener('DOMContentLoaded', function () {
-  // ---- عناصر DOM المتوقعة ----
-  const targetUrlInput = document.getElementById('targetUrl');
+document.addEventListener('DOMContentLoaded', () => {
+  const targetInput = document.getElementById('targetUrl');
   const scanBtn = document.getElementById('scanBtn');
   const loadingContainer = document.getElementById('loadingContainer');
   const resultsContainer = document.getElementById('resultsContainer');
   const errorMessage = document.getElementById('errorMessage');
   const progressBar = document.getElementById('progressBar');
 
-  // Optional: area داخل resultsContainer لعرض JSON بشكل منسق
-  // إذا لم يكن موجودًا في HTML فسيُنشأ تلقائياً
+  // ensure a <pre> for results
   let resultsPre = document.getElementById('resultsJsonPre');
   if (!resultsPre) {
     resultsPre = document.createElement('pre');
     resultsPre.id = 'resultsJsonPre';
     resultsPre.style.whiteSpace = 'pre-wrap';
     resultsPre.style.wordBreak = 'break-word';
-    resultsContainer.appendChild(resultsPre);
+    if (resultsContainer) resultsContainer.appendChild(resultsPre);
+    else document.body.appendChild(resultsPre);
   }
 
-  // قيمة افتراضية للتجربة
-  if (targetUrlInput && !targetUrlInput.value) {
-    targetUrlInput.value = 'example.com';
-  }
-
-  // ---- مساعدات واجهة المستخدم ----
   function showError(msg) {
-    if (!errorMessage) return console.error(msg);
-    errorMessage.textContent = msg;
-    errorMessage.style.display = 'block';
-    loadingContainer && (loadingContainer.style.display = 'none');
-    resultsContainer && (resultsContainer.style.display = 'none');
-    progressBar && (progressBar.style.width = '0%');
     console.error(msg);
-  }
-
-  function setLoading(visible = true) {
-    if (!loadingContainer) return;
-    loadingContainer.style.display = visible ? 'flex' : 'none';
-    if (!visible) progressBar && (progressBar.style.width = '100%');
-  }
-
-  function setProgress(pct) {
-    if (!progressBar) return;
-    const clamped = Math.max(0, Math.min(100, pct));
-    progressBar.style.width = clamped + '%';
-  }
-
-  function clearUiBeforeRequest() {
-    if (errorMessage) errorMessage.style.display = 'none';
-    if (resultsContainer) resultsContainer.style.display = 'none';
-    if (resultsPre) resultsPre.textContent = '';
+    if (errorMessage) {
+      errorMessage.textContent = msg;
+      errorMessage.style.display = 'block';
+    } else {
+      alert(msg);
+    }
+    if (loadingContainer) loadingContainer.style.display = 'none';
     setProgress(0);
-    setLoading(true);
   }
 
-  // ---- دالة عرض النتيجة ----
-  function displayResults(data, normalizedUrl) {
+  function clearError() {
+    if (errorMessage) {
+      errorMessage.textContent = '';
+      errorMessage.style.display = 'none';
+    }
+  }
+
+  function setProgress(p) {
+    if (progressBar) progressBar.style.width = Math.max(0, Math.min(100, p)) + '%';
+  }
+
+  function setLoading(on) {
+    if (!loadingContainer) return;
+    loadingContainer.style.display = on ? 'flex' : 'none';
+    if (!on) setProgress(100);
+  }
+
+  function displayResult(data) {
     setLoading(false);
     setProgress(100);
-
-    if (!resultsContainer) {
-      console.log('Result data:', data);
-      return;
-    }
-
-    resultsContainer.style.display = 'block';
-
-    // عرض JSON منسق
+    if (resultsContainer) resultsContainer.style.display = 'block';
     try {
-      const pretty = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-      resultsPre.textContent = pretty;
+      resultsPre.textContent = (typeof data === 'string') ? data : JSON.stringify(data, null, 2);
     } catch (e) {
       resultsPre.textContent = String(data);
     }
-
-    // إضافات عرض بسيطة: إذا كان هناك حقول شائعة نعرضها كنص
-    const summary = [];
-    if (data && typeof data === 'object') {
-      if (data.status) summary.push(`Status: ${data.status}`);
-      if (data.job_id) summary.push(`Job ID: ${data.job_id}`);
-      if (data.domain) summary.push(`Domain: ${data.domain}`);
-      if (data.target) summary.push(`Target: ${data.target}`);
-    }
-    if (summary.length) {
-      // نعرض الملخص أعلى النتيجة
-      const h = document.createElement('div');
-      h.style.marginBottom = '8px';
-      h.style.fontSize = '0.95rem';
-      h.style.color = '#222';
-      h.innerText = summary.join(' • ');
-      // ضع الملخص قبل الـ pre
-      resultsContainer.insertBefore(h, resultsPre);
-    }
   }
 
-  // ---- الدالة الأساسية: recon ----
-  window.recon = async function (target) {
-    clearUiBeforeRequest();
+  async function callReconGET(normalized) {
+    const base = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems';
+    const url = `${base}/recon?url=${encodeURIComponent(normalized)}`;
+    console.log('Calling GET', url);
+    const resp = await fetch(url, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json, text/plain, */*' },
+      mode: 'cors',
+      credentials: 'omit'
+    });
+    return resp;
+  }
+
+  async function callReconPOST(normalized) {
+    const base = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems';
+    const url = `${base}/recon`;
+    console.log('Calling POST', url);
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json' },
+      mode: 'cors',
+      credentials: 'omit',
+      body: JSON.stringify({ url: normalized })
+    });
+    return resp;
+  }
+
+  // الدالة الرئيسية
+  window.recon = async function (rawTarget) {
+    clearError();
+    setProgress(0);
+    setLoading(true);
+    if (!rawTarget) {
+      showError('الرجاء إدخال دومين أو رابط (مثال: example.com أو https://example.com)');
+      return;
+    }
+
+    // تطبيع الإدخال
+    let normalized = rawTarget.trim();
+    if (!/^https?:\/\//i.test(normalized)) normalized = 'https://' + normalized;
 
     try {
-      if (!target) throw new Error('الرجاء إدخال دومين أو رابط (مثال: example.com أو https://example.com)');
-
-      // تطبيع الإدخال: نضيف https:// إذا لم يكن موجوداً
-      let normalized = target.trim();
-      if (!/^https?:\/\//i.test(normalized)) normalized = 'https://' + normalized;
-
       // تحقق سريع من صحة الـ URL
+      try { new URL(normalized); } catch (e) { throw new Error('صيغة URL غير صحيحة.'); }
+
+      setProgress(10);
+
+      // نجرب GET أولاً (لأن الخادم يدعم GET /recon?url=...)
+      let resp;
       try {
-        new URL(normalized);
-      } catch (e) {
-        throw new Error('صيغة الـ URL غير صحيحة. مثال صحيح: example.com أو https://example.com');
+        resp = await callReconGET(normalized);
+      } catch (fetchErr) {
+        // قد يكون network/CORS/SSL error — نعرض رسالة مفيدة ونحاول POST كخيار ثانوي
+        console.warn('GET failed:', fetchErr);
+        // إذا كان خطأ TypeError غالبًا بسبب CORS/Network
+        showError('خطأ عند الاتصال بالنقطة /recon عبر GET — تحقق من Console (مشكلة شبكة أو CORS). نحاول POST كبديل...');
+        // تابِع لمحاولة POST بعد قليل
       }
 
-      setProgress(5);
-
-      const base = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems';
-      const reconUrl = `${base}/recon?url=${encodeURIComponent(normalized)}`;
-
-      setProgress(15);
-
-      console.log('Requesting recon endpoint:', reconUrl);
-
-      // نستخدم GET لأن طريقة الاستخدام التي أعطيتَها تُظهر ذلك
-      const reconResp = await fetch(reconUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json, text/plain, */*'
-        },
-        mode: 'cors',
-        credentials: 'omit' // عدل إذا تحتاج إرسال كوكيز
-      });
-
-      console.log('Recon response status:', reconResp.status, 'content-type:', reconResp.headers.get('content-type'));
-
-      // إذا لم تكن الاستجابة ناجحة، نقرأ النص لإظهار سبب واضح
-      if (!reconResp.ok) {
-        const txt = await reconResp.text().catch(() => null);
-        // رسالة خاصة عند مشكلة CORS: المتصفح يمنع الوصول ويعرض خطأ في Console بدلاً من هنا.
-        if (reconResp.status === 0) {
-          throw new Error('فشل الاتصال بالخادم. راجع Console للبحث عن مشاكل CORS أو اتصال الشبكة.');
-        }
-        throw new Error(txt || `طلب الفحص فشل برمز الحالة ${reconResp.status}`);
-      }
-
-      setProgress(25);
-
-      // نحاول تحويل الاستجابة إلى JSON، وإن فشل فإننا نقرأ كنص
-      let payload;
-      const contentType = reconResp.headers.get('content-type') || '';
-      if (contentType.includes('application/json') || contentType.includes('+json')) {
-        payload = await reconResp.json();
-      } else {
-        // قد تكون الاستجابة نصية أو HTML — نحاول قرائتها ونحاول تحليل JSON إن أمكن
-        const textBody = await reconResp.text();
+      // إذا لم نحصل على resp من GET، جرّب POST
+      if (!resp) {
         try {
-          payload = JSON.parse(textBody);
-        } catch (e) {
-          // إن لم تكن JSON، نعرض النص كما هو
-          displayResults(textBody, normalized);
-          return textBody;
+          resp = await callReconPOST(normalized);
+        } catch (postErr) {
+          console.error('POST also failed:', postErr);
+          showError('فشل الاتصال بكلا الطريقتين (GET و POST). راجع Console لمزيد من التفاصيل.');
+          return;
         }
       }
 
-      setProgress(40);
+      setProgress(35);
 
-      // إذا كانت الخدمة تُعيد البيانات مباشرة (نهائية)، عرضها فوراً
-      const looksLikeFinal = (
-        (payload && payload.status && payload.status.toLowerCase() === 'completed') ||
-        (payload && !payload.job_id && !payload.jobId && typeof payload === 'object')
-      );
+      console.log('Response status:', resp.status, resp.statusText);
+      console.log('Response headers:');
+      resp.headers.forEach((v, k) => console.log(k + ':', v));
 
-      if (looksLikeFinal && (!payload.job_id && !payload.jobId)) {
-        // بعض الـ APIs تُعيد status: 'completed' مع field data
-        const dataToShow = payload.data ? payload.data : payload;
-        setProgress(100);
-        displayResults(dataToShow, normalized);
-        return dataToShow;
+      // حالة 404 → عادة path خاطئ أو endpoint غير موجود
+      if (resp.status === 404) {
+        const txt = await resp.text().catch(() => '<no body>');
+        showError(`404 Not Found — endpoint غير موجود. استجابة الخادم:\n${txt.substring(0, 1000)}`);
+        return;
       }
 
-      // إذا رجع job id فنعمل polling إلى /results/{jobId}
-      const jobId = payload.job_id || payload.jobId || payload.id;
-      if (jobId) {
-        console.log('Async job detected, jobId =', jobId);
-        setProgress(45);
-
-        const maxAttempts = 12; // 12 attempts * interval = 3 minutes (إذا interval 15s)
-        const intervalMs = 15000;
-        let attempts = 0;
-
-        return await new Promise((resolve, reject) => {
-          const poll = async () => {
-            attempts++;
-            try {
-              const statusUrl = `${base}/results/${encodeURIComponent(jobId)}`;
-              console.log(`Polling [${attempts}/${maxAttempts}] -> ${statusUrl}`);
-              const statusResp = await fetch(statusUrl, {
-                method: 'GET',
-                headers: { 'Accept': 'application/json, text/plain, */*' },
-                mode: 'cors',
-                credentials: 'omit'
-              });
-
-              console.log('Status response:', statusResp.status, 'content-type:', statusResp.headers.get('content-type'));
-
-              if (!statusResp.ok) {
-                const txt = await statusResp.text().catch(() => null);
-                if (attempts < maxAttempts) {
-                  // تأجيل محاولة أخرى
-                  setProgress(45 + (attempts * (40 / maxAttempts)));
-                  return setTimeout(poll, intervalMs);
-                } else {
-                  return reject(new Error(txt || `فشل الحصول على النتائج (status ${statusResp.status})`));
-                }
-              }
-
-              const ct = statusResp.headers.get('content-type') || '';
-              let statusPayload;
-              if (ct.includes('application/json') || ct.includes('+json')) {
-                statusPayload = await statusResp.json();
-              } else {
-                const txt = await statusResp.text();
-                try { statusPayload = JSON.parse(txt); } catch (e) { statusPayload = txt; }
-              }
-
-              // حالات ممكنة من الـ results endpoint
-              if (statusPayload && typeof statusPayload === 'object') {
-                if (statusPayload.status && statusPayload.status.toLowerCase() === 'processing') {
-                  // لا زال المعالجة جارية
-                  setProgress(45 + (attempts * (40 / maxAttempts)));
-                  if (attempts < maxAttempts) return setTimeout(poll, intervalMs);
-                  return reject(new Error('انتهى وقت الانتظار للنتيجة (timeout)'));
-                }
-
-                if (statusPayload.status && statusPayload.status.toLowerCase() === 'completed') {
-                  const final = statusPayload.data ? statusPayload.data : statusPayload;
-                  setProgress(100);
-                  displayResults(final, normalized);
-                  return resolve(final);
-                }
-
-                // بعض الـ APIs تعيد مباشرة data بدون حقل status
-                if (statusPayload.data || statusPayload.result || (Object.keys(statusPayload).length > 0 && !statusPayload.status)) {
-                  const final = statusPayload.data ? statusPayload.data : statusPayload;
-                  setProgress(100);
-                  displayResults(final, normalized);
-                  return resolve(final);
-                }
-              } else {
-                // لو كانت الاستجابة نصية
-                setProgress(100);
-                displayResults(statusPayload, normalized);
-                return resolve(statusPayload);
-              }
-
-              // أي حالة غير معروفة: محاولة أخرى حتى ينقضي maxAttempts
-              if (attempts < maxAttempts) {
-                setProgress(45 + (attempts * (40 / maxAttempts)));
-                return setTimeout(poll, intervalMs);
-              } else {
-                return reject(new Error('انتهى الوقت دون الحصول على نتيجة صالحة'));
-              }
-
-            } catch (err) {
-              // إذا فشل الاتصال مؤقتًا حاول مجددًا حتى بلوغ الحد
-              console.warn('Polling error:', err);
-              if (attempts < maxAttempts) {
-                setProgress(45 + (attempts * (40 / maxAttempts)));
-                return setTimeout(poll, intervalMs);
-              }
-              return reject(err);
-            }
-          }; // poll
-
-          // ابدأ polling فوراً أو بعد تأخير بسيط
-          setTimeout(poll, 800);
-        }); // new Promise
+      // حالة timeout من الخادم (مثل 504)
+      if (resp.status === 504) {
+        const txt = await resp.text().catch(() => null);
+        showError(`504 Gateway Timeout من الخادم. احتمال أن الوقت المتاح لفحص الموقع انتهى. الرسالة: ${txt || ''}`);
+        return;
       }
 
-      // إن وصلنا هنا فالشكل غير معروف
-      throw new Error('تنسيق الاستجابة من الخادم غير معروف. يمكنك فحص الـ Console لمزيد من التفاصيل.');
-    } catch (err) {
-      // رسائل خطأ ودلالات خاصة بمشاكل CORS
-      if (err && typeof err.message === 'string' && err.message.toLowerCase().includes('cors')) {
-        showError('يبدو أن هناك مشكلة سياسة مشاركة المصادر (CORS). إذا كنت تتحكم بالخادم أضف Access-Control-Allow-Origin. إذا لا تتحكم، استخدم بروكسي من نفس دومين الواجهة.');
+      // أي حالة غير 2xx غير متوقعة — نعرض نص الاستجابة
+      if (!resp.ok) {
+        const txt = await resp.text().catch(() => '<no body>');
+        showError(`الاستدعاء أرجع حالة ${resp.status}. رد الخادم:\n${txt.substring(0, 1500)}`);
+        return;
+      }
+
+      // استجابة ناجحة — نحاول قراءة JSON أو نص عادي
+      setProgress(60);
+      const ct = resp.headers.get('content-type') || '';
+      let payload;
+      if (ct.includes('application/json') || ct.includes('+json')) {
+        payload = await resp.json();
       } else {
-        showError(`خطأ: ${err.message || err}`);
+        const txt = await resp.text();
+        // نحاول JSON.parse إذا بدا كـ JSON
+        try {
+          payload = JSON.parse(txt);
+        } catch (e) {
+          // نصي — نعرضه كما هو
+          displayResult(txt);
+          return txt;
+        }
+      }
+
+      setProgress(90);
+      console.log('Payload received:', payload);
+      displayResult(payload);
+      return payload;
+
+    } catch (err) {
+      // أخطاء JS عامة (شبكة، CORS، صيغة URL)
+      // إذا خطأ مرتبط بـ CORS ستظهر تفاصيل في Console؛ هنا نعطي رسالة مفيدة
+      const m = (err && err.message) ? err.message : String(err);
+      if (m.toLowerCase().includes('cors')) {
+        showError('يبدو أن هناك مشكلة سياسة مشاركة المصادر (CORS). تأكد أن الخادم يتيح Access-Control-Allow-Origin أو استخدم بروكسي على نفس الدومين.');
+      } else {
+        showError('خطأ: ' + m);
       }
     }
-  }; // end recon
+  };
 
-  // ---- Event listeners ----
+  // event listeners
   if (scanBtn) {
     scanBtn.addEventListener('click', () => {
-      const target = (targetUrlInput && targetUrlInput.value) ? targetUrlInput.value.trim() : '';
+      const target = (targetInput && targetInput.value) ? targetInput.value.trim() : '';
       window.recon(target);
     });
   }
-
-  if (targetUrlInput) {
-    targetUrlInput.addEventListener('keypress', (e) => {
+  if (targetInput) {
+    targetInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        const target = targetUrlInput.value.trim();
+        const target = targetInput.value.trim();
         window.recon(target);
       }
     });
   }
-
-}); // DOMContentLoaded
+});
