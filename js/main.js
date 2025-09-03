@@ -1,7 +1,8 @@
-// main.js — متوافق مع FastAPI /recon (GET & POST fallback)
+// main.js — نهائي (GET -> /recon?url=...)
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ----- عناصر الـ DOM المتوقعة (تأكد من وجودها في HTML) -----
   const targetInput = document.getElementById('targetUrl');
   const scanBtn = document.getElementById('scanBtn');
   const loadingContainer = document.getElementById('loadingContainer');
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const errorMessage = document.getElementById('errorMessage');
   const progressBar = document.getElementById('progressBar');
 
-  // ensure a <pre> for results
+  // ensure results <pre>
   let resultsPre = document.getElementById('resultsJsonPre');
   if (!resultsPre) {
     resultsPre = document.createElement('pre');
@@ -20,8 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     else document.body.appendChild(resultsPre);
   }
 
+  // ----- مساعدات واجهة المستخدم -----
+  function logConsole(...args) { console.log('[recon]', ...args); }
   function showError(msg) {
-    console.error(msg);
+    console.error('[recon] ERROR:', msg);
     if (errorMessage) {
       errorMessage.textContent = msg;
       errorMessage.style.display = 'block';
@@ -29,26 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(msg);
     }
     if (loadingContainer) loadingContainer.style.display = 'none';
-    setProgress(0);
+    if (progressBar) progressBar.style.width = '0%';
   }
-
   function clearError() {
-    if (errorMessage) {
-      errorMessage.textContent = '';
-      errorMessage.style.display = 'none';
-    }
+    if (errorMessage) { errorMessage.textContent = ''; errorMessage.style.display = 'none'; }
   }
-
-  function setProgress(p) {
-    if (progressBar) progressBar.style.width = Math.max(0, Math.min(100, p)) + '%';
-  }
-
   function setLoading(on) {
     if (!loadingContainer) return;
     loadingContainer.style.display = on ? 'flex' : 'none';
-    if (!on) setProgress(100);
+    if (!on && progressBar) progressBar.style.width = '100%';
   }
-
+  function setProgress(pct) {
+    if (!progressBar) return;
+    progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+  }
   function displayResult(data) {
     setLoading(false);
     setProgress(100);
@@ -60,11 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ----- تطبيع و تحقق من الـ URL -----
+  function normalizeInput(raw) {
+    if (!raw) return null;
+    let s = raw.trim();
+    if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+    try {
+      new URL(s);
+      return s;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // ----- استدعاء GET إلى /recon?url=... -----
   async function callReconGET(normalized) {
     const base = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems';
-    const url = `${base}/recon?url=${encodeURIComponent(normalized)}`;
-    console.log('Calling GET', url);
-    const resp = await fetch(url, {
+    const endpoint = `${base}/recon?url=${encodeURIComponent(normalized)}`;
+    logConsole('GET', endpoint);
+    // استخدم mode:'cors' — الخادم المفترض يملك CORS أو سنستخدم بروكسي محلي
+    const resp = await fetch(endpoint, {
       method: 'GET',
       headers: { 'Accept': 'application/json, text/plain, */*' },
       mode: 'cors',
@@ -73,138 +85,110 @@ document.addEventListener('DOMContentLoaded', () => {
     return resp;
   }
 
-  async function callReconPOST(normalized) {
-    const base = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems';
-    const url = `${base}/recon`;
-    console.log('Calling POST', url);
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json' },
-      mode: 'cors',
-      credentials: 'omit',
-      body: JSON.stringify({ url: normalized })
-    });
-    return resp;
-  }
-
-  // الدالة الرئيسية
-  window.recon = async function (rawTarget) {
+  // ----- الدالة الرئيسية ----- 
+  window.recon = async function(rawTarget) {
     clearError();
     setProgress(0);
     setLoading(true);
+
     if (!rawTarget) {
-      showError('الرجاء إدخال دومين أو رابط (مثال: example.com أو https://example.com)');
+      showError('الرجاء إدخال دومين أو رابط (مثال: example.com أو https://example.com).');
       return;
     }
 
-    // تطبيع الإدخال
-    let normalized = rawTarget.trim();
-    if (!/^https?:\/\//i.test(normalized)) normalized = 'https://' + normalized;
+    const normalized = normalizeInput(rawTarget);
+    if (!normalized) {
+      showError('صيغة URL غير صحيحة. استخدم مثلاً: example.com أو https://example.com');
+      return;
+    }
 
     try {
-      // تحقق سريع من صحة الـ URL
-      try { new URL(normalized); } catch (e) { throw new Error('صيغة URL غير صحيحة.'); }
-
       setProgress(10);
 
-      // نجرب GET أولاً (لأن الخادم يدعم GET /recon?url=...)
       let resp;
       try {
         resp = await callReconGET(normalized);
       } catch (fetchErr) {
-        // قد يكون network/CORS/SSL error — نعرض رسالة مفيدة ونحاول POST كخيار ثانوي
-        console.warn('GET failed:', fetchErr);
-        // إذا كان خطأ TypeError غالبًا بسبب CORS/Network
-        showError('خطأ عند الاتصال بالنقطة /recon عبر GET — تحقق من Console (مشكلة شبكة أو CORS). نحاول POST كبديل...');
-        // تابِع لمحاولة POST بعد قليل
+        // عادة يظهر هنا TypeError عند CORS أو مشاكل شبكة/SSL
+        logConsole('GET failed:', fetchErr);
+        // رسالة مفيدة للمستخدم
+        showError('فشل الاتصال عبر GET. راجع Console (مشكلة شبكة أو CORS أو SSL).');
+        return;
       }
 
-      // إذا لم نحصل على resp من GET، جرّب POST
-      if (!resp) {
-        try {
-          resp = await callReconPOST(normalized);
-        } catch (postErr) {
-          console.error('POST also failed:', postErr);
-          showError('فشل الاتصال بكلا الطريقتين (GET و POST). راجع Console لمزيد من التفاصيل.');
-          return;
-        }
-      }
+      setProgress(40);
 
-      setProgress(35);
+      logConsole('Response status:', resp.status, resp.statusText);
+      resp.headers.forEach((v, k) => logConsole('header', k, v));
 
-      console.log('Response status:', resp.status, resp.statusText);
-      console.log('Response headers:');
-      resp.headers.forEach((v, k) => console.log(k + ':', v));
-
-      // حالة 404 → عادة path خاطئ أو endpoint غير موجود
+      // حالات شائعة
       if (resp.status === 404) {
-        const txt = await resp.text().catch(() => '<no body>');
-        showError(`404 Not Found — endpoint غير موجود. استجابة الخادم:\n${txt.substring(0, 1000)}`);
+        const txt = await resp.text().catch(()=>'<no body>');
+        showError(`404 Not Found — endpoint غير موجود على الخادم. نص الاستجابة: ${txt.substring(0,800)}`);
+        return;
+      }
+      if (resp.status === 401 || resp.status === 403) {
+        const txt = await resp.text().catch(()=>'');
+        showError(`التصريح مرفوض (${resp.status}). ربما يحتاج الـ API مفتاحاً. رسالة الخادم: ${txt}`);
+        return;
+      }
+      if (resp.status >= 500) {
+        const txt = await resp.text().catch(()=>'<no body>');
+        showError(`خطاء من الخادم (${resp.status}). الرسالة: ${txt.substring(0,800)}`);
         return;
       }
 
-      // حالة timeout من الخادم (مثل 504)
-      if (resp.status === 504) {
-        const txt = await resp.text().catch(() => null);
-        showError(`504 Gateway Timeout من الخادم. احتمال أن الوقت المتاح لفحص الموقع انتهى. الرسالة: ${txt || ''}`);
-        return;
-      }
-
-      // أي حالة غير 2xx غير متوقعة — نعرض نص الاستجابة
       if (!resp.ok) {
-        const txt = await resp.text().catch(() => '<no body>');
-        showError(`الاستدعاء أرجع حالة ${resp.status}. رد الخادم:\n${txt.substring(0, 1500)}`);
+        const txt = await resp.text().catch(()=>'<no body>');
+        showError(`الاستدعاء أرجع حالة ${resp.status}. الرد: ${txt.substring(0,1000)}`);
         return;
       }
 
-      // استجابة ناجحة — نحاول قراءة JSON أو نص عادي
-      setProgress(60);
-      const ct = resp.headers.get('content-type') || '';
-      let payload;
-      if (ct.includes('application/json') || ct.includes('+json')) {
-        payload = await resp.json();
-      } else {
-        const txt = await resp.text();
-        // نحاول JSON.parse إذا بدا كـ JSON
-        try {
-          payload = JSON.parse(txt);
-        } catch (e) {
-          // نصي — نعرضه كما هو
-          displayResult(txt);
-          return txt;
-        }
-      }
+      setProgress(65);
 
-      setProgress(90);
-      console.log('Payload received:', payload);
-      displayResult(payload);
-      return payload;
+      const ct = resp.headers.get('content-type') || '';
+      if (ct.includes('application/json') || ct.includes('+json')) {
+        const payload = await resp.json();
+        logConsole('Payload (JSON):', payload);
+        displayResult(payload);
+        return payload;
+      } else {
+        const text = await resp.text();
+        logConsole('Payload (text):', text.substring(0, 1000));
+        displayResult(text);
+        return text;
+      }
 
     } catch (err) {
-      // أخطاء JS عامة (شبكة، CORS، صيغة URL)
-      // إذا خطأ مرتبط بـ CORS ستظهر تفاصيل في Console؛ هنا نعطي رسالة مفيدة
-      const m = (err && err.message) ? err.message : String(err);
-      if (m.toLowerCase().includes('cors')) {
-        showError('يبدو أن هناك مشكلة سياسة مشاركة المصادر (CORS). تأكد أن الخادم يتيح Access-Control-Allow-Origin أو استخدم بروكسي على نفس الدومين.');
+      // أخطاء عامة
+      logConsole('Unexpected error:', err);
+      const msg = (err && err.message) ? err.message : String(err);
+      if (msg.toLowerCase().includes('cors')) {
+        showError('يبدو أن هناك مشكلة سياسة مشاركة المصادر (CORS). إن لم تكن تملك التحكم بالخادم استخدم بروكسي محلي.');
+      } else if (msg.toLowerCase().includes('ssl') || msg.toLowerCase().includes('certificate')) {
+        showError('مشكلة في شهادة SSL عند الاتصال بالـ API. افحص الشهادة أو استخدم بروكسي محلي لتجاوزها أثناء التطوير.');
       } else {
-        showError('خطأ: ' + m);
+        showError('خطأ غير متوقع: ' + msg);
       }
     }
-  };
+  }; // end recon
 
-  // event listeners
+  // ----- أحداث زر الإدخال -----
   if (scanBtn) {
     scanBtn.addEventListener('click', () => {
-      const target = (targetInput && targetInput.value) ? targetInput.value.trim() : '';
-      window.recon(target);
+      const val = (targetInput && targetInput.value) ? targetInput.value : '';
+      window.recon(val);
     });
   }
   if (targetInput) {
     targetInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        const target = targetInput.value.trim();
-        window.recon(target);
+        const val = targetInput.value || '';
+        window.recon(val);
       }
     });
   }
+
+  // optional: set default value
+  if (targetInput && !targetInput.value) targetInput.value = 'example.com';
 });
