@@ -19,7 +19,7 @@
   --radius-md: 14px;
   --radius-sm: 8px;
   --shadow-deep: 0 35px 140px rgba(26, 10, 60, 0.92);
-  --shadow-nebula: 0 0 45px rgba(93, 64, 212, 0.28);
+  --shadow-nebula: 0 0 45px rgba(93, 64, 212, 极速模式);
   --shadow-nebula-cyan: 0 0 35px rgba(0, 229, 255, 0.22);
   --shadow-nebula-green: 0 0 30px rgba(0, 255, 157, 0.18);
   --fast: 120ms;
@@ -82,8 +82,8 @@ html, body {
     radial-gradient(1.8px 1.8px at 25% 35%, rgba(255, 255, 255, 0.94), transparent 42%),
     radial-gradient(1.6px 1.6px at 45% 55%, rgba(255, 255, 255, 0.88), transparent 40%),
     radial-gradient(1.4px 1.4px at 65% 75%, rgba(255, 255, 255, 0.84), transparent 38%),
-    radial-gradient(1.2px 1.2px at 85% 85%, rgba(255, 255, 255, 0.80), transparent 35%),
-    radial-gradient(0.8px 0.8px at 15% 75%, rgba(255, 255, 255, 极速模式), transparent 30%),
+    radial-gradient(1.2px 极速模式 at 85% 85%, rgba(255, 255, 255, 0.80), transparent 35%),
+    radial-gradient(0.8px 0.8px at 15% 75%, rgba(255, 255, 255, 0.75), transparent 30%),
     radial-gradient(0.6px 0.6px at 75% 25%, rgba(255, 255, 255, 0.70), transparent 28%);
   background-size: cover;
   animation: starsPulse 22s linear infinite;
@@ -115,7 +115,7 @@ html, body {
   will-change: transform;
 }
 
-@极速模式keyframes nebulaFlow {
+@keyframes nebulaFlow {
   0% { 
     transform: translate(-30%, -30%) rotate(7deg);
     background-position: 0% 0%;
@@ -124,19 +124,19 @@ html, body {
     transform: translate(30%, 30%) rotate(-5deg);
     background-position: 100% 100%;
   }
-  极速模式% { 
+  100% { 
     transform: translate(-30%, -30%) rotate(7deg);
     background-position: 0% 0%;
   }
 }
 
-/* ========== COSMIC PARTICLES (Quantum Dust) ========== */
+/* ========== COSMIC PARTICLES (Quantum Dust)极速模式 ========== */
 #cosmic-particles {
   position: fixed;
   inset: 0;
   z-index: -7;
   pointer-events: none;
-  transform: translate极速模式(0);
+  transform: translateZ(0);
   will-change: transform;
 }
 
@@ -157,7 +157,7 @@ html, body {
   will-change: transform;
 }
 
-@极速模式keyframes particleFloat {
+@keyframes particleFloat {
   0% { transform: translate(0, 0) rotate(0deg) scale(1); }
   100% { 
     transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rotate, 0)) scale(var(--scale, 1)); 
@@ -167,7 +167,7 @@ html, body {
 /* ========== EVENT HORIZON (Black Hole Visualization) ========== */
 #event-horizon {
   position: fixed;
-  width: 320极速模式;
+  width: 320px;
   height: 320px;
   border-radius: 50%;
   z-index: -6;
@@ -185,7 +185,7 @@ html, body {
       from var(--angle, 0deg),
       transparent,
       rgba(255, 0, 200, 0.28),
-      rgba(0, 229, 255, 0.18),
+      rgba(0极速模式, 229, 255, 0.18),
       rgba(0, 255, 157, 0.12),
       transparent 30%
     );
@@ -197,18 +197,18 @@ html, body {
   mix-blend-mode: overlay;
 }
 
-@极速模式keyframes blackHoleSpin {
+@keyframes blackHoleSpin {
   from { --angle: 0deg; }
   to { --angle: 360deg; }
 }
 
-/* ========== GRAVITATIONAL LENSING (Space-Time Curvature) =极速模式========= */
+/* ========== GRAVITATIONAL LENSING (Space-Time Curvature) ========== */
 #gravitational-lensing {
   position: fixed;
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  z极速模式-index: -5;
+  z-index: -5;
   pointer-events: none;
   top: 8%;
   right: 8%;
@@ -217,7 +217,7 @@ html, body {
       transparent 40%,
       rgba(93, 64, 212, 0.07) 60%,
       rgba(0, 229, 255, 0.05) 75%,
-      rgba极速模式(0, 极速模式, 157, 0.03) 85%,
+      rgba(0, 255, 157, 0.03) 85%,
       transparent 100%);
   filter: blur(10px);
   opacity: 0.14;
@@ -226,7 +226,7 @@ html, body {
   will-change: transform, opacity;
 }
 
-@极速模式keyframes lensing极速模式Pulse {
+@keyframes lensingPulse {
   0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.12; }
   50% { transform: scale(1.08) rotate(3deg); opacity: 0.18; }
 }
@@ -243,12 +243,12 @@ html, body {
   will-change: box-shadow;
 }
 
-@极速模式keyframes containerGlow {
+@keyframes containerGlow {
   0% { box-shadow: 0 0 45px rgba(93, 64, 212, 0.12); }
   100% { box-shadow: 0 0 70px rgba(0, 229, 255, 0.18); }
 }
 
-/* ========== COSMIC HEADER (Stellar Observatory) ========== */
+/* ========== COSM极速模式IC HEADER (Stellar Observatory) ========== */
 header {
   text-align: center;
   padding: 64px 0 40px;
@@ -260,7 +260,7 @@ header {
   will-change: filter;
 }
 
-@极速模式keyframes headerPulse {
+@keyframes headerPulse {
   0% { filter: brightness(1); }
   100% { filter: brightness(1.12); }
 }
@@ -270,7 +270,7 @@ header {
   font-size: clamp(2.6rem, 6.4vw, 4.8rem);
   font-weight: 900;
   background: 
-    linear-gradient(90deg, 
+    linear-gradient(90极速模式, 
       var(--nebula-core), 
       var(--nebula-cyan),
       var(--nebula-pink),
@@ -279,12 +279,12 @@ header {
       rgba(255, 255, 255, 0.35), 
       transparent 40%);
   background-clip: text;
-  -webkit-background-clip: text;
+  -webkit-background-cl极速模式ip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 
     0 0 24px rgba(93, 64, 212, 0.25),
-    0 极速模式 48px rgba(0, 229, 255, 0.2),
-    0 0 72px rgba(0, 255, 157, 极速模式);
+    0 0 48px rgba(0, 229, 255, 0.2),
+    0 0 72px rgba(0, 255, 157, 0.15);
   letter-spacing: 4px;
   margin-bottom: 12px;
   line-height: 1;
@@ -294,7 +294,7 @@ header {
   will-change: text-shadow;
 }
 
-@极速模式keyframes logoGlow {
+@keyframes logoGlow {
   0% { text-shadow: 0 0 24px rgba(93, 64, 212, 0.25), 0 0 48px rgba(0, 229, 255, 0.15), 0 0 72px rgba(0, 255, 157, 0.1); }
   100% { text-shadow: 0 0 30px rgba(93, 64, 212, 0.35), 0 0 54px rgba(0, 229, 255, 0.25), 0 0 80px rgba(0, 255, 157, 0.2); }
 }
@@ -345,7 +345,7 @@ header {
   overflow: visible;
   z-index: 2;
   transition: all var(--medium) var(--quantum);
-  backdrop-filter: blur(14极速模式);
+  backdrop-filter: blur(14px);
   transform: translateZ(0);
   will-change: transform, box-shadow;
   border-image: linear-gradient(to bottom, rgba(93, 64, 212, 0.2), transparent 80%) 1;
@@ -376,7 +376,7 @@ header {
   inset: 0;
   background-image: 
     linear-gradient(90deg, rgba(122, 92, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(0, 255, 157, 0.025) 1极速模式, transparent 1px),
+    linear-gradient(180deg, rgba(0, 255, 157, 0.025) 1px, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 240px 240px, 240px 240px, 40px 40px;
   opacity: 0.09;
@@ -387,7 +387,7 @@ header {
   will-change: opacity;
 }
 
-@极速模式keyframes gridPulse {
+@keyframes gridPulse {
   0% { opacity: 0.07; }
   100% { opacity: 0.11; }
 }
@@ -410,7 +410,7 @@ header {
   left: 0;
   width: 100%;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, rgba(93, 极速模式, 212, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(93, 64, 212, 0.18), transparent);
   border-radius: 0.75px;
 }
 
@@ -419,7 +419,7 @@ header {
   min-width: 300px;
   padding: 18px 24px;
   border-radius: 16px;
-  border: 2px solid rgba(122, 92, 255, 0.18);
+  border: 2px solid rgba极速模式(122, 92, 255, 0.18);
   background: 
     linear-gradient(180deg, 
       rgba(8, 10, 18, 0.78), 
@@ -475,11 +475,11 @@ header {
   color: white;
   font-weight: 800;
   min-width: 200px;
-  transition: all var(--fast) var(--quantum);
+  transition: all var(--fast) var(--quant极速模式um);
   white-space: nowrap;
   box-shadow: 
-    0 10极速模式 28px rgba(93, 64, 212, 0.3),
-    极速模式 0 36px rgba(0, 255, 157, 0.18);
+    0 10px 28px rgba(93, 64, 212, 0.3),
+    0 0 36px rgba(0, 255, 157, 0.18);
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -490,7 +490,7 @@ header {
 .scan-btn::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: 极速模式;
   left: -100%;
   width: 100%;
   height: 100%;
@@ -501,7 +501,7 @@ header {
     transparent
   );
   transition: 0.9s;
-  z-index: -1;
+  z-index: -极速模式1;
 }
 
 .scan-btn:hover::before {
@@ -522,11 +522,11 @@ header {
   transform-origin: center;
   animation: btnPulse 1.8s ease-in-out infinite;
   position: relative;
-  z极速模式-index: 3;
+  z-index: 3;
   font-size: 1.35em;
 }
 
-@极速模式keyframes btnPulse {
+@keyframes btnPulse {
   0%, 100% { 
     transform: scale(1); 
     filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.5)); 
@@ -544,7 +544,7 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 26px 20px;
+  padding: 26px 20极速模式;
   margin-top: 18px;
   z-index: 3;
   position: relative;
@@ -558,8 +558,8 @@ header {
   border-top: 6px solid var(--nebula-cyan);
   box-shadow: 
     0 0 46px rgba(0, 240, 255, 0.18),
-    inset 0 0 24px rgba(93, 64, 212, 0.15);
-  animation: spin 1.2s linear infinite;
+    inset 0 极速模式 24px rgba极速模式(93, 64, 212, 0.15);
+  animation: spin 1.2极速模式 linear infinite;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
@@ -581,7 +581,7 @@ header {
   border: 1px solid rgba(0, 229, 255, 0.2);
 }
 
-@极速模式keyframes spin {
+@keyframes spin {
   to { transform: rotate(360deg); }
 }
 
@@ -591,17 +591,17 @@ header {
   margin-bottom: 10px;
   font-size: 1.35rem;
   text-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
-  animation: textGlow 2.2s ease-in-out infinite alternate;
-  letter-spacing: 0.5极速模式;
+  animation极速模式: textGlow 2.2s ease-in-out infinite alternate;
+  letter-spacing: 0.5px;
 }
 
-@极速模式keyframes textGlow {
+@keyframes textGlow {
   0% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.25); }
   100% { text-shadow: 0 0 14px rgba(0, 240, 255, 0.45); }
 }
 
 .loading-subtext {
-  color:极速模式 var(--stellar-mute);
+  color: var(--stellar-mute);
   font-size: 1.1rem;
   max-width: 360px;
   line-height: 1.55;
@@ -615,7 +615,7 @@ header {
   height: 16px;
   background: 
     rgba(255, 255, 255, 0.05),
-    linear-gradient(0极速模式, 
+    linear-gradient(0deg, 
       rgba(93, 64, 212, 0.09), 
       transparent 50%, 
       rgba(0, 255, 157, 0.07));
@@ -623,7 +623,7 @@ header {
   overflow: hidden;
   margin-top: 20px;
   position: relative;
-  box-shadow: inset 0 极速模式 10px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(122, 92, 255, 0.1);
 }
 
@@ -637,8 +637,8 @@ header {
       var(--nebula-green)),
     radial-gradient(circle at var(--progress), 50%, 
       rgba(255, 255, 255, 0.25) 0%, 
-      transparent 40极速模式);
-  border-radius: 极速模式;
+      transparent 40%);
+  border-radius: 16px;
   transition: width var(--medium) var(--quantum);
   box-shadow: 
     0 9px 32px rgba(0, 240, 255, 0.16),
@@ -654,7 +654,7 @@ header {
   position: absolute;
   top: 0;
   left: 0;
- 极速模式 width: 100%;
+  width: 100%;
   height: 100%;
   background: linear-gradient(
     90deg,
@@ -667,7 +667,7 @@ header {
   will-change: transform;
 }
 
-@极速模式keyframes progressShine {
+@keyframes progressShine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
@@ -676,7 +676,7 @@ header {
 .quick-overview {
   margin-top: 28px;
   margin-bottom: 32px;
-  z-index: 极速模式;
+  z-index: 2;
   position: relative;
 }
 
@@ -689,7 +689,7 @@ header {
   width: 90px;
   height: 5px;
   background: linear-gradient(90deg, transparent, var(--nebula-cyan), transparent);
-  border-radius: 2.5px;
+  border-radius极速模式: 2.5px;
 }
 
 .section-title {
@@ -705,9 +705,9 @@ header {
   animation: titleGlow 3.5s ease-in-out infinite alternate;
 }
 
-@极速模式keyframes titleGlow {
+@keyframes titleGlow {
   0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
-  100% { text-shadow: 0 极速模式 14px rgba(0, 255, 157, 0.35); }
+  100% { text-shadow: 0 0 14px rgba(0, 255, 157, 0.35); }
 }
 
 .overview-grid {
@@ -721,8 +721,8 @@ header {
   background: 
     linear-gradient(180deg, 
       rgba(6, 8, 16, 0.78), 
-      rgba(4, 6, 12, 0.72)),
-    radial-gradient(c极速模式ircle at 15% 15%, 
+      rgba(4, 6, 12, 极速模式));
+    radial-gradient(circle at 15% 15%, 
       rgba(93, 64, 212, 0.07), 
       transparent 40%);
   border-radius: 16px;
@@ -734,9 +734,9 @@ header {
   position: relative;
   overflow: hidden;
   box-shadow: 0 7px 18px rgba(0, 0, 0, 0.28);
-  transform: translateZ(0);
+  transform: translateZ极速模式(0);
   will-change: transform, box-shadow;
-  border-image: linear-gradient(to bottom, rgba(0, 255, 157, 极速模式), transparent) 1;
+  border-image: linear-gradient(to bottom, rgba(0, 255, 157, 0.1), transparent) 1;
 }
 
 .overview-card::before {
@@ -760,7 +760,7 @@ header {
   background: 
     linear-gradient(180deg, 
       rgba(8, 10, 18, 0.84), 
-      rgba(6, 极速模式, 14, 0.78)),
+      rgba(6, 8, 14, 0.78)),
     radial-gradient(circle at 15% 15%, 
       rgba(93, 64, 212, 0.12), 
       transparent 40%);
@@ -778,7 +778,7 @@ header {
   animation: iconFloat 6s ease-in-out infinite;
 }
 
-@极速模式keyframes iconFloat {
+@keyframes iconFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-3px); }
 }
@@ -821,9 +821,9 @@ header {
   letter-spacing: 0.25px;
 }
 
-@极速模式keyframes valuePulse {
+@keyframes valuePulse {
   0% { text-shadow: 0 0 6px rgba(0, 255, 157, 0.15); }
-  100% { text-shadow: 0 0 9px rgba(0, 255, 157, 0.3); }
+  极速模式% { text-shadow: 0 0 9px rgba(0, 255, 157, 0.3); }
 }
 
 /* ========== TABS & CONTENT (Stellar Navigation) ========== */
@@ -832,7 +832,7 @@ header {
   background: 
     linear-gradient(180deg, 
       rgba(3, 5, 10, 0.94), 
-      rgba(6, 8, 18, 极速模式));
+      rgba(6, 8, 18, 0.88));
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(122, 92, 255, 0.08);
@@ -844,13 +844,13 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 50px; /* زيادة هائلة من 45px إلى 50px */
+  gap: 50px;
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 30px 50px; /* زيادة هائلة من 25px 40px إلى 30px 50px */
-  min-height: 110px; /* زيادة هائلة من 100px إلى 110px */
+  padding: 30px 50px;
+  min-height: 110px;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -862,9 +862,9 @@ header {
 }
 
 .tab-btn {
-  flex: 0 1 auto; /* تغيير من flex: 1 لتفادي التمدد الزائد */
-  min-width: 250px; /* زيادة هائلة من 220px إلى 250px */
-  padding: 32px 48px; /* زيادة هائلة من 28px 42px إلى 32px 48px */
+  flex: 0 1 auto;
+  min-width: 250px;
+  padding: 32px 48px;
   background: transparent;
   border: none;
   color: var(--stellar-white);
@@ -876,11 +876,11 @@ header {
   align-items: center;
   transition: all var(--fast) var(--quantum);
   white-space: nowrap;
-  font-size: 1.2rem; /* زيادة من 1.15rem إلى 1.2rem */
+  font-size: 1.2rem;
   position: relative;
   z-index: 2;
-  border-radius: 24px; /* زيادة من 22px إلى 24px */
-  margin: 0 20px; /* زيادة من 0 15px إلى 0 20px */
+  border-radius: 24px;
+  margin: 0 20px;
   box-shadow: 0 8px 30px rgba(93, 64, 212, 0.3);
   letter-spacing: 0.5px;
 }
@@ -902,7 +902,7 @@ header {
   left: 50%;
   transform: translateX(-50%) scaleX(0);
   width: 80%;
-  height: 4px; /* زيادة من 3px إلى 4px */
+  height: 4px;
   background: linear-gradient(90deg, var(--nebula-pink), var(--nebula-cyan));
   border-radius: 2px;
   transition: transform var(--fast) var(--quantum);
@@ -920,16 +920,16 @@ header {
 
 .tab-content {
   display: none;
-  padding: 25px; /* زيادة من 22px إلى 25px */
+  padding: 25px;
   animation: fadeIn var(--fast) var(--stellar);
-  min-height: 150px; /* زيادة من 140px إلى 150px */
+  min-height: 150px;
 }
 
 .tab-content.active {
   display: block;
 }
 
-@极速模式keyframes fadeIn {
+@keyframes fadeIn {
   from { 
     opacity: 0; 
     transform: translateY(8px);
@@ -967,7 +967,7 @@ header {
   word-break: break-word;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 极速模式);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   margin-bottom: 15px;
 }
 
@@ -990,7 +990,7 @@ header {
 }
 
 .info-item:hover::before {
-  opacity: 极速模式;
+  opacity: 1;
 }
 
 .info-label {
@@ -1011,7 +1011,7 @@ header {
   font-size: 1.05rem;
   word-break: break-word;
   white-space: normal;
-  line极速模式-height: 1.4;
+  line-height: 1.4;
   text-shadow: 0 0 4px rgba(0, 229, 255, 0.15);
 }
 
@@ -1042,7 +1042,7 @@ header {
 /* ========== TECHNOLOGY CARDS (Stellar Technology Matrix) ========== */
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, min极速模式max(280px, 1fr));
   gap: 18px;
   align-items: start;
 }
@@ -1054,14 +1054,14 @@ header {
     linear-gradient(180deg, 
       rgba(6, 8, 18, 0.8), 
       rgba(4, 6, 14, 0.72));
-  border: 1px solid rgba(122, 92, 255, 极速模式);
+  border: 1px solid rgba(122, 92, 255, 0.08);
   cursor: pointer;
   transition: all var(--fast) var(--quantum);
   min-height: 104px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 极速模式;
+  gap: 10px;
   overflow: visible;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -1083,11 +1083,11 @@ header {
 
 .tech-card:hover {
   transform: translateY(-9px);
-  box-shadow: 极速模式 30px 70px rgba(0, 200, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(0, 200, 255, 0.08);
   border-color: var(--nebula-green);
 }
 
-.tech-card:hover::before {
+.极速模式tech-card:hover::before {
   opacity: 1;
 }
 
@@ -1122,13 +1122,13 @@ header {
 .tech-confidence {
   padding: 7px 12px;
   border-radius: 18px;
-  font-weight: 极速模式;
+  font-weight: 700;
   background: rgba(0, 255, 157, 0.1);
   color: var(--nebula-green);
   min-width: 60px;
   text-align: center;
   flex: 0 0 auto;
-  font极速模式-size: 0.95rem;
+  font-size: 0.95rem;
   box-shadow: 0 0 10px rgba(0, 255, 157, 0.15);
 }
 
@@ -1156,7 +1156,7 @@ header {
   width: 10%;
   background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan));
   box-shadow: 0 7px 22px rgba(0, 255, 157, 0.08) inset;
-  transition: width .5s var(--quantum);
+  transition: width .5极速模式 var(--quantum);
   transform: translateZ(0);
   will-change: width;
 }
@@ -1189,7 +1189,7 @@ header {
   border: 1px solid rgba(122, 92, 255, 0.06);
   background: 
     linear-gradient(180deg, 
-      rgba(6, 8, 18极速模式, 0.88), 
+      rgba(6, 8, 18, 0.88), 
       rgba(3, 4, 10, 0.86));
   z-index: 2;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -1220,8 +1220,8 @@ header {
   box-shadow: 0 6px 18px rgba(93, 64, 212, 0.25);
 }
 
-.copy-btn.cop极速模式ied {
-  background: linear-gradient(135极速模式, var(--success), var(--nebula-cyan));
+.copy-btn.copied {
+  background: linear-gradient(135deg, var(--success), var(--nebula-cyan));
   transform: scale(1.03);
   box-shadow: 0 0 22px rgba(16, 185, 129, 0.3);
 }
@@ -1240,7 +1240,7 @@ header {
   font-size: 14px;
   color: var(--stellar-white);
   word-break: break-word;
-  line-height: 1.4;
+  line-height: 极速模式;
   letter-spacing: 0.2px;
 }
 
@@ -1250,7 +1250,7 @@ header {
   border-radius: 12px;
   background: 
     linear-gradient(180deg, 
-      rgba(7, 9, 16, 0.72), 
+      rgba(7, 9极速模式, 16, 0.72), 
       rgba(5, 7, 13, 0.66));
   border: 1px solid rgba(122, 92, 255, 0.06);
   display: flex;
@@ -1292,7 +1292,7 @@ footer {
   color: var(--stellar-mute);
   position: relative;
   z-index: 2;
-  box-shadow: 0 -8px 24px rgba(极速模式, 0, 0, 0.3);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .creator-info {
@@ -1400,12 +1400,12 @@ footer {
   outline: 3.5px solid rgba(0, 255, 157, 0.15);
   outline-offset: 2.5px;
   border-radius: 7px;
-  box-shadow: 极速模式 0 12px rgba(0, 255, 157, 0.25);
+  box-shadow: 0 0 12px rgba(0, 255, 157, 0.25);
 }
 
 .tab-btn:focus, 
 .scan-btn:focus, 
-.copy-btn:极速模式:focus {
+.copy-btn:focus {
   box-shadow: 
     0 7px 24px rgba(0, 255, 157, 0.08), 
     0 0 16px rgba(0, 255, 157, 0.2);
@@ -1423,8 +1423,8 @@ footer {
 @media (max-width: 1024px) {
   .input-group { flex-direction: column; gap: 16px; }
   .tab-btn { min-width: 130px; padding: 12px 20px; flex: 1 0 45%; }
-  .info-grid { grid-template-column极速模式s: 1fr; }
-  .tech-grid { grid-template-columns: 1极速模式; }
+  .info-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr; }
   .overview-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
   .scanner-interface { padding: 32px; }
 }
@@ -1435,7 +1435,7 @@ footer {
   .scanner-interface { padding: 28px 24px; }
   .input-group { gap: 14px; }
   .url-input { padding: 16px 20px; font-size: 16px; }
-  .scan-btn { padding: 14极速模式 24px; min-width: 160px; }
+  .scan-btn { padding: 14px 24px; min-width: 160px; }
   .loading-container { padding: 20px 16px; }
   .pulse-ring { width: 100px; height: 100px; }
   .info-item { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -1464,7 +1464,7 @@ footer {
   .scan-btn { padding: 12px 20px; min-width: 140px; font-size: 0.95rem; }
   .loading-text { font-size: 1.15rem; }
   .loading-subtext { font-size: 0.95rem; }
-  .pulse-ring { width: 90px; height: 90px; }
+  .pulse-ring { width: 90极速模式; height: 90px; }
   .section-title { font-size: 1.35rem; }
   .card-value { font-size: 1.05rem; }
   .info-label { font-size: 0.92rem; }
@@ -1474,88 +1474,88 @@ footer {
 /* تحسينات للشاشات الكبيرة */
 @media (min-width: 1600px) {
   .tabs-nav {
-    gap: 55px; /* زيادة من 50px إلى 55px */
-    padding: 35px 55px; /* زيادة من 30px 50px إلى 35px 55px */
+    gap: 55px;
+    padding: 35px 55px;
   }
   
   .tab-btn {
-    min-width: 260px; /* زيادة من 240px إلى 260px */
-    padding: 36px 52px; /* زيادة من 32px 48px إلى 36px 52px */
-    font-size: 1.25rem; /* زيادة من 1.2rem إلى 1.25rem */
+    min-width: 260px;
+    padding: 36px 52px;
+    font-size: 1.25rem;
   }
 }
 
 /* تحسينات للشاشات المتوسطة */
 @media (max-width: 1200px) {
   .tabs-nav {
-    gap: 35px; /* زيادة من 30px إلى 35px */
-    padding: 25px 35px; /* زيادة من 20px 30px إلى 25px 35px */
-    min-height: 95px; /* زيادة من 90px إلى 95px */
+    gap: 35px;
+    padding: 25px 35px;
+    min-height: 95px;
   }
   
   .tab-btn {
-    min-width: 200px; /* زيادة من 180px إلى 200px */
-    padding: 26px 36px; /* زيادة من 22px 32px إلى 26px 36px */
-    margin: 0 12px; /* زيادة من 0 10px إلى 0 12px */
-    font-size: 1.15rem; /* زيادة من 1.1rem إلى 1.15rem */
+    min-width: 200px;
+    padding: 26px 36px;
+    margin: 0 12px;
+    font-size: 1.15rem;
   }
 }
 
 /* تحسينات للشاشات الصغيرة */
 @media (max-width: 1024px) {
   .tabs-nav {
-    gap: 25px; /* زيادة من 20px إلى 25px */
-    padding: 20px 25px; /* زيادة من 16px 20px إلى 20px 25px */
-    min-height: 85px; /* زيادة من 80px إلى 85px */
+    gap: 25px;
+    padding: 20px 25px;
+    min-height: 85px;
   }
   
   .tab-btn {
-    min-width: 170px; /* زيادة من 160px إلى 170px */
-    padding: 22px 32px; /* زيادة من 18px 28px إلى 22px 32px */
-    margin: 0 10px; /* زيادة من 0 8px إلى 0 10px */
-    font-size: 1.1rem; /* زيادة من 1.05rem إلى 1.1rem */
-    gap: 18px; /* زيادة من 16px إلى 18px */
+    min-width: 170px;
+    padding: 22px 32px;
+    margin: 0 10px;
+    font-size: 1.1rem;
+    gap: 18px;
   }
 }
 
 @media (max-width: 768px) {
   .tabs-nav {
-    gap: 20px; /* زيادة من 15px إلى 20px */
-    padding: 16px 20px; /* زيادة من 12px 15px إلى 16px 20px */
-    min-height: 80px; /* زيادة من 75px إلى 80px */
+    gap: 20px;
+    padding: 16px 20px;
+    min-height: 80px;
   }
   
   .tab-btn {
-    min-width: 150px; /* زيادة من 140px إلى 150px */
-    padding: 20px 28px; /* زيادة من 16px 24px إلى 20px 28px */
-    margin: 0 8px; /* زيادة من 0 6px إلى 0 8px */
-    font-size: 1.05rem; /* زيادة من 1rem إلى 1.05rem */
-    gap: 16px; /* زيادة من 12px إلى 16px */
-    border-radius: 20px; /* زيادة من 18px إلى 20px */
+    min-width: 150px;
+    padding: 20px 28px;
+    margin: 0 8px;
+    font-size: 1.05rem;
+    gap: 16px;
+    border-radius: 20px;
   }
 }
 
 @media (max-width: 480px) {
   .tabs-nav {
-    gap: 15px; /* زيادة من 10px إلى 15px */
-    padding: 14px 16px; /* زيادة من 10px 12px إلى 14px 16px */
-    min-height: 75px; /* زيادة من 70px إلى 75px */
+    gap: 15px;
+    padding: 14px 16px;
+    min-height: 75px;
   }
   
   .tab-btn {
-    min-width: 130px; /* زيادة من 120px إلى 130px */
-    padding: 18px 24px; /* زيادة من 14px 20px إلى 18px 24px */
-    margin: 0 6px; /* زيادة من 0 4px إلى 0 6px */
+    min-width: 130px;
+    padding: 18px 24px;
+    margin: 0 6px;
     font-size: 1rem; 
-    gap: 14px; /* زيادة من 10px إلى 14px */
-    border-radius: 18px; /* زيادة من 16px إلى 18px */
+    gap: 14px;
+    border-radius: 18px;
   }
 }
 
 /* Touch-friendly elements for mobile */
 @media (hover: none) and (pointer: coarse) {
   .tab-btn, .scan-btn, .copy-btn {
-      min-height: 48px; /* زيادة من 44px إلى 48px */
+      min-height: 48px;
   }
   
   .url-input {
@@ -1595,7 +1595,7 @@ footer {
     box-shadow: none !important;
     border: 1px solid #ccc !important;
   }
-  .tech-极速模式, .json-content {
+  .tech-raw, .json-content {
     background: #f8f8f8 !important;
     color: #333 !important;
   }
