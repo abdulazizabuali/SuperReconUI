@@ -35,11 +35,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: 'Fira Code', 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: none !important;
-  animation-play-state: paused !important;
+  transition: all var(--medium) var(--quantum);
+  animation: none;
 }
 
 html, body {
@@ -936,16 +936,17 @@ header {
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
+  gap: 18px;
   align-items: start;
+  padding: 0 24px;
 }
 
 .info-item {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 14px 18px;
-  border-radius: 14px;
+  padding: 18px 24px;
+  border-radius: 16px;
   background: 
     linear-gradient(180deg, 
       rgba(7, 9, 16, 0.76), 
@@ -984,7 +985,7 @@ header {
 }
 
 .info-label {
-  font-weight: 800;
+  font-weight: 600;
   color: var(--stellar-white);
   font-size: 0.98rem;
   max-width: 55%;
@@ -994,11 +995,11 @@ header {
 
 .info-value {
   color: var(--nebula-cyan);
-  font-weight: 900;
+  font-weight: 700;
   max-width: 45%;
   text-align: left;
   direction: ltr;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   word-break: break-word;
   white-space: normal;
   line-height: 1.4;
@@ -1019,7 +1020,7 @@ header {
   height: 12px;
   border-radius: 50%;
   display: inline-block;
-  margin-left: 12px;
+  margin-left: 8px;
   vertical-align: middle;
   flex: 0 0 auto;
   box-shadow: 0 0 8px currentColor;
@@ -1082,7 +1083,7 @@ header {
 }
 
 .tech-name {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.1rem;
   color: var(--stellar-white);
   margin-bottom: 4px;
@@ -1104,7 +1105,7 @@ header {
 
 .tech-version {
   color: var(--stellar-mute);
-  font-weight: 700;
+  font-weight: 600;
   white-space: normal;
   font-size: 0.95rem;
 }
@@ -1112,7 +1113,7 @@ header {
 .tech-confidence {
   padding: 7px 12px;
   border-radius: 18px;
-  font-weight: 900;
+  font-weight: 700;
   background: rgba(0, 255, 157, 0.1);
   color: var(--nebula-green);
   min-width: 60px;
@@ -1287,12 +1288,16 @@ footer {
 
 .creator-info {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .creator-name {
   color: var(--nebula-green);
   font-weight: 700;
   text-shadow: 0 0 8px rgba(0, 255, 157, 0.2);
+  font-size: 1.3rem;
+  display: block;
+  margin: 12px auto;
 }
 
 .creator-blurb {
@@ -1300,20 +1305,30 @@ footer {
   max-width: 600px;
   margin: 8px auto 0;
   line-height: 1.5;
+  text-align: center;
 }
 
 .team-info {
   margin: 24px 0 16px;
+  text-align: center;
 }
 
 .team-name {
   color: var(--nebula-cyan);
   font-weight: 700;
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  font-size: 1.3rem;
+  display: block;
+  margin: 12px auto;
 }
 
 .social-links {
   margin: 16px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .social-link {
@@ -1326,6 +1341,9 @@ footer {
   background: rgba(93, 64, 212, 0.06);
   border: 1px solid rgba(122, 92, 255, 0.1);
   font-weight: 500;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
 }
 
 .social-link:hover {
@@ -1339,6 +1357,7 @@ footer {
   margin-top: 24px;
   font-size: 0.9rem;
   opacity: 0.85;
+  text-align: center;
 }
 
 /* ========== SCROLLBAR POLISH (Stellar Navigation Track) ========== */
@@ -1416,6 +1435,15 @@ footer {
   .overview-grid { grid-template-columns: 1fr; }
   .tab-btn { min-width: 120px; padding: 10px; flex: 1 0 48%; }
   footer { padding: 26px; }
+  
+  /* Centered footer elements for mobile */
+  .creator-info, .team-info, .social-links {
+    text-align: center;
+  }
+  
+  .social-links {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
