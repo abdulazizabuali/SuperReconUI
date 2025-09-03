@@ -844,12 +844,14 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 6px; /* تم زيادة المسافة بين التبويبات */
+  gap: 14px; /* تم زيادة المسافة بين التبويبات إلى 14px (مما يحل المشكلة نهائياً) */
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 4px; /* إضافة حشو داخلي */
+  padding: 6px 10px; /* تم تعديل الحشو الداخلي لزيادة المساحة */
+  min-height: 60px; /* إضافة ارتفاع أدنى لتجنب الضغط */
+  align-items: center; /* محاذاة العناصر بشكل مركزي */
 }
 
 .tabs-nav::-webkit-scrollbar {
@@ -859,14 +861,14 @@ header {
 .tab-btn {
   flex: 1;
   min-width: 150px;
-  padding: 14px 20px; /* زيادة الحشو الأفقي */
+  padding: 15px 24px; /* زيادة الحشو الأفقي والعمودي */
   background: transparent;
   border: none;
   color: var(--stellar-white);
   cursor: pointer;
   font-weight: 800;
   display: flex;
-  gap: 12px; /* زيادة الفجوة بين الرمز والنص */
+  gap: 14px; /* زيادة الفجوة بين الرمز والنص */
   justify-content: center;
   align-items: center;
   transition: all var(--fast) var(--quantum);
@@ -874,7 +876,8 @@ header {
   font-size: 1.02rem;
   position: relative;
   z-index: 2;
-  border-radius: 10px; /* إضافة زوايا مستديرة */
+  border-radius: 10px;
+  margin: 0 2px; /* إضافة هامش صغير بين العناصر */
 }
 
 .tab-btn::after {
@@ -892,9 +895,10 @@ header {
 }
 
 .tab-btn:hover {
-  background: rgba(122, 92, 255, 0.08); /* زيادة شفافية الخلفية عند التحويم */
+  background: rgba(122, 92, 255, 0.1); /* زيادة شفافية الخلفية عند التحويم */
   color: var(--nebula-cyan);
   transform: translateY(-3px);
+  margin: 0 4px; /* زيادة الهامش عند التحويم لتأثير تكبير طفيف */
 }
 
 .tab-btn:hover::after {
@@ -902,9 +906,11 @@ header {
 }
 
 .tab-btn.active {
-  background: rgba(0, 255, 157, 0.06); /* زيادة شفافية الخلفية النشطة */
+  background: rgba(0, 255, 157, 0.08); /* زيادة شفافية الخلفية النشطة */
   color: var(--nebula-green);
   text-shadow: 0 0 8px rgba(0, 255, 157, 0.2);
+  transform: translateY(-2px);
+  margin: 0 4px; /* تأثير تكبير للعنصر النشط */
 }
 
 .tab-btn.active::after {
@@ -1415,7 +1421,7 @@ footer {
 
 @media (max-width: 1024px) {
   .input-group { flex-direction: column; gap: 16px; }
-  .tab-btn { min-width: 130px; padding: 12px; flex: 1 0 45%; }
+  .tab-btn { min-width: 130px; padding: 12px 20px; flex: 1 0 45%; }
   .info-grid { grid-template-columns: 1fr; }
   .tech-grid { grid-template-columns: 1fr; }
   .overview-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
@@ -1435,7 +1441,7 @@ footer {
   .info-label { max-width: 100%; }
   .info-value { max-width: 100%; text-align: left; }
   .overview-grid { grid-template-columns: 1fr; }
-  .tab-btn { min-width: 120px; padding: 10px; flex: 1 0 48%; }
+  .tab-btn { min-width: 120px; padding: 10px 16px; flex: 1 0 48%; }
   footer { padding: 26px; }
   
   /* Centered footer elements for mobile */
