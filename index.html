@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperRecon - Cosmic Web Explorer</title>
+    <title>SuperRecon - Enhanced Cosmic Web Explorer</title>
     <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>🌌</text></svg>">
 </head>
 <body>
+    <!-- Animated starfield background -->
+    <div id="starfield"></div>
+    <div id="aurora"></div>
+    <div id="cosmic-particles"></div>
+
     <div class="cosmic-container">
+        <!-- Header -->
         <header>
-            <h1 class="logo-glow">SuperRecon</h1>
-            <p class="tagline">Cosmic Web Intelligence Explorer - Unveiling the digital universe, one scan at a time</p>
+            <h1 class="logo-glow">SuperRecon Enhanced</h1>
+            <p class="tagline">Advanced Cosmic Web Intelligence Explorer - Unveiling the digital universe with enhanced precision</p>
         </header>
         
+        <!-- Scanner Interface -->
         <div class="scanner-interface">
             <div class="input-group">
-                <input type="text" class="url-input" id="targetUrl" placeholder="Enter target website (e.g., example.com)" value="">
-                <button class="scan-btn" id="scanBtn">Initiate Cosmic Scan</button>
+                <input type="text" class="url-input" id="targetUrl" placeholder="Enter target website (e.g., example.com )" value="example.com">
+                <button class="scan-btn" id="scanBtn">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Initiate Cosmic Scan</span>
+                </button>
             </div>
             
             <div class="error-message" id="errorMessage"></div>
@@ -24,111 +36,124 @@
             <div class="loading-container" id="loadingContainer">
                 <div class="pulse-ring"></div>
                 <div class="loading-text">Deep Space Analysis in Progress</div>
-                <div class="loading-subtext">Scanning cosmic signatures across the digital universe...<br>Estimated time: 2-3 minutes</div>
+                <div class="loading-subtext">Scanning cosmic signatures across the digital universe...  
+Estimated time: 2-3 minutes</div>
                 <div class="progress-container">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
             </div>
             
+            <!-- Quick Overview Cards -->
+            <div class="quick-overview" id="quickOverview" style="display: none;">
+                <h2 class="section-title">Quick Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-title">Target Domain</div>
+                        <div class="card-value" id="overviewDomain">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">📡</div>
+                        <div class="card-title">IP Address</div>
+                        <div class="card-value" id="overviewIP">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🛡️</div>
+                        <div class="card-title">Security Level</div>
+                        <div class="card-value" id="overviewSecurity">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-title">Scan Time</div>
+                        <div class="card-value" id="overviewTime">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Container -->
             <div class="results-container" id="resultsContainer">
-                <h2 class="section-title">Target Intelligence</h2>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="card-title">🌐 Target Domain</div>
-                        <div class="card-value" id="targetDomain">-</div>
+                <!-- Navigation Tabs -->
+                <div class="tabs-container">
+                    <div class="tabs-nav" id="tabsNav">
+                        <button class="tab-btn active" data-tab="general">
+                            <span class="tab-icon">🌐</span>
+                            <span class="tab-text">General Info</span>
+                        </button>
+                        <button class="tab-btn" data-tab="security">
+                            <span class="tab-icon">🛡️</span>
+                            <span class="tab-text">Security Analysis</span>
+                        </button>
+                        <button class="tab-btn" data-tab="domain">
+                            <span class="tab-icon">📡</span>
+                            <span class="tab-text">Domain Intelligence</span>
+                        </button>
+                        <button class="tab-btn" data-tab="technologies">
+                            <span class="tab-icon">⚙️</span>
+                            <span class="tab-text">Technologies</span>
+                        </button>
+                        <button class="tab-btn" data-tab="content">
+                            <span class="tab-icon">📄</span>
+                            <span class="tab-text">Content Analysis</span>
+                        </button>
+                        <button class="tab-btn" data-tab="infrastructure">
+                            <span class="tab-icon">🏗️</span>
+                            <span class="tab-text">Infrastructure</span>
+                        </button>
                     </div>
-                    <div class="result-card">
-                        <div class="card-title">📡 IP Address</div>
-                        <div class="card-value" id="ipAddress">-</div>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-content active" id="tab-general">
+                        <h3 class="tab-title">General Information</h3>
+                        <div class="info-grid" id="generalInfo"></div>
                     </div>
-                    <div class="result-card">
-                        <div class="card-title">🛡️ Security Level</div>
-                        <div class="card-value">
-                            <span class="security-level" id="securityLevel">-</span>
-                        </div>
+
+                    <div class="tab-content" id="tab-security">
+                        <h3 class="tab-title">Security Analysis</h3>
+                        <div class="info-grid" id="securityInfo"></div>
                     </div>
-                    <div class="result-card">
-                        <div class="card-title">⏱️ Scan Duration</div>
-                        <div class="card-value" id="scanDuration">-</div>
+
+                    <div class="tab-content" id="tab-domain">
+                        <h3 class="tab-title">Domain Intelligence</h3>
+                        <div class="info-grid" id="domainInfo"></div>
                     </div>
-                </div>
-                
-                <h2 class="section-title">Technology Profile</h2>
-                <div class="tech-grid" id="techGrid">
-                    <!-- Technology tags will be added here dynamically -->
-                </div>
-                
-                <h2 class="section-title">Security Analysis</h2>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="card-title">🔒 SSL/TLS Status</div>
-                        <div class="card-value" id="sslStatus">-</div>
+
+                    <div class="tab-content" id="tab-technologies">
+                        <h3 class="tab-title">Technology Profile</h3>
+                        <div class="tech-grid" id="techGrid"></div>
                     </div>
-                    <div class="result-card">
-                        <div class="card-title">🛡️ Web Application Firewall</div>
-                        <div class="card-value" id="wafStatus">-</div>
+
+                    <div class="tab-content" id="tab-content">
+                        <h3 class="tab-title">Content Analysis</h3>
+                        <div class="info-grid" id="contentInfo"></div>
                     </div>
-                    <div class="result-card">
-                        <div class="card-title">🛡️ Security Headers</div>
-                        <div class="card-value" id="securityHeaders">-</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="card-title">⚠️ Vulnerabilities</div>
-                        <div class="card-value" id="vulnerabilities">-</div>
-                    </div>
-                </div>
-                
-                <h2 class="section-title">Domain Intelligence</h2>
-                <div class="domain-info">
-                    <div class="info-row">
-                        <span class="info-label">Registrar:</span>
-                        <span id="domainRegistrar">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Creation Date:</span>
-                        <span id="domainCreation">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Expiration Date:</span>
-                        <span id="domainExpiration">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Name Servers:</span>
-                        <span id="nameServers">-</span>
-                    </div>
-                </div>
-                
-                <h2 class="section-title">Content Analysis</h2>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="card-title">🔤 Page Title</div>
-                        <div class="card-value" id="pageTitle">-</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="card-title">🔖 Meta Description</div>
-                        <div class="card-value" id="metaDescription">-</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="card-title">🖼️ Server Technology</div>
-                        <div class="card-value" id="serverTechnology">-</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="card-title">🌍 Geolocation</div>
-                        <div class="card-value" id="geolocation">-</div>
+
+                    <div class="tab-content" id="tab-infrastructure">
+                        <h3 class="tab-title">Infrastructure Details</h3>
+                        <div class="info-grid" id="infrastructureInfo"></div>
                     </div>
                 </div>
 
-                <h2 class="section-title">Raw JSON Response</h2>
-                <div class="json-response-container">
-                    <pre id="resultsJsonPre"></pre>
-                    <button class="copy-btn" id="copyJsonBtn">Copy Raw JSON</button>
+                <!-- Raw JSON Section -->
+                <div class="json-section">
+                    <div class="json-header">
+                        <h3 class="section-title">Raw JSON Response</h3>
+                        <button class="copy-btn" id="copyJsonBtn">
+                            <span class="copy-icon">📋</span>
+                            <span class="copy-text">Copy Raw Data</span>
+                        </button>
+                    </div>
+                    <div class="json-container">
+                        <pre id="resultsJsonPre" class="json-content"></pre>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <!-- Footer -->
         <footer>
             <div class="creator-info">
-                Created by <span class="creator-name">Abdulaziz Abu Ali</span><br>
+                Created by <span class="creator-name">Abdulaziz Abu Ali</span>  
+
                 A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos
             </div>
             
@@ -139,7 +164,8 @@
             </div>
             
             <div class="team-info">
-                Developed by <span class="team-name">Ember-Edge</span><br>
+                Developed by <span class="team-name">Ember-Edge</span>  
+
                 Advanced Cybersecurity Research Team
             </div>
             
@@ -148,8 +174,9 @@
                     🔗 Explore Ember-Edge on LinkedIn
                 </a>
             </div>
+            
             <div class="copyright-info">
-                &copy; 2025 SuperRecon. All rights reserved.
+                &copy; 2025 SuperRecon Enhanced. All rights reserved.
             </div>
         </footer>
     </div>
@@ -157,7 +184,3 @@
     <script src="js/main.js"></script>
 </body>
 </html>
-
-
-
-
