@@ -844,14 +844,14 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 24px; /* زيادة من 20px إلى 24px */
+  gap: 28px; /* زيادة كبيرة من 24px إلى 28px */
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 12px 18px; /* زيادة من 10px 15px إلى 12px 18px */
-  min-height: 64px; /* زيادة من 60px إلى 64px */
-  align-items: center; /* Centered items */
+  padding: 16px 24px; /* زيادة كبيرة من 12px 18px إلى 16px 24px */
+  min-height: 72px; /* زيادة كبيرة من 64px إلى 72px */
+  align-items: center;
 }
 
 .tabs-nav::-webkit-scrollbar {
@@ -860,24 +860,24 @@ header {
 
 .tab-btn {
   flex: 1;
-  min-width: 160px; /* زيادة من 150px إلى 160px */
-  padding: 18px 28px; /* زيادة من 16px 24px إلى 18px 28px */
+  min-width: 180px; /* زيادة كبيرة من 160px إلى 180px */
+  padding: 20px 32px; /* زيادة كبيرة من 18px 28px إلى 20px 32px */
   background: transparent;
   border: none;
   color: var(--stellar-white);
   cursor: pointer;
   font-weight: 800;
   display: flex;
-  gap: 14px;
+  gap: 16px; /* زيادة من 14px إلى 16px */
   justify-content: center;
   align-items: center;
   transition: all var(--fast) var(--quantum);
   white-space: nowrap;
-  font-size: 1.02rem;
+  font-size: 1.05rem; /* زيادة طفيفة في حجم الخط */
   position: relative;
   z-index: 2;
-  border-radius: 12px; /* زيادة من 10px إلى 12px */
-  margin: 0 6px; /* زيادة من 0 4px إلى 0 6px */
+  border-radius: 14px; /* زيادة من 12px إلى 14px */
+  margin: 0 8px; /* زيادة من 0 6px إلى 0 8px */
 }
 
 .tab-btn::after {
