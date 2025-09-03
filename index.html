@@ -1,121 +1,172 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SuperRecon - Cosmic UI</title>
-  <link rel="stylesheet" href="css/main.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SuperRecon - Enhanced Cosmic Web Explorer</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
 </head>
 <body>
-  <!-- تأثيرات الخلفية الفضائية -->
-  <div id="starfield"></div>
-  <div id="aurora"></div>
-  <div id="cosmic-particles"></div>
+    <!-- Animated starfield background -->
+    <div id="starfield" aria-hidden="true"></div>
+    <div id="aurora" aria-hidden="true"></div>
+    <div id="cosmic-particles" aria-hidden="true"></div>
 
-  <div class="cosmic-container">
-    <header>
-      <h1 class="logo-glow">SuperRecon Enhanced</h1>
-      <p class="tagline">مستكشف الشبكة الرقمية — واجهة فضائية لنتائج الفحص</p>
-    </header>
+    <div class="cosmic-container">
+        <!-- Header -->
+        <header>
+            <h1 class="logo-glow">SuperRecon Enhanced</h1>
+            <p class="tagline">Advanced Cosmic Web Intelligence Explorer - Unveiling the digital universe with enhanced precision</p>
+        </header>
 
-    <main class="scanner-interface">
-      <div class="input-group">
-        <input id="targetUrl" class="url-input" placeholder="أدخل الموقع (مثال: example.com أو https://example.com)" value="deploy.ghaymah.systems" />
-        <button id="scanBtn" class="scan-btn">
-          <span class="btn-icon">⚡</span>
-          <span class="btn-text">ابدأ الفحص</span>
-        </button>
-      </div>
-
-      <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
-
-      <div id="loadingContainer" class="loading-container" aria-hidden="true" style="display:none;">
-        <div class="pulse-ring" aria-hidden="true"></div>
-        <div class="loading-text">جارٍ تحليل الفضاء الرقمي…</div>
-        <div class="loading-subtext">الرجاء الانتظار حتى تكتمل عملية المسح.</div>
-        <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
-      </div>
-
-      <section id="quickOverview" class="quick-overview" style="display:none;">
-        <h2 class="section-title">نظرة سريعة</h2>
-        <div class="overview-grid">
-          <div class="overview-card"><div class="card-icon">🌐</div><div class="card-title">النطاق</div><div id="overviewDomain" class="card-value">-</div></div>
-          <div class="overview-card"><div class="card-icon">📡</div><div class="card-title">IP</div><div id="overviewIP" class="card-value">-</div></div>
-          <div class="overview-card"><div class="card-icon">🛡️</div><div class="card-title">أمن</div><div id="overviewSecurity" class="card-value">-</div></div>
-          <div class="overview-card"><div class="card-icon">⏱️</div><div class="card-title">وقت المسح</div><div id="overviewTime" class="card-value">-</div></div>
-        </div>
-      </section>
-
-      <section id="resultsContainer" class="results-container" style="display:none;">
-        <div class="tabs-container">
-          <div class="tabs-nav" id="tabsNav" role="tablist" aria-label="أقسام النتائج">
-            <button class="tab-btn active" data-tab="general" role="tab" aria-selected="true">🌐 عام</button>
-            <button class="tab-btn" data-tab="security" role="tab">🛡️ أمان</button>
-            <button class="tab-btn" data-tab="domain" role="tab">📡 دومين</button>
-            <button class="tab-btn" data-tab="technologies" role="tab">⚙️ تقنيات</button>
-            <button class="tab-btn" data-tab="content" role="tab">📄 محتوى</button>
-            <button class="tab-btn" data-tab="infrastructure" role="tab">🏗️ بنية</button>
-            <button class="tab-btn" data-tab="evidence" role="tab">🧾 أدلة</button>
-          </div>
-
-          <div class="tab-content active" id="tab-general" role="tabpanel">
-            <h3 class="tab-title">معلومات عامة</h3>
-            <div id="generalInfo" class="info-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-security" role="tabpanel">
-            <h3 class="tab-title">تحليل الأمان</h3>
-            <div id="securityInfo" class="info-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-domain" role="tabpanel">
-            <h3 class="tab-title">معلومات الدومين</h3>
-            <div id="domainInfo" class="info-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-technologies" role="tabpanel">
-            <h3 class="tab-title">الملف التقني</h3>
-            <div id="technologiesGrid" class="tech-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-content" role="tabpanel">
-            <h3 class="tab-title">تحليل المحتوى</h3>
-            <div id="contentInfo" class="info-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-infrastructure" role="tabpanel">
-            <h3 class="tab-title">تفاصيل البنية التحتية</h3>
-            <div id="infrastructureInfo" class="info-grid"></div>
-          </div>
-
-          <div class="tab-content" id="tab-evidence" role="tabpanel">
-            <h3 class="tab-title">الأدلة الخام</h3>
-            <div id="evidenceInfo" class="info-grid"></div>
-          </div>
-        </div>
-
-        <div class="json-section">
-          <div class="json-header">
-            <h3 class="section-title">الاستجابة الخام (JSON)</h3>
-            <div>
-              <button id="copyJsonBtn" class="copy-btn"><span class="copy-icon">📋</span><span class="copy-text">نسخ البيانات</span></button>
+        <!-- Scanner Interface -->
+        <main class="scanner-interface" role="main">
+            <div class="input-group" aria-label="Scanner Input">
+                <input type="text" id="targetUrl" class="url-input" placeholder="Enter target website (e.g., example.com or https://example.com)" value="https://deploy.ghaymah.systems/">
+                <button id="scanBtn" class="scan-btn" aria-pressed="false">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Initiate Cosmic Scan</span>
+                </button>
             </div>
-          </div>
-          <div class="json-container">
-            <pre id="resultsJsonPre" class="json-content" tabindex="0" aria-label="الاستجابة الخام"></pre>
-          </div>
-        </div>
-      </section>
-    </main>
 
-    <footer>
-      <div class="creator-info">المطور: <span class="creator-name">عبدالعزيز أبو علي</span></div>
-      <div class="copyright-info">© 2025 SuperRecon Enhanced</div>
-    </footer>
-  </div>
+            <div id="errorMessage" class="error-message" role="alert" aria-live="polite" style="display:none"></div>
 
-  <script src="js/main.js"></script>
+            <div id="loadingContainer" class="loading-container" style="display:none" aria-hidden="true">
+                <div class="pulse-ring" aria-hidden="true"></div>
+                <div class="loading-text">Deep Space Analysis in Progress</div>
+                <div class="loading-subtext">Scanning cosmic signatures across the digital universe...</div>
+                <div class="progress-container" aria-hidden="true">
+                    <div id="progressBar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+                </div>
+            </div>
+
+            <!-- Quick Overview Cards -->
+            <section id="quickOverview" class="quick-overview" style="display:none" aria-hidden="true">
+                <h2 class="section-title">Quick Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-title">Target Domain</div>
+                        <div id="overviewDomain" class="card-value">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">📡</div>
+                        <div class="card-title">IP Address</div>
+                        <div id="overviewIP" class="card-value">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🛡️</div>
+                        <div class="card-title">Security Level</div>
+                        <div id="overviewSecurity" class="card-value">-</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-title">Scan Time</div>
+                        <div id="overviewTime" class="card-value">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results -->
+            <section id="resultsContainer" class="results-container" style="display:none" aria-hidden="true">
+                <div class="tabs-container" role="region" aria-label="Scan result sections">
+                    <nav class="tabs-nav" id="tabsNav" role="tablist" aria-label="Result Tabs">
+                        <button class="tab-btn active" data-tab="general" role="tab" aria-selected="true">🌐 General Info</button>
+                        <button class="tab-btn" data-tab="security" role="tab">🛡️ Security Analysis</button>
+                        <button class="tab-btn" data-tab="domain" role="tab">📡 Domain Intelligence</button>
+                        <button class="tab-btn" data-tab="technologies" role="tab">⚙️ Technologies</button>
+                        <button class="tab-btn" data-tab="content" role="tab">📄 Content Analysis</button>
+                        <button class="tab-btn" data-tab="infrastructure" role="tab">🏗️ Infrastructure</button>
+                        <button class="tab-btn" data-tab="evidence" role="tab">🧾 Raw Evidence</button>
+                    </nav>
+
+                    <!-- Tab contents -->
+                    <div id="tab-general" class="tab-content active" role="tabpanel">
+                        <h3 class="tab-title">General Information</h3>
+                        <div id="generalInfo" class="info-grid"></div>
+                    </div>
+
+                    <div id="tab-security" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Security Analysis</h3>
+                        <div id="securityInfo" class="info-grid"></div>
+                    </div>
+
+                    <div id="tab-domain" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Domain Intelligence</h3>
+                        <div id="domainInfo" class="info-grid"></div>
+                    </div>
+
+                    <div id="tab-technologies" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Technology Profile</h3>
+                        <div id="technologiesGrid" class="tech-grid"></div>
+                    </div>
+
+                    <div id="tab-content" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Content Analysis</h3>
+                        <div id="contentInfo" class="info-grid"></div>
+                    </div>
+
+                    <div id="tab-infrastructure" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Infrastructure Details</h3>
+                        <div id="infrastructureInfo" class="info-grid"></div>
+                    </div>
+
+                    <div id="tab-evidence" class="tab-content" role="tabpanel">
+                        <h3 class="tab-title">Raw Evidence Files</h3>
+                        <div id="evidenceInfo" class="info-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Raw JSON -->
+                <div class="json-section" aria-label="Raw JSON response">
+                    <div class="json-header">
+                        <h3 class="section-title">Raw JSON Response</h3>
+                        <div class="json-controls">
+                            <button id="copyJsonBtn" class="copy-btn" title="Copy raw JSON">
+                                <span class="copy-icon">📋</span>
+                                <span class="copy-text">Copy Raw Data</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="json-container">
+                        <pre id="resultsJsonPre" class="json-content" tabindex="0" aria-label="Raw JSON output"></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer (restored original content) -->
+        <footer>
+            <div class="creator-info">
+                Created by <span class="creator-name">Abdulaziz Abu Ali</span>
+                <div class="creator-blurb">A Cybersecurity Engineer who forges his own tools, exploring digital realms as an astronomer explores the secrets of the cosmos</div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/abdulaziz-abu-ali-979b84296" target="_blank" class="social-link">
+                    🔗 View Profile on LinkedIn
+                </a>
+            </div>
+
+            <div class="team-info">
+                Developed by <span class="team-name">Ember-Edge</span>
+                <div class="team-blurb">Advanced Cybersecurity Research Team</div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://lnkd.in/eRYvxkR6" target="_blank" class="social-link">
+                    🔗 Explore Ember-Edge on LinkedIn
+                </a>
+            </div>
+
+            <div class="copyright-info">
+                &copy; 2025 SuperRecon Enhanced. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
