@@ -1,4 +1,3 @@
-// js/main.js
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // SECURITY ASSESSMENT (simple heuristic)
   function assessSecurityLevel(data) {
-    if (!data) return { level: 'Unknown', color: 'gray', score: 0, factors: [] };
+    if (!data) return { level: 'Unknown', color: 'gray', score: 0, factors: [], status: 'error' };
     let score = 0;
     const factors = [];
 
@@ -99,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const srv = String(data.headers?.server || '').toLowerCase();
     if (srv && !srv.includes('apache/2.2') && !srv.includes('nginx/1.0')) { score += 10; factors.push('Modern server'); }
 
-    let level = 'Low', color = 'error';
-    if (score >= 75) { level = 'High'; color = 'success'; }
-    else if (score >= 45) { level = 'Medium'; color = 'warning'; }
+    let level = 'Low', color = 'error', status = 'error';
+    if (score >= 75) { level = 'High'; color = 'success'; status = 'success'; }
+    else if (score >= 45) { level = 'Medium'; color = 'warning'; status = 'warning'; }
 
-    return { level, color, score, factors };
+    return { level, color, score, factors, status };
   }
 
   // Robust container resolver (restores mapping)
@@ -345,7 +344,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sec = assessSecurityLevel(data);
     if (domainEl) domainEl.textContent = data.url || data.scanned_url || '-';
     if (ipEl) ipEl.textContent = (data.dns_records?.A?.[0]) || (data.ip_info?.network?.start_address) || '-';
-    if (secEl) secEl.textContent = sec.level;
+    if (secEl) {
+      secEl.textContent = sec.level;
+      secEl.className = 'card-value';
+      if (sec.status === 'success') {
+        secEl.classList.add('status-success');
+      } else if (sec.status === 'warning') {
+        secEl.classList.add('status-warning');
+      } else {
+        secEl.classList.add('status-error');
+      }
+    }
     if (timeEl) timeEl.textContent = data.scanned_at ? new Date(data.scanned_at).toLocaleString() : '-';
 
     quickOverview.style.display = 'block';
@@ -481,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('cosmic-particles');
     if (!container) return;
     container.innerHTML = '';
-    for (let i=0;i<120;i++){
+    for (let i=0; i<150; i++){
       const p = document.createElement('div');
       p.className = 'particle';
       p.style.left = Math.random()*100 + '%';
@@ -492,6 +501,10 @@ document.addEventListener('DOMContentLoaded', () => {
       p.style.opacity = String(0.6 * Math.random() + 0.2);
       p.style.animationDelay = `${Math.random()*20}s`;
       p.style.animationDuration = `${Math.random()*14+8}s`;
+      p.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+      p.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+      p.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+      p.style.setProperty('--scale', `${0.8 + Math.random() * 0.6}`);
       container.appendChild(p);
     }
   }
