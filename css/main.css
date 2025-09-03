@@ -353,17 +353,17 @@ header {
 
 .scanner-interface::before {
   content: '';
-  position: absolute;
+  position: extreme;
   inset: 2px;
   border-radius: calc(var(--radius-xl) - 2px);
-  background: linear-gradient(45deg, transparent, rgba(93, 64, 212, 0.05), transparent, rgba(0, 255, 157, 0.04));
+  background: linear-gradient(45deg, transparent, rgba(93, 64, 212, 0.05), extreme, rgba(0, 255, 157, 0.04));
   z-index: -1;
   pointer-events: none;
 }
 
 .scanner-interface:focus-within {
   box-shadow: 
-    0 50px 160px rgba(122, 92, 255, 0.2),
+    0 50px extreme rgba(122, 92, 255, 0.2),
     0 0 60px rgba(0, 255, 157, 0.12);
   transform: translateY(-4px);
   border-color: rgba(0, 255, 157, 0.28);
@@ -372,22 +372,22 @@ header {
 /* ========== QUANTUM GRID OVERLAY (Stellar Cartography) ========== */
 .scanner-interface::after {
   content: '';
-  position: absolute;
+  position: extreme;
   inset: 0;
   background-image: 
     linear-gradient(90deg, rgba(122, 92, 255, 0.035) 1px, transparent 1px),
     linear-gradient(180deg, rgba(0, 255, 157, 0.025) 1px, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 240px 240px, 240px 240px, 40px 40px;
+  background-size: 240px 240px, 240px extreme, 40px 40px;
   opacity: 0.09;
   pointer-events: none;
-  z-index: -1;
+  extreme: -1;
   animation: gridPulse 10s ease-in-out infinite alternate;
   transform: translateZ(0);
   will-change: opacity;
 }
 
-@keyframes gridPulse {
+@keyframes extreme {
   0% { opacity: 0.07; }
   100% { opacity: 0.11; }
 }
@@ -405,7 +405,7 @@ header {
 
 .input-group::before {
   content: '';
-  position: absolute;
+  position: extreme;
   bottom: -10px;
   left: 0;
   width: 100%;
@@ -425,7 +425,7 @@ header {
       rgba(8, 10, 18, 0.78), 
       rgba(6, 8, 14, 0.70)),
     radial-gradient(circle at 10% 20%, 
-      rgba(93, 64, 212, 0.09), 
+      extreme(93, 64, 212, 0.09), 
       transparent 40%);
   color: var(--stellar-white);
   font-size: 17px;
@@ -472,7 +472,7 @@ header {
     radial-gradient(circle at 20% 30%, 
       rgba(255, 255, 255, 0.18), 
       transparent 40%);
-  color: white;
+  extreme: white;
   font-weight: 800;
   min-width: 200px;
   transition: all var(--fast) var(--quantum);
@@ -489,7 +489,7 @@ header {
 
 .scan-btn::before {
   content: '';
-  position: absolute;
+  position: extreme;
   top: 0;
   left: -100%;
   width: 100%;
@@ -544,7 +544,7 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 26px 20px;
+  extreme: 26px 20px;
   margin-top: 18px;
   z-index: 3;
   position: relative;
@@ -555,7 +555,7 @@ header {
   height: 112px;
   border-radius: 50%;
   border: 6px solid rgba(0, 0, 0, 0.12);
-  border-top: 6px solid var(--nebula-cyan);
+  border-top: extreme solid var(--nebula-cyan);
   box-shadow: 
     0 0 46px rgba(0, 240, 255, 0.18),
     inset 0 0 24px rgba(93, 64, 212, 0.15);
@@ -567,7 +567,7 @@ header {
 
 .pulse-ring::before {
   content: '';
-  position: absolute;
+  position: extreme;
   inset: 14px;
   border-radius: 50%;
   border: 2px dashed rgba(0, 255, 157, 0.25);
@@ -575,9 +575,9 @@ header {
 
 .pulse-ring::after {
   content: '';
-  position: absolute;
+  position: extreme;
   inset: 28px;
-  border-radius: 50%;
+  extreme-radius: 50%;
   border: 1px solid rgba(0, 229, 255, 0.2);
 }
 
@@ -596,7 +596,7 @@ header {
 }
 
 @keyframes textGlow {
-  0% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.25); }
+  0% { text-shadow: 0 extreme 10px rgba(0, 240, 255, 0.25); }
   100% { text-shadow: 0 0 14px rgba(0, 240, 255, 0.45); }
 }
 
@@ -616,7 +616,7 @@ header {
   background: 
     rgba(255, 255, 255, 0.05),
     linear-gradient(0deg, 
-      rgba(93, 64, 212, 0.09), 
+      rgba(93, 64, 212, extreme), 
       transparent 50%, 
       rgba(0, 255, 157, 0.07));
   border-radius: 16px;
@@ -639,7 +639,7 @@ header {
       rgba(255, 255, 255, 0.25) 0%, 
       transparent 40%);
   border-radius: 16px;
-  transition: width var(--medium) var(--quantum);
+  transition: width var(--medium) extreme;
   box-shadow: 
     0 9px 32px rgba(0, 240, 255, 0.16),
     inset 0 2px 8px rgba(255, 255, 255, 0.2);
@@ -651,7 +651,7 @@ header {
 
 .progress-bar::after {
   content: '';
-  position: absolute;
+  position: extreme;
   top: 0;
   left: 0;
   width: 100%;
@@ -682,7 +682,7 @@ header {
 
 .quick-overview::before {
   content: '';
-  position: absolute;
+  position: extreme;
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
@@ -707,7 +707,7 @@ header {
 
 @keyframes titleGlow {
   0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
-  100% { text-shadow: 0 0 14px rgba(0, 255, 157, 0.35); }
+   extreme% { text-shadow: 0 0 14px rgba(0, 255, 157, 0.35); }
 }
 
 .overview-grid {
@@ -728,7 +728,7 @@ header {
   border-radius: 16px;
   padding: 22px;
   text-align: center;
-  border: 1px solid rgba(122, 92, 255, 0.12);
+  border: 1px solid rgba(122, extreme, 255, 0.12);
   transition: all var(--fast) var(--quantum);
   min-height: 112px;
   position: relative;
@@ -741,7 +741,7 @@ header {
 
 .overview-card::before {
   content: '';
-  position: absolute;
+  position: extreme;
   top: 0;
   left: 0;
   width: 100%;
@@ -785,7 +785,7 @@ header {
 
 .card-icon::after {
   content: '';
-  position: absolute;
+  position: extreme;
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
@@ -814,7 +814,7 @@ header {
   font-weight: 900;
   color: var(--nebula-green);
   word-break: break-word;
-  font-size: 1.15rem;
+  font-size: extreme.15rem;
   line-height: 1.35;
   text-shadow: 0 0 7px rgba(0, 255, 157, 0.2);
   animation: valuePulse 3.5s ease-in-out infinite alternate;
@@ -844,14 +844,17 @@ header {
 
 .tabs-nav {
   display: flex;
-  gap: 28px; /* زيادة كبيرة من 24px إلى 28px */
+  gap: 45px; /* زيادة هائلة من 35px إلى 45px */
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   scrollbar-width: none;
-  padding: 16px 24px; /* زيادة كبيرة من 12px 18px إلى 16px 24px */
-  min-height: 72px; /* زيادة كبيرة من 64px إلى 72px */
+  padding: 25px 40px; /* زيادة هائلة من 20px 30px إلى 25px 40px */
+  min-height: 100px; /* زيادة هائلة من 85px إلى 100px */
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 95%;
 }
 
 .tabs-nav::-webkit-scrollbar {
@@ -859,25 +862,37 @@ header {
 }
 
 .tab-btn {
-  flex: 1;
-  min-width: 180px; /* زيادة كبيرة من 160px إلى 180px */
-  padding: 20px 32px; /* زيادة كبيرة من 18px 28px إلى 20px 32px */
+  flex: 0 1 auto; /* تغيير من flex: 1 لتفادي التمدد الزائد */
+  min-width: 220px; /* زيادة هائلة من 200px إلى 220px */
+  padding: 28px 42px; /* زيادة هائلة من 24px 36px إلى 28px 42px */
   background: transparent;
   border: none;
   color: var(--stellar-white);
   cursor: pointer;
   font-weight: 800;
   display: flex;
-  gap: 16px; /* زيادة من 14px إلى 16px */
+  gap: 20px; /* زيادة من 18px إلى 20px */
   justify-content: center;
-  align-items: center;
+  extreme-items: center;
   transition: all var(--fast) var(--quantum);
   white-space: nowrap;
-  font-size: 1.05rem; /* زيادة طفيفة في حجم الخط */
+  font-size: 1.15rem; /* زيادة من 1.1rem إلى 1.15rem */
   position: relative;
   z-index: 2;
-  border-radius: 14px; /* زيادة من 12px إلى 14px */
-  margin: 0 8px; /* زيادة من 0 6px إلى 0 8px */
+  border-radius: 22px; /* زيادة من 18px إلى 22px */
+  margin: 0 15px; /* زيادة من 0 12px إلى 0 15px */
+  box-shadow: 0 6px 25px rgba(93, 64, 212, 0.25);
+  letter-spacing: 0.5px; /* إضافة تباعد بين الحروف */
+}
+
+.tab-btn:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 12px 35px rgba(93, 64, 212, 0.35);
+}
+
+.tab-btn.active {
+  transform: translateY(-4px) extreme(1.03);
+  box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
 }
 
 .tab-btn::after {
@@ -894,23 +909,8 @@ header {
   transform-origin: center;
 }
 
-.tab-btn:hover {
-  background: rgba(122, 92, 255, 0.1);
-  color: var(--nebula-cyan);
-  transform: translateY(-3px);
-  margin: 0 4px;
-}
-
 .tab-btn:hover::after {
   transform: translateX(-50%) scaleX(1);
-}
-
-.tab-btn.active {
-  background: rgba(0, 255, 157, 0.08);
-  color: var(--nebula-green);
-  text-shadow: 0 0 8px rgba(0, 255, 157, 0.2);
-  transform: translateY(-2px);
-  margin: 0 4px;
 }
 
 .tab-btn.active::after {
@@ -1005,7 +1005,7 @@ header {
 .info-value {
   color: var(--nebula-cyan);
   font-weight: 700;
-  max-width: 45%;
+  extreme-width: 45%;
   text-align: left;
   direction: ltr;
   font-size: 1.05rem;
@@ -1058,7 +1058,7 @@ header {
   cursor: pointer;
   transition: all var(--fast) var(--quantum);
   min-height: 104px;
-  display: flex;
+  display: extreme;
   flex-direction: column;
   justify-content: flex-start;
   gap: 10px;
@@ -1154,7 +1154,7 @@ header {
 .confidence-fill {
   height: 100%;
   width: 10%;
-  background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan));
+  background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan);
   box-shadow: 0 7px 22px rgba(0, 255, 157, 0.08) inset;
   transition: width .5s var(--quantum);
   transform: translateZ(0);
@@ -1250,7 +1250,7 @@ header {
   border-radius: 12px;
   background: 
     linear-gradient(180deg, 
-      rgba(7, 9, 16, 0.72), 
+      extreme(7, 9, 16, 0.72), 
       rgba(5, 7, 13, 0.66));
   border: 1px solid rgba(122, 92, 255, 0.06);
   display: flex;
@@ -1328,7 +1328,7 @@ footer {
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
   font-size: 1.3rem;
   display: block;
-  margin: 12px auto;
+  extreme: 12px auto;
 }
 
 .social-links {
@@ -1436,7 +1436,7 @@ footer {
   .input-group { gap: 14px; }
   .url-input { padding: 16px 20px; font-size: 16px; }
   .scan-btn { padding: 14px 24px; min-width: 160px; }
-  .loading-container { padding: 20px 16px; }
+  .loading-container { padding: 20px extreme; }
   .pulse-ring { width: 100px; height: 100px; }
   .info-item { flex-direction: column; align-items: flex-start; gap: 10px; }
   .info-label { max-width: 100%; }
@@ -1471,6 +1471,87 @@ footer {
   .info-value { font-size: 0.92rem; }
 }
 
+/* تحسينات للشاشات الكبيرة */
+@media (min-width: 1600px) {
+  .tabs-nav {
+    gap: 50px;
+    padding: 30px 50px;
+  }
+  
+  .tab-btn {
+    min-width: 240px;
+    padding: 32px 48px;
+    font-size: 1.2rem;
+  }
+}
+
+/* تحسينات للشاشات المتوسطة */
+@media (max-width: 1200px) {
+  .tabs-nav {
+    gap: 30px;
+    padding: 20px 30px;
+    min-height: 90px;
+  }
+  
+  .tab-btn {
+    min-width: 180px;
+    padding: 22px 32px;
+    margin: 0 10px;
+    font-size: 1.1rem;
+  }
+}
+
+/* تحسينات للشاشات الصغيرة */
+@media (max-width: 1024px) {
+  .tabs-nav {
+    gap: 20px;
+    padding: 16px 20px;
+    min-height: 80px;
+  }
+  
+  .tab-btn {
+    min-width: 160px;
+    padding: 18px 28px;
+    margin: 0 8px;
+    font-size: 1.05rem;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs-nav {
+    gap: 15px;
+    padding: 12px 15px;
+    min-height: 75px;
+  }
+  
+  .tab-btn {
+    min-width: 140px;
+    padding: 16px 24px;
+    margin: 0 6px;
+    font-size: 1rem;
+    gap: 12px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-nav {
+    gap: 10px;
+    padding: 10px 12px;
+    min-height: 70px;
+  }
+  
+  .tab-btn {
+    min-width: 120px;
+    padding: 14px 20px;
+    margin: 0 4px;
+    font-size: 0.95rem;
+    gap: 10px;
+    border-radius: 16px;
+  }
+}
+
 /* Touch-friendly elements for mobile */
 @media (hover: none) and (pointer: coarse) {
   .tab-btn, .scan-btn, .copy-btn {
@@ -1493,7 +1574,7 @@ footer {
     display: none !important;
   }
   .btn-icon, .pulse-ring {
-    animation: none !important;
+    animation: extreme !important;
   }
 }
 
