@@ -2,7 +2,7 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // عناصر DOM
+  // DOM references
   const targetInput = document.getElementById('targetUrl');
   const scanBtn = document.getElementById('scanBtn');
   const loadingContainer = document.getElementById('loadingContainer');
@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentScanData = null;
   let progressInterval = null;
 
-  /* ---------- Utilities ---------- */
+  // UTILITIES
   function log(...args) { console.log('[SuperRecon]', ...args); }
 
   function showError(msg) {
     if (errorMessage) {
       errorMessage.textContent = msg;
       errorMessage.style.display = 'block';
+      errorMessage.setAttribute('aria-hidden', 'false');
     } else {
       alert(msg);
     }
@@ -33,59 +34,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function clearError() {
-    if (errorMessage) { errorMessage.textContent = ''; errorMessage.style.display = 'none'; }
+    if (errorMessage) {
+      errorMessage.textContent = '';
+      errorMessage.style.display = 'none';
+      errorMessage.setAttribute('aria-hidden', 'true');
+    }
   }
 
-  function setLoading(flag) {
-    if (loadingContainer) loadingContainer.style.display = flag ? 'flex' : 'none';
+  function setLoading(state) {
+    if (loadingContainer) loadingContainer.style.display = state ? 'flex' : 'none';
     if (scanBtn) {
-      scanBtn.disabled = flag;
-      const txt = scanBtn.querySelector('.btn-text');
-      if (txt) txt.textContent = flag ? 'جارٍ الفحص...' : 'ابدأ الفحص';
+      scanBtn.disabled = state;
+      const btnText = scanBtn.querySelector('.btn-text');
+      if (btnText) btnText.textContent = state ? 'Scanning...' : 'Initiate Cosmic Scan';
+      scanBtn.setAttribute('aria-pressed', String(state));
     }
-    if (!flag) {
+    if (!state) {
       setProgress(100);
       if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
+      if (progressBar) progressBar.setAttribute('aria-valuenow', '100');
     }
   }
 
-  function setProgress(p) {
-    if (progressBar) progressBar.style.width = Math.max(0, Math.min(100, p)) + '%';
+  function setProgress(pct) {
+    if (progressBar) {
+      progressBar.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+      progressBar.setAttribute('aria-valuenow', String(Math.round(Math.max(0, Math.min(100, pct)))));
+    }
   }
 
   function startProgressAnimation() {
-    let progress = 0;
+    let p = 0;
     if (progressInterval) clearInterval(progressInterval);
     progressInterval = setInterval(() => {
-      progress += Math.random() * 12 + 4;
-      if (progress >= 92) { progress = 92; clearInterval(progressInterval); progressInterval = null; }
-      setProgress(progress);
+      p += Math.random() * 12 + 3;
+      if (p >= 92) { p = 92; clearInterval(progressInterval); progressInterval = null; }
+      setProgress(p);
     }, 450);
   }
 
-  function normalizeUrl(input) {
-    if (!input) return null;
-    let u = input.trim();
-    if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(u)) {
-      u = 'https://' + u;
+  function normalizeUrl(raw) {
+    if (!raw) return null;
+    let url = raw.trim();
+    if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(url)) url = 'https://' + url;
+    try {
+      new URL(url);
+      return url;
+    } catch (e) {
+      return null;
     }
-    try { new URL(u); return u; }
-    catch (e) { return null; }
   }
 
-  /* ---------- Security scoring ---------- */
+  // SECURITY ASSESSMENT (simple heuristic)
   function assessSecurityLevel(data) {
     if (!data) return { level: 'Unknown', color: 'gray', score: 0, factors: [] };
     let score = 0;
     const factors = [];
 
-    if (data.ssl_info?.valid) { score += 30; factors.push('شهادة SSL صالحة'); }
-    if (data.waf?.detected || data.waf_info?.detected) { score += 20; factors.push('WAF مكتشف'); }
-    const headerCount = Object.keys(data.security_headers || {}).length;
-    if (headerCount > 0) { score += Math.min(25, headerCount * 5); factors.push(`${headerCount} رؤوس أمان`); }
-    if (data.url && data.url.startsWith('https://')) { score += 10; factors.push('HTTPS مفروض'); }
-    const server = (data.headers?.server || '').toLowerCase();
-    if (server && !server.includes('apache/2.2') && !server.includes('nginx/1.0')) { score += 10; factors.push('خادم حديث'); }
+    if (data.ssl_info?.valid) { score += 30; factors.push('Valid SSL/TLS'); }
+    if (data.waf?.detected || data.waf_info?.detected) { score += 20; factors.push('WAF detected'); }
+    const headersCount = Object.keys(data.security_headers || {}).length;
+    if (headersCount > 0) { score += Math.min(25, headersCount * 5); factors.push(`${headersCount} security headers`); }
+    if (data.url && data.url.startsWith('https://')) { score += 10; factors.push('HTTPS enforced'); }
+    const srv = String(data.headers?.server || '').toLowerCase();
+    if (srv && !srv.includes('apache/2.2') && !srv.includes('nginx/1.0')) { score += 10; factors.push('Modern server'); }
 
     let level = 'Low', color = 'error';
     if (score >= 75) { level = 'High'; color = 'success'; }
@@ -94,151 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return { level, color, score, factors };
   }
 
-  /* ---------- تصنيف البيانات إلى أقسام ---------- */
-  function categorizeData(data) {
-    if (!data) return {};
-
-    // حاول استخراج hostname إن لم يكن موجودا صراحة
-    let hostname = '-';
-    try {
-      if (data.url) hostname = (new URL(data.url)).hostname;
-      else if (data.scanned_url) hostname = (new URL(data.scanned_url)).hostname;
-      else if (typeof data === 'object' && data.scanned_url) hostname = (new URL(data.scanned_url)).hostname;
-    } catch (e) { hostname = data.url || data.scanned_url || '-'; }
-
-    const categories = {
-      general: { title: 'معلومات عامة', icon: '🌐', items: [] },
-      security: { title: 'تحليل الأمان', icon: '🛡️', items: [] },
-      domain: { title: 'معلومات الدومين', icon: '📡', items: [] },
-      technologies: { title: 'التقنيات', icon: '⚙️', items: [] },
-      content: { title: 'محتوى الصفحات', icon: '📄', items: [] },
-      infrastructure: { title: 'بنية تحتية', icon: '🏗️', items: [] },
-      evidence: { title: 'أدلة وملفات خام', icon: '🧾', items: [] }
-    };
-
-    // General
-    categories.general.items.push({ label: 'نطاق/URL', value: data.url || data.scanned_url || hostname || '-' });
-    categories.general.items.push({ label: 'عنوان الصفحة', value: data.title || '-' });
-    categories.general.items.push({ label: 'Scan ID', value: data.scan_id || '-' });
-    categories.general.items.push({ label: 'وقت الفحص', value: data.scanned_at ? new Date(data.scanned_at).toLocaleString() : '-' });
-    categories.general.items.push({ label: 'ملخص ملاحظات', value: data.notes || '-' });
-
-    // Security
-    const sec = assessSecurityLevel(data);
-    categories.security.items.push({ label: 'حالة SSL/TLS', value: data.ssl_info?.valid ? 'صالح' : 'غير موجود / غير صالح', status: data.ssl_info?.valid ? 'success' : 'error' });
-    categories.security.items.push({ label: 'جهة الإصدار', value: data.ssl_info?.issuer?.O || data.ssl_info?.issuer?.CN || '-' });
-    categories.security.items.push({ label: 'انتهاء الشهادة', value: data.ssl_info?.not_after || '-' });
-    categories.security.items.push({ label: 'WAF', value: (data.waf?.detected || data.waf_info?.detected) ? (data.waf?.provider || data.waf_info?.provider || 'مكتشف') : 'لم يُكتشف', status: (data.waf?.detected || data.waf_info?.detected) ? 'success' : 'warning' });
-    categories.security.items.push({ label: 'Security Headers', value: Object.keys(data.security_headers || {}).length.toString(), status: Object.keys(data.security_headers || {}).length > 0 ? 'success' : 'warning' });
-    categories.security.items.push({ label: 'درجة الأمان', value: `${sec.score}/100 (${sec.level})`, status: sec.color });
-
-    // Domain
-    categories.domain.items.push({ label: 'Hostname', value: hostname || '-' });
-    categories.domain.items.push({ label: 'DNS A', value: (data.dns_records?.A || []).join(', ') || '-' });
-    categories.domain.items.push({ label: 'ASN', value: data.ip_info?.asn || '-' });
-    categories.domain.items.push({ label: 'ASN وصف', value: data.ip_info?.asn_description || '-' });
-    categories.domain.items.push({ label: 'نطاق الشبكة', value: data.ip_info?.asn_cidr || '-' });
-    categories.domain.items.push({ label: 'بلد ASN', value: data.ip_info?.asn_country_code || data.ip_info?.network?.country || '-' });
-
-    // Technologies
-    const techs = Array.isArray(data.technologies) ? data.technologies : (data.cms_info ? data.cms_info : []);
-    categories.technologies.items = techs.map(t => {
-      return {
-        name: t.name || t.tech || 'Unknown',
-        version: t.version || t.version || (t.version_string || 'Unknown'),
-        confidence: typeof t.confidence === 'number' ? t.confidence : (t.confidence ? Number(t.confidence) : 0),
-        source: t.source || (Array.isArray(t.provenance) ? t.provenance.join(', ') : t.provenance || 'Unknown'),
-        raw: t
-      };
-    });
-
-    // Content analysis
-    const links = data.links_and_resources || {};
-    categories.content.items.push({ label: 'JS Links', value: (links.js_links?.length || 0).toString() });
-    categories.content.items.push({ label: 'CSS Links', value: (links.css_links?.length || 0).toString() });
-    categories.content.items.push({ label: 'روابط داخلية', value: (links.internal_links?.length || 0).toString() });
-    categories.content.items.push({ label: 'روابط خارجية', value: (links.external_links?.length || 0).toString() });
-    categories.content.items.push({ label: 'صور', value: (links.image_links?.length || 0).toString() });
-    categories.content.items.push({ label: 'نقاط النهاية API', value: (links.api_links?.length || 0).toString() });
-
-    // Infrastructure
-    categories.infrastructure.items.push({ label: 'الخادم', value: data.headers?.server || '-' });
-    categories.infrastructure.items.push({ label: 'نوع المحتوى', value: data.headers?.['content-type'] || '-' });
-    categories.infrastructure.items.push({ label: 'طول المحتوى', value: data.headers?.['content-length'] ? `${data.headers['content-length']} bytes` : '-' });
-    categories.infrastructure.items.push({ label: 'ETag', value: data.headers?.etag || '-' });
-    categories.infrastructure.items.push({ label: 'CDN', value: data.cdn?.provider || data.cdn_info?.provider || 'غير مكتشف' });
-    categories.infrastructure.items.push({ label: 'CMS', value: (data.cms_info?.[0]?.name) || '-' });
-    categories.infrastructure.items.push({ label: 'robots.txt موجود', value: data.robots_info?.exists ? 'نعم' : 'لا' });
-
-    // Evidence
-    const evidenceItems = [];
-    if (data.raw_evidence && typeof data.raw_evidence === 'object') {
-      Object.entries(data.raw_evidence).forEach(([k, v]) => {
-        if (v && typeof v === 'object') {
-          if (v.path) evidenceItems.push({ label: `${k}.path`, value: v.path });
-          if (v.sha256) evidenceItems.push({ label: `${k}.sha256`, value: v.sha256 });
-          if (v.timestamp) evidenceItems.push({ label: `${k}.timestamp`, value: v.timestamp });
-        }
-      });
-    }
-    if (data.robots_info?.raw_evidence?.path) {
-      evidenceItems.push({ label: 'robots.raw_path', value: data.robots_info.raw_evidence.path });
-    }
-    if (evidenceItems.length === 0) evidenceItems.push({ label: 'أدلة', value: 'لا توجد مسارات ملفية في الاستجابة' });
-    categories.evidence.items = evidenceItems;
-
-    return categories;
-  }
-
-  /* ---------- DOM إنشاء عناصر العرض ---------- */
-  function createInfoItem(label, value, status = null) {
-    const el = document.createElement('div');
-    el.className = 'info-item';
-    const labelEl = document.createElement('span'); labelEl.className = 'info-label'; labelEl.textContent = label;
-    const valueEl = document.createElement('span'); valueEl.className = 'info-value';
-    if (status) {
-      const dot = document.createElement('span'); dot.className = `status-indicator status-${status}`; valueEl.appendChild(dot);
-    }
-    const txt = document.createTextNode(value);
-    valueEl.appendChild(txt);
-    el.appendChild(labelEl); el.appendChild(valueEl);
-    return el;
-  }
-
-  function createTechCard(tech) {
-    const card = document.createElement('div'); card.className = 'tech-card';
-    const name = document.createElement('div'); name.className = 'tech-name'; name.textContent = tech.name || 'Unknown';
-    const details = document.createElement('div'); details.className = 'tech-details';
-    const ver = document.createElement('span'); ver.className = 'tech-version'; ver.textContent = `الإصدار: ${tech.version || 'Unknown'}`;
-    const conf = document.createElement('span'); conf.className = 'tech-confidence'; conf.textContent = `${Math.round(tech.confidence || 0)}%`;
-    details.appendChild(ver); details.appendChild(conf);
-    const source = document.createElement('div'); source.className = 'tech-source'; source.textContent = `المصدر: ${tech.source || 'Unknown'}`;
-
-    const bar = document.createElement('div'); bar.className = 'confidence-bar';
-    const fill = document.createElement('div'); fill.className = 'confidence-fill'; fill.style.width = `${Math.max(2, Math.min(100, tech.confidence || 0))}%`;
-    bar.appendChild(fill);
-
-    card.appendChild(name); card.appendChild(details); card.appendChild(source); card.appendChild(bar);
-
-    // عند النقر يعرض الكائن الخام داخل البطاقة (expand)
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!card._expanded) {
-        card._prev = card.innerHTML;
-        const pre = document.createElement('pre'); pre.style.whiteSpace = 'pre-wrap'; pre.style.maxHeight = '320px'; pre.style.overflow = 'auto';
-        pre.textContent = JSON.stringify(tech.raw || tech, null, 2);
-        card.innerHTML = ''; card.appendChild(pre); card.classList.add('tech-card-expanded'); card._expanded = true;
-      } else {
-        card.innerHTML = card._prev; card.classList.remove('tech-card-expanded'); card._expanded = false;
-      }
-    });
-
-    return card;
-  }
-
+  // Robust container resolver (restores mapping)
   function getContainerForKey(key) {
     const candidates = [
-      `${key}Info`, `${key}Grid`, key, `${key}Info`, `${key}Grid`
+      `${key}Info`, `${key}Grid`, key, `${key}Info`, `${key}Grid`, `${key.toLowerCase()}Info`, `${key.toLowerCase()}Grid`
     ];
     for (const id of candidates) {
       const el = document.getElementById(id);
@@ -247,11 +118,199 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
+  // Categorize and normalize incoming JSON into UI-ready categories
+  function categorizeData(data) {
+    if (!data) return {};
+    // Determine hostname
+    let hostname = '-';
+    try {
+      if (data.url) hostname = (new URL(data.url)).hostname;
+      else if (data.scanned_url) hostname = (new URL(data.scanned_url)).hostname;
+    } catch (e) {
+      hostname = data.url || data.scanned_url || '-';
+    }
+
+    const categories = {
+      general: { title: 'General Information', items: [] },
+      security: { title: 'Security Analysis', items: [] },
+      domain: { title: 'Domain Intelligence', items: [] },
+      technologies: { title: 'Technology Profile', items: [] },
+      content: { title: 'Content Analysis', items: [] },
+      infrastructure: { title: 'Infrastructure Details', items: [] },
+      evidence: { title: 'Raw Evidence', items: [] }
+    };
+
+    // General
+    categories.general.items.push({ label: 'Target URL', value: data.url || data.scanned_url || '-' });
+    categories.general.items.push({ label: 'Title', value: data.title || '-' });
+    categories.general.items.push({ label: 'Scan ID', value: data.scan_id || '-' });
+    categories.general.items.push({ label: 'Scanned At', value: data.scanned_at ? new Date(data.scanned_at).toLocaleString() : '-' });
+    if (data.notes) categories.general.items.push({ label: 'Notes', value: data.notes });
+
+    // Security
+    const sec = assessSecurityLevel(data);
+    categories.security.items.push({ label: 'SSL/TLS', value: data.ssl_info?.valid ? 'Valid' : 'Missing/Invalid', status: data.ssl_info?.valid ? 'success' : 'error' });
+    categories.security.items.push({ label: 'Issuer', value: data.ssl_info?.issuer?.O || data.ssl_info?.issuer?.CN || '-' });
+    categories.security.items.push({ label: 'Not After', value: data.ssl_info?.not_after || '-' });
+    const wafDetected = data.waf?.detected || data.waf_info?.detected;
+    categories.security.items.push({ label: 'WAF', value: wafDetected ? (data.waf?.provider || data.waf_info?.provider || 'Detected') : 'Not Detected', status: wafDetected ? 'success' : 'warning' });
+    categories.security.items.push({ label: 'Security Headers Count', value: String(Object.keys(data.security_headers || {}).length), status: Object.keys(data.security_headers || {}).length > 0 ? 'success' : 'warning' });
+    categories.security.items.push({ label: 'Security Score', value: `${sec.score}/100 (${sec.level})`, status: sec.color });
+
+    // Domain
+    categories.domain.items.push({ label: 'Hostname', value: hostname || '-' });
+    categories.domain.items.push({ label: 'DNS A', value: (data.dns_records?.A || []).join(', ') || '-' });
+    categories.domain.items.push({ label: 'ASN', value: data.ip_info?.asn || '-' });
+    categories.domain.items.push({ label: 'ASN Description', value: data.ip_info?.asn_description || '-' });
+    categories.domain.items.push({ label: 'ASN CIDR', value: data.ip_info?.asn_cidr || '-' });
+    categories.domain.items.push({ label: 'IP WHOIS Source', value: data.ip_info?.source || '-' });
+
+    // Technologies: ensure we include any array and also CMS heuristics
+    const techSourceArray = Array.isArray(data.technologies) ? data.technologies : (Array.isArray(data.cms_info) ? data.cms_info : []);
+    const normalizedTechs = techSourceArray.map(t => {
+      const confidence = (typeof t.confidence === 'number') ? t.confidence : (t.confidence ? Number(t.confidence) : 0);
+      return {
+        name: t.name || t.tech || t.title || 'Unknown',
+        version: t.version || t.version_string || t.raw_version || 'Unknown',
+        confidence: Number.isFinite(confidence) ? Math.round(confidence) : 0,
+        source: t.source || (Array.isArray(t.provenance) ? t.provenance.join(', ') : (t.provenance || 'Unknown')),
+        raw: t
+      };
+    });
+
+    categories.technologies.items = normalizedTechs;
+
+    // Content
+    const links = data.links_and_resources || {};
+    categories.content.items.push({ label: 'JS Links', value: String(links.js_links?.length || 0) });
+    categories.content.items.push({ label: 'CSS Links', value: String(links.css_links?.length || 0) });
+    categories.content.items.push({ label: 'Internal Links', value: String(links.internal_links?.length || 0) });
+    categories.content.items.push({ label: 'External Links', value: String(links.external_links?.length || 0) });
+    categories.content.items.push({ label: 'Image Links', value: String(links.image_links?.length || 0) });
+    categories.content.items.push({ label: 'Form Links', value: String(links.form_links?.length || 0) });
+    categories.content.items.push({ label: 'API Links', value: String(links.api_links?.length || 0) });
+    categories.content.items.push({ label: 'Meta Tags', value: String(links.meta_tags?.length || 0) });
+
+    // Infrastructure
+    const hdrs = data.headers || {};
+    categories.infrastructure.items.push({ label: 'Server', value: hdrs.server || '-' });
+    categories.infrastructure.items.push({ label: 'Content-Type', value: hdrs['content-type'] || '-' });
+    categories.infrastructure.items.push({ label: 'Content-Length', value: hdrs['content-length'] ? `${hdrs['content-length']} bytes` : '-' });
+    categories.infrastructure.items.push({ label: 'Last-Modified', value: hdrs['last-modified'] || '-' });
+    categories.infrastructure.items.push({ label: 'ETag', value: hdrs.etag || '-' });
+    categories.infrastructure.items.push({ label: 'CDN Provider', value: data.cdn?.provider || data.cdn_info?.provider || 'Not Detected' });
+    categories.infrastructure.items.push({ label: 'CMS', value: data.cms_info?.[0]?.name || 'Not Detected' });
+    categories.infrastructure.items.push({ label: 'Robots.txt', value: data.robots_info?.exists ? 'Present' : 'Not Found' });
+
+    // Evidence
+    const ev = data.raw_evidence || {};
+    const evItems = [];
+    Object.entries(ev).forEach(([k, v]) => {
+      if (v && typeof v === 'object') {
+        if (v.path) evItems.push({ label: `${k}.path`, value: v.path });
+        if (v.sha256) evItems.push({ label: `${k}.sha256`, value: v.sha256 });
+        if (v.timestamp) evItems.push({ label: `${k}.timestamp`, value: v.timestamp });
+      }
+    });
+    if (data.robots_info?.raw_evidence?.path) evItems.push({ label: 'robots.raw_path', value: data.robots_info.raw_evidence.path });
+    if (evItems.length === 0) evItems.push({ label: 'Raw Evidence', value: 'No raw-evidence file paths available in response' });
+    categories.evidence.items = evItems;
+
+    return categories;
+  }
+
+  // DOM builders
+  function createInfoItem(label, value, status = null) {
+    const item = document.createElement('div');
+    item.className = 'info-item';
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'info-label';
+    labelSpan.textContent = label;
+
+    const valueSpan = document.createElement('span');
+    valueSpan.className = 'info-value';
+    if (status) {
+      const indicator = document.createElement('span');
+      indicator.className = `status-indicator status-${status}`;
+      valueSpan.appendChild(indicator);
+    }
+    valueSpan.appendChild(document.createTextNode(value));
+
+    item.appendChild(labelSpan);
+    item.appendChild(valueSpan);
+    return item;
+  }
+
+  // Technology card: now guarantees a confidence indicator for every tech
+  function createTechCard(tech) {
+    const card = document.createElement('div');
+    card.className = 'tech-card';
+
+    const nameEl = document.createElement('div');
+    nameEl.className = 'tech-name';
+    nameEl.textContent = tech.name || 'Unknown';
+
+    const details = document.createElement('div');
+    details.className = 'tech-details';
+
+    const version = document.createElement('span');
+    version.className = 'tech-version';
+    version.textContent = `Version: ${tech.version || 'Unknown'}`;
+
+    const confidenceBadge = document.createElement('span');
+    confidenceBadge.className = 'tech-confidence';
+    confidenceBadge.textContent = `${(typeof tech.confidence === 'number') ? tech.confidence : 0}%`;
+
+    details.appendChild(version);
+    details.appendChild(confidenceBadge);
+
+    const sourceEl = document.createElement('div');
+    sourceEl.className = 'tech-source';
+    sourceEl.textContent = `Source: ${tech.source || 'Unknown'}`;
+
+    // Confidence bar (visual) — always present and obeys tech.confidence
+    const confBar = document.createElement('div');
+    confBar.className = 'confidence-bar';
+    const confFill = document.createElement('div');
+    confFill.className = 'confidence-fill';
+    const confValue = Math.max(0, Math.min(100, Number(tech.confidence || 0)));
+    confFill.style.width = `${confValue}%`;
+    confFill.setAttribute('title', `Confidence: ${confValue}%`);
+    confBar.appendChild(confFill);
+
+    card.appendChild(nameEl);
+    card.appendChild(details);
+    card.appendChild(sourceEl);
+    card.appendChild(confBar);
+
+    // Expand to view raw JSON of this tech
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!card._expanded) {
+        card._prevHTML = card.innerHTML;
+        const pre = document.createElement('pre');
+        pre.className = 'tech-raw';
+        pre.textContent = JSON.stringify(tech.raw || tech, null, 2);
+        card.innerHTML = '';
+        card.appendChild(pre);
+        card.classList.add('tech-card-expanded');
+        card._expanded = true;
+      } else {
+        card.innerHTML = card._prevHTML;
+        card.classList.remove('tech-card-expanded');
+        card._expanded = false;
+      }
+    });
+
+    return card;
+  }
+
+  // Populate UI
   function populateTabContent(categories) {
-    // مسح المحتوى السابق
     Object.keys(categories).forEach(key => {
-      const c = getContainerForKey(key);
-      if (c) c.innerHTML = '';
+      const container = getContainerForKey(key);
+      if (container) container.innerHTML = '';
     });
 
     Object.entries(categories).forEach(([key, cat]) => {
@@ -260,12 +319,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (key === 'technologies') {
         if (!cat.items || cat.items.length === 0) {
-          container.innerHTML = '<div class="no-data">لا توجد تقنيات مشخصة</div>';
+          container.innerHTML = '<div class="no-data">No technologies detected</div>';
         } else {
-          cat.items.forEach(t => container.appendChild(createTechCard(t)));
+          cat.items.forEach(tech => {
+            const techCard = createTechCard(tech);
+            container.appendChild(techCard);
+          });
         }
       } else {
-        cat.items.forEach(item => container.appendChild(createInfoItem(item.label, item.value, item.status)));
+        cat.items.forEach(item => {
+          const node = createInfoItem(item.label, item.value, item.status);
+          container.appendChild(node);
+        });
       }
     });
   }
@@ -294,57 +359,57 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resultsPre) resultsPre.textContent = JSON.stringify(data, null, 2);
     if (resultsContainer) resultsContainer.style.display = 'block';
     setLoading(false);
-    log('عرض النتائج تم بنجاح');
+    log('Results displayed');
   }
 
-  /* ---------- استدعاء API ---------- */
+  // API call
   async function performReconScan(normalizedUrl) {
-    // ضع هنا نقطة النهاية الحقيقية الخاصة بك
+    // Replace with your real API endpoint if different
     const apiEndpoint = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems/recon';
-    const fullUrl = `${apiEndpoint}?url=${encodeURIComponent(normalizedUrl)}`;
+    const url = `${apiEndpoint}?url=${encodeURIComponent(normalizedUrl)}`;
 
-    log('طلب المسح إلى:', fullUrl);
+    log('Fetching:', url);
 
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 120000); // 120s
 
-      const resp = await fetch(fullUrl, {
+      const resp = await fetch(url, {
         method: 'GET',
-        headers: { 'Accept': 'application/json' },
+        headers: { 'Accept': 'application/json, text/plain, */*' },
         mode: 'cors',
+        credentials: 'omit',
         signal: controller.signal
       });
 
       clearTimeout(timeout);
 
-      if (resp.status === 404) throw new Error('خطأ: نقطة النهاية غير موجودة (404).');
-      if (resp.status === 401 || resp.status === 403) throw new Error('ممنوع الوصول — مطلوب مفتاح أو صلاحيات.');
-      if (resp.status >= 500) throw new Error(`خطأ خادم (${resp.status}).`);
+      if (resp.status === 404) throw new Error('API endpoint not found (404).');
+      if (resp.status === 401 || resp.status === 403) throw new Error('Access denied (401/403).');
+      if (resp.status >= 500) throw new Error(`Server error (${resp.status}).`);
 
       const ct = resp.headers.get('content-type') || '';
       if (ct.includes('application/json')) {
         const data = await resp.json();
         return data;
       } else {
-        const txt = await resp.text();
-        // نحاول تحليل النص إذا كان JSON مخفيًا
-        try { return JSON.parse(txt); } catch (e) { throw new Error('تنسيق الاستجابة غير متوقع — غير JSON.'); }
+        const text = await resp.text();
+        try { return JSON.parse(text); } catch (e) { throw new Error('Unexpected response format (not JSON).'); }
       }
     } catch (err) {
-      log('خطأ أثناء المسح:', err);
-      if (err.name === 'AbortError') throw new Error('انتهت مهلة الفحص (timeout).');
-      if (err.message && err.message.toLowerCase().includes('cors')) throw new Error('خطأ CORS — قد يمنع الخادم الطلب من هذا النطاق.');
+      log('Fetch error:', err);
+      if (err.name === 'AbortError') throw new Error('Scan timed out (120s).');
+      if (err.message && err.message.toLowerCase().includes('cors')) throw new Error('CORS error. API may not allow cross-origin requests.');
       throw err;
     }
   }
 
-  /* ---------- بدء عملية الفحص ---------- */
+  // Initiate scan
   async function initiateScan() {
     const raw = targetInput ? targetInput.value : '';
-    if (!raw) { showError('أدخل نطاقًا أو رابطًا للاستدعاء'); return; }
-    const norm = normalizeUrl(raw);
-    if (!norm) { showError('تنسيق الرابط غير صالح. استخدم example.com أو https://example.com'); return; }
+    if (!raw) { showError('Please enter a domain or URL (e.g., example.com)'); return; }
+    const normalized = normalizeUrl(raw);
+    if (!normalized) { showError('Invalid URL format. Use example.com or https://example.com'); return; }
 
     clearError();
     setLoading(true);
@@ -354,16 +419,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quickOverview) quickOverview.style.display = 'none';
 
     try {
-      const data = await performReconScan(norm);
+      const data = await performReconScan(normalized);
       displayResults(data);
     } catch (err) {
       showError(err.message || String(err));
     }
   }
 
-  /* ---------- نسخ JSON إلى الحافظة (مع fallback) ---------- */
+  // Copy JSON (with fallback)
   async function copyToClipboard() {
-    if (!currentScanData) { showError('لا توجد بيانات للنسخ — نفّذ الفحص أولًا'); return; }
+    if (!currentScanData) { showError('No data to copy. Run a scan first.'); return; }
     try {
       const jsonText = JSON.stringify(currentScanData, null, 2);
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -380,63 +445,67 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(ta);
       }
       if (copyJsonBtn) {
-        const txt = copyJsonBtn.querySelector('.copy-text');
-        const orig = txt ? txt.textContent : 'تم النسخ';
-        if (txt) { txt.textContent = 'تم النسخ!'; copyJsonBtn.classList.add('copied'); setTimeout(()=>{ txt.textContent = orig; copyJsonBtn.classList.remove('copied'); }, 2000); }
+        const txtEl = copyJsonBtn.querySelector('.copy-text');
+        const orig = txtEl ? txtEl.textContent : 'Copied';
+        if (txtEl) { txtEl.textContent = 'Copied!'; copyJsonBtn.classList.add('copied'); setTimeout(()=>{ txtEl.textContent = orig; copyJsonBtn.classList.remove('copied'); }, 1800); }
       }
-      log('تم النسخ إلى الحافظة');
+      log('JSON copied');
     } catch (err) {
-      showError('فشل النسخ إلى الحافظة. حاول تحديد النص يدويًا ونسخه.');
-      log('فشل النسخ:', err);
+      showError('Failed to copy to clipboard. Try selecting the raw JSON and copying manually.');
+      log('Copy error', err);
     }
   }
 
-  /* ---------- تبويبات التنقل ---------- */
-  function switchTab(target) {
+  // Tab switch
+  function switchTab(targetTab) {
     tabButtons.forEach(btn => {
-      const t = btn.dataset.tab;
-      if (t === target) { btn.classList.add('active'); btn.setAttribute('aria-selected','true'); }
+      if (btn.dataset.tab === targetTab) { btn.classList.add('active'); btn.setAttribute('aria-selected','true'); }
       else { btn.classList.remove('active'); btn.setAttribute('aria-selected','false'); }
     });
     tabContents.forEach(ct => {
-      if (ct.id === `tab-${target}`) ct.classList.add('active');
+      if (ct.id === `tab-${targetTab}`) ct.classList.add('active');
       else ct.classList.remove('active');
     });
   }
 
-  /* ---------- الأحداث ---------- */
+  // Event bindings
   if (scanBtn) scanBtn.addEventListener('click', initiateScan);
-  if (targetInput) targetInput.addEventListener('keypress', e => { if (e.key === 'Enter') initiateScan(); });
+  if (targetInput) targetInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') initiateScan(); });
   if (copyJsonBtn) copyJsonBtn.addEventListener('click', copyToClipboard);
-  tabButtons.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
 
-  /* ---------- تأثيرات فضائية (particles) ---------- */
-  function initCosmicEffects() {
-    const particleContainer = document.getElementById('cosmic-particles');
-    if (!particleContainer) return;
-    particleContainer.innerHTML = '';
-    for (let i=0;i<80;i++){
-      const p = document.createElement('div'); p.className='particle';
+  // Cosmic particles
+  function initParticles() {
+    const container = document.getElementById('cosmic-particles');
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i=0;i<120;i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
       p.style.left = Math.random()*100 + '%';
       p.style.top = Math.random()*100 + '%';
-      const size = (Math.random()*3)+1; p.style.width = size + 'px'; p.style.height = size + 'px';
-      p.style.opacity = 0.8 * Math.random() + 0.2;
-      p.style.animationDelay = (Math.random()*20)+'s';
-      p.style.animationDuration = (Math.random()*12+8)+'s';
-      particleContainer.appendChild(p);
+      const size = (Math.random()*3)+0.8;
+      p.style.width = `${size}px`;
+      p.style.height = `${size}px`;
+      p.style.opacity = String(0.6 * Math.random() + 0.2);
+      p.style.animationDelay = `${Math.random()*20}s`;
+      p.style.animationDuration = `${Math.random()*14+8}s`;
+      container.appendChild(p);
     }
   }
 
-  // تهيئة عند التحميل
+  // Init
   function init() {
-    log('تهيئة الواجهة');
-    initCosmicEffects();
+    log('Initializing UI');
+    initParticles();
     if (targetInput && !targetInput.value) targetInput.value = 'example.com';
   }
   init();
 
-  // عرض الأخطاء العامة للـ window
-  window.addEventListener('error', e => { console.error('Unhandled error', e.error); });
-  // كشف الوظيفة عالمياً إن رغبت في استدعائها من الكونسول
+  // Global error logging
+  window.addEventListener('error', (e) => { console.error('Unhandled error', e.error); });
+  // Expose for console access
   window.superReconScan = initiateScan;
 });
