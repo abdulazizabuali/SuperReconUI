@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const raw = targetInput ? targetInput.value : '';
     if (!raw) { showError('Please enter a domain or URL (e.g., example.com)'); return; }
     const normalized = normalizeUrl(raw);
-    if (!normalized) { showError('Invalid URL format. Use example.com or https://example.com'); return; }
+    if (!normalized) { showError('Invalid URL format. Use example.com or https://example.com '); return; }
 
     clearError();
     setLoading(true);
@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function init() {
     log('Initializing UI');
     initParticles();
-    if (targetInput && !targetInput.value) targetInput.value = 'example.com';
+    // Removed the default value setting for targetInput
   }
   init();
 
