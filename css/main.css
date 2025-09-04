@@ -1,3 +1,6 @@
+/*
+  النسخة المعدلة التي تحل جميع المشاكل المطلوبة مع الحفاظ على الطابع الفضائي
+*/
 :root {
   /* Deep Space Core Palette */
   --bg: #000000;
@@ -19,7 +22,7 @@
   --radius-md: 14px;
   --radius-sm: 8px;
   --shadow-deep: 0 35px 140px rgba(26, 10, 60, 0.92);
-  --shadow-nebula: 0 0 45px rgba(93, 64, 212, 极速模式);
+  --shadow-nebula: 0 0 45px rgba(93, 64, 212, 0.22);
   --shadow-nebula-cyan: 0 0 35px rgba(0, 229, 255, 0.22);
   --shadow-nebula-green: 0 0 30px rgba(0, 255, 157, 0.18);
   --fast: 120ms;
@@ -29,7 +32,6 @@
   --quantum: cubic-bezier(0.2, 0.8, 0.3, 1);
   --stellar: cubic-bezier(0.1, 0.9, 0.2, 1);
 }
-
 /* ========== COSMIC FOUNDATION ========== */
 * {
   box-sizing: border-box;
@@ -41,7 +43,6 @@
   transition: all var(--medium) var(--quantum);
   animation: none;
 }
-
 html, body {
   height: 100%;
   overflow-x: hidden;
@@ -51,7 +52,6 @@ html, body {
   overscroll-behavior: none;
   touch-action: manipulation;
 }
-
 /* ========== DEEP SPACE CANVAS (Quantum Vacuum) ========== */
 #deep-space {
   position: fixed;
@@ -65,12 +65,10 @@ html, body {
     linear-gradient(180deg, #000000, #02010a 30%, #05020a 100%);
   animation: deepSpacePulse var(--ultra-slow) ease-in-out infinite alternate;
 }
-
 @keyframes deepSpacePulse {
   0% { opacity: 0.75; }
   100% { opacity: 0.95; }
 }
-
 /* ========== HYPER-REALISTIC STARFIELD (Quantum Fluctuation) ========== */
 #starfield {
   position: fixed;
@@ -82,19 +80,17 @@ html, body {
     radial-gradient(1.8px 1.8px at 25% 35%, rgba(255, 255, 255, 0.94), transparent 42%),
     radial-gradient(1.6px 1.6px at 45% 55%, rgba(255, 255, 255, 0.88), transparent 40%),
     radial-gradient(1.4px 1.4px at 65% 75%, rgba(255, 255, 255, 0.84), transparent 38%),
-    radial-gradient(1.2px 极速模式 at 85% 85%, rgba(255, 255, 255, 0.80), transparent 35%),
+    radial-gradient(1.2px 1.2px at 85% 85%, rgba(255, 255, 255, 0.80), transparent 35%),
     radial-gradient(0.8px 0.8px at 15% 75%, rgba(255, 255, 255, 0.75), transparent 30%),
     radial-gradient(0.6px 0.6px at 75% 25%, rgba(255, 255, 255, 0.70), transparent 28%);
   background-size: cover;
   animation: starsPulse 22s linear infinite;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.06));
 }
-
 @keyframes starsPulse {
   0%, 100% { opacity: 0.65; }
   50% { opacity: 0.99; }
 }
-
 /* ========== NEBULA CLOUDS (Interstellar Medium) ========== */
 #nebula-clouds {
   position: fixed;
@@ -114,7 +110,6 @@ html, body {
   transform: translateZ(0);
   will-change: transform;
 }
-
 @keyframes nebulaFlow {
   0% { 
     transform: translate(-30%, -30%) rotate(7deg);
@@ -129,8 +124,7 @@ html, body {
     background-position: 0% 0%;
   }
 }
-
-/* ========== COSMIC PARTICLES (Quantum Dust)极速模式 ========== */
+/* ========== COSMIC PARTICLES (Quantum Dust) ========== */
 #cosmic-particles {
   position: fixed;
   inset: 0;
@@ -139,7 +133,6 @@ html, body {
   transform: translateZ(0);
   will-change: transform;
 }
-
 .particle {
   position: absolute;
   border-radius: 50%;
@@ -156,14 +149,12 @@ html, body {
   transform: translateZ(0);
   will-change: transform;
 }
-
 @keyframes particleFloat {
   0% { transform: translate(0, 0) rotate(0deg) scale(1); }
   100% { 
-    transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rotate, 0)) scale(var(--scale, 1)); 
+    transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rotate, 0)) scale(var(--scale, 1));
   }
 }
-
 /* ========== EVENT HORIZON (Black Hole Visualization) ========== */
 #event-horizon {
   position: fixed;
@@ -185,7 +176,7 @@ html, body {
       from var(--angle, 0deg),
       transparent,
       rgba(255, 0, 200, 0.28),
-      rgba(0极速模式, 229, 255, 0.18),
+      rgba(0, 229, 255, 0.18),
       rgba(0, 255, 157, 0.12),
       transparent 30%
     );
@@ -196,19 +187,16 @@ html, body {
   will-change: transform, background;
   mix-blend-mode: overlay;
 }
-
 @keyframes blackHoleSpin {
   from { --angle: 0deg; }
   to { --angle: 360deg; }
 }
-
 /* ========== GRAVITATIONAL LENSING (Space-Time Curvature) ========== */
 #gravitational-lensing {
   position: fixed;
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  z-index: -5;
   pointer-events: none;
   top: 8%;
   right: 8%;
@@ -225,12 +213,10 @@ html, body {
   transform: translateZ(0);
   will-change: transform, opacity;
 }
-
 @keyframes lensingPulse {
   0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.12; }
   50% { transform: scale(1.08) rotate(3deg); opacity: 0.18; }
 }
-
 /* ========== QUANTUM INTERFACE CONTAINER (Space Station Hull) ========== */
 .cosmic-container {
   max-width: var(--container-max);
@@ -242,13 +228,11 @@ html, body {
   transform: translateZ(0);
   will-change: box-shadow;
 }
-
 @keyframes containerGlow {
   0% { box-shadow: 0 0 45px rgba(93, 64, 212, 0.12); }
   100% { box-shadow: 0 0 70px rgba(0, 229, 255, 0.18); }
 }
-
-/* ========== COSM极速模式IC HEADER (Stellar Observatory) ========== */
+/* ========== COSMIC HEADER (Stellar Observatory) ========== */
 header {
   text-align: center;
   padding: 64px 0 40px;
@@ -259,32 +243,31 @@ header {
   transform: translateZ(0);
   will-change: filter;
 }
-
 @keyframes headerPulse {
   0% { filter: brightness(1); }
   100% { filter: brightness(1.12); }
 }
-
 .logo-glow {
   font-family: 'Orbitron', monospace;
   font-size: clamp(2.6rem, 6.4vw, 4.8rem);
   font-weight: 900;
   background: 
-    linear-gradient(90极速模式, 
+    linear-gradient(90deg, 
       var(--nebula-core), 
-      var(--nebula-cyan),
-      var(--nebula-pink),
-      var(--nebula-green)),
+      var(--nebula-purple),
+      var(--nebula-core),
+      var(--nebula-purple)),
     radial-gradient(circle at 20% 30%, 
       rgba(255, 255, 255, 0.35), 
       transparent 40%);
   background-clip: text;
-  -webkit-background-cl极速模式ip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 
     0 0 24px rgba(93, 64, 212, 0.25),
     0 0 48px rgba(0, 229, 255, 0.2),
-    0 0 72px rgba(0, 255, 157, 0.15);
+    0 0 72px rgba(0, 255, 157, 0.15),
+    0 0 100px rgba(122, 92, 255, 0.3);
   letter-spacing: 4px;
   margin-bottom: 12px;
   line-height: 1;
@@ -293,12 +276,22 @@ header {
   transform: translateZ(0);
   will-change: text-shadow;
 }
-
 @keyframes logoGlow {
-  0% { text-shadow: 0 0 24px rgba(93, 64, 212, 0.25), 0 0 48px rgba(0, 229, 255, 0.15), 0 0 72px rgba(0, 255, 157, 0.1); }
-  100% { text-shadow: 0 0 30px rgba(93, 64, 212, 0.35), 0 0 54px rgba(0, 229, 255, 0.25), 0 0 80px rgba(0, 255, 157, 0.2); }
+  0% { 
+    text-shadow: 
+      0 0 24px rgba(93, 64, 212, 0.25), 
+      0 0 48px rgba(0, 229, 255, 0.15), 
+      0 0 72px rgba(0, 255, 157, 0.1),
+      0 0 80px rgba(122, 92, 255, 0.2);
+  }
+  100% { 
+    text-shadow: 
+      0 0 30px rgba(93, 64, 212, 0.35), 
+      0 0 54px rgba(0, 229, 255, 0.25), 
+      0 0 80px rgba(0, 255, 157, 0.2),
+      0 0 110px rgba(122, 92, 255, 0.4);
+  }
 }
-
 .tagline {
   color: var(--stellar-mute);
   margin-top: 12px;
@@ -310,7 +303,6 @@ header {
   line-height: 1.6;
   letter-spacing: 0.5px;
 }
-
 .tagline::after {
   content: '';
   position: absolute;
@@ -322,7 +314,6 @@ header {
   background: linear-gradient(90deg, transparent, var(--nebula-cyan), transparent);
   border-radius: 1.25px;
 }
-
 /* ========== QUANTUM SCANNER INTERFACE (Stellar Console) ========== */
 .scanner-interface {
   background: 
@@ -350,7 +341,6 @@ header {
   will-change: transform, box-shadow;
   border-image: linear-gradient(to bottom, rgba(93, 64, 212, 0.2), transparent 80%) 1;
 }
-
 .scanner-interface::before {
   content: '';
   position: absolute;
@@ -360,7 +350,6 @@ header {
   z-index: -1;
   pointer-events: none;
 }
-
 .scanner-interface:focus-within {
   box-shadow: 
     0 50px 160px rgba(122, 92, 255, 0.2),
@@ -368,7 +357,6 @@ header {
   transform: translateY(-4px);
   border-color: rgba(0, 255, 157, 0.28);
 }
-
 /* ========== QUANTUM GRID OVERLAY (Stellar Cartography) ========== */
 .scanner-interface::after {
   content: '';
@@ -386,12 +374,10 @@ header {
   transform: translateZ(0);
   will-change: opacity;
 }
-
 @keyframes gridPulse {
   0% { opacity: 0.07; }
   100% { opacity: 0.11; }
 }
-
 /* ========== QUANTUM INPUT GROUP (Navigation Console) ========== */
 .input-group {
   display: flex;
@@ -402,7 +388,6 @@ header {
   z-index: 3;
   position: relative;
 }
-
 .input-group::before {
   content: '';
   position: absolute;
@@ -413,13 +398,12 @@ header {
   background: linear-gradient(90deg, transparent, rgba(93, 64, 212, 0.18), transparent);
   border-radius: 0.75px;
 }
-
 .url-input {
   flex: 1;
   min-width: 300px;
   padding: 18px 24px;
   border-radius: 16px;
-  border: 2px solid rgba极速模式(122, 92, 255, 0.18);
+  border: 2px solid rgba(122, 92, 255, 0.18);
   background: 
     linear-gradient(180deg, 
       rgba(8, 10, 18, 0.78), 
@@ -438,13 +422,11 @@ header {
   z-index: 2;
   font-family: 'Fira Code', monospace, system-ui;
 }
-
 .url-input::placeholder {
   color: rgba(230, 230, 255, 0.55);
   font-style: italic;
   opacity: 0.9;
 }
-
 .url-input:focus {
   outline: none;
   border-color: var(--nebula-green);
@@ -454,7 +436,6 @@ header {
   transform: translateY(-2px);
   z-index: 3;
 }
-
 /* ========== QUANTUM SCAN BUTTON (Propulsion System) ========== */
 .scan-btn {
   padding: 16px 30px;
@@ -475,7 +456,7 @@ header {
   color: white;
   font-weight: 800;
   min-width: 200px;
-  transition: all var(--fast) var(--quant极速模式um);
+  transition: all var(--fast) var(--quantum);
   white-space: nowrap;
   box-shadow: 
     0 10px 28px rgba(93, 64, 212, 0.3),
@@ -486,11 +467,10 @@ header {
   font-size: 1.05rem;
   letter-spacing: 0.5px;
 }
-
 .scan-btn::before {
   content: '';
   position: absolute;
-  top: 极速模式;
+  top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
@@ -501,13 +481,11 @@ header {
     transparent
   );
   transition: 0.9s;
-  z-index: -极速模式1;
+  z-index: -1;
 }
-
 .scan-btn:hover::before {
   left: 100%;
 }
-
 .scan-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -515,7 +493,6 @@ header {
   box-shadow: none;
   transform: none;
 }
-
 /* ========== QUANTUM PULSE ICON ANIMATION (Propulsion Thrusters) ========== */
 .btn-icon {
   display: inline-block;
@@ -525,18 +502,16 @@ header {
   z-index: 3;
   font-size: 1.35em;
 }
-
 @keyframes btnPulse {
   0%, 100% { 
-    transform: scale(1); 
+    transform: scale(1);
     filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.5)); 
   }
   50% { 
-    transform: scale(1.12); 
+    transform: scale(1.12);
     filter: drop-shadow(0 0 14px rgba(0, 255, 157, 0.7)); 
   }
 }
-
 /* ========== ENHANCED QUANTUM LOADING EFFECTS (Warp Drive) ========== */
 .loading-container {
   display: none;
@@ -544,12 +519,11 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 26px 20极速模式;
+  padding: 26px 20px;
   margin-top: 18px;
   z-index: 3;
   position: relative;
 }
-
 .pulse-ring {
   width: 112px;
   height: 112px;
@@ -558,13 +532,12 @@ header {
   border-top: 6px solid var(--nebula-cyan);
   box-shadow: 
     0 0 46px rgba(0, 240, 255, 0.18),
-    inset 0 极速模式 24px rgba极速模式(93, 64, 212, 0.15);
-  animation: spin 1.2极速模式 linear infinite;
+    inset 0 0 24px rgba(93, 64, 212, 0.15);
+  animation: spin 1.2s linear infinite;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
 }
-
 .pulse-ring::before {
   content: '';
   position: absolute;
@@ -572,7 +545,6 @@ header {
   border-radius: 50%;
   border: 2px dashed rgba(0, 255, 157, 0.25);
 }
-
 .pulse-ring::after {
   content: '';
   position: absolute;
@@ -580,26 +552,30 @@ header {
   border-radius: 50%;
   border: 1px solid rgba(0, 229, 255, 0.2);
 }
-
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
-
 .loading-text {
   font-weight: 900;
   color: var(--nebula-cyan);
   margin-bottom: 10px;
   font-size: 1.35rem;
   text-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
-  animation极速模式: textGlow 2.2s ease-in-out infinite alternate;
+  animation: textGlow 2.2s ease-in-out infinite alternate;
   letter-spacing: 0.5px;
 }
-
 @keyframes textGlow {
   0% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.25); }
   100% { text-shadow: 0 0 14px rgba(0, 240, 255, 0.45); }
 }
-
 .loading-subtext {
   color: var(--stellar-mute);
   font-size: 1.1rem;
@@ -607,7 +583,6 @@ header {
   line-height: 1.55;
   letter-spacing: 0.25px;
 }
-
 /* ========== QUANTUM PROGRESS BAR (Warp Speedometer) ========== */
 .progress-container {
   width: 100%;
@@ -626,7 +601,6 @@ header {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(122, 92, 255, 0.1);
 }
-
 .progress-bar {
   height: 100%;
   width: 0%;
@@ -648,7 +622,6 @@ header {
   transform: translateZ(0);
   will-change: width;
 }
-
 .progress-bar::after {
   content: '';
   position: absolute;
@@ -666,12 +639,10 @@ header {
   transform: translateZ(0);
   will-change: transform;
 }
-
 @keyframes progressShine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
-
 /* ========== QUANTUM QUICK OVERVIEW (Stellar Dashboard) ========== */
 .quick-overview {
   margin-top: 28px;
@@ -679,7 +650,6 @@ header {
   z-index: 2;
   position: relative;
 }
-
 .quick-overview::before {
   content: '';
   position: absolute;
@@ -689,9 +659,8 @@ header {
   width: 90px;
   height: 5px;
   background: linear-gradient(90deg, transparent, var(--nebula-cyan), transparent);
-  border-radius极速模式: 2.5px;
+  border-radius: 2.5px;
 }
-
 .section-title {
   font-size: 1.55rem;
   color: var(--nebula-green);
@@ -704,25 +673,22 @@ header {
   position: relative;
   animation: titleGlow 3.5s ease-in-out infinite alternate;
 }
-
 @keyframes titleGlow {
   0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
   100% { text-shadow: 0 0 14px rgba(0, 255, 157, 0.35); }
 }
-
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 22px;
   margin-top: 14px;
 }
-
 .overview-card {
   background: 
     linear-gradient(180deg, 
       rgba(6, 8, 16, 0.78), 
-      rgba(4, 6, 12, 极速模式));
-    radial-gradient(circle at 15% 15%, 
+      rgba(4, 6, 12, 0.72));
+  radial-gradient(circle at 15% 15%, 
       rgba(93, 64, 212, 0.07), 
       transparent 40%);
   border-radius: 16px;
@@ -734,11 +700,10 @@ header {
   position: relative;
   overflow: hidden;
   box-shadow: 0 7px 18px rgba(0, 0, 0, 0.28);
-  transform: translateZ极速模式(0);
+  transform: translateZ(0);
   will-change: transform, box-shadow;
   border-image: linear-gradient(to bottom, rgba(0, 255, 157, 0.1), transparent) 1;
 }
-
 .overview-card::before {
   content: '';
   position: absolute;
@@ -750,7 +715,6 @@ header {
   opacity: 0;
   transition: opacity var(--fast);
 }
-
 .overview-card:hover {
   transform: translateY(-9px);
   border-color: var(--nebula-green);
@@ -765,11 +729,9 @@ header {
       rgba(93, 64, 212, 0.12), 
       transparent 40%);
 }
-
 .overview-card:hover::before {
   opacity: 1;
 }
-
 .card-icon {
   font-size: 2.0rem;
   margin-bottom: 12px;
@@ -777,12 +739,10 @@ header {
   position: relative;
   animation: iconFloat 6s ease-in-out infinite;
 }
-
 @keyframes iconFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-3px); }
 }
-
 .card-icon::after {
   content: '';
   position: absolute;
@@ -796,11 +756,9 @@ header {
   opacity: 0;
   transition: opacity var(--fast);
 }
-
 .overview-card:hover .card-icon::after {
   opacity: 1;
 }
-
 .card-title {
   color: var(--stellar-mute);
   font-weight: 800;
@@ -809,7 +767,6 @@ header {
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 .card-value {
   font-weight: 900;
   color: var(--nebula-green);
@@ -820,12 +777,10 @@ header {
   animation: valuePulse 3.5s ease-in-out infinite alternate;
   letter-spacing: 0.25px;
 }
-
 @keyframes valuePulse {
   0% { text-shadow: 0 0 6px rgba(0, 255, 157, 0.15); }
-  极速模式% { text-shadow: 0 0 9px rgba(0, 255, 157, 0.3); }
+  100% { text-shadow: 0 0 9px rgba(0, 255, 157, 0.3); }
 }
-
 /* ========== TABS & CONTENT (Stellar Navigation) ========== */
 .tabs-container {
   margin-top: 22px;
@@ -841,26 +796,35 @@ header {
   transform: translateZ(0);
   will-change: transform;
 }
-
 .tabs-nav {
   display: flex;
   gap: 50px;
   overflow-x: auto;
   background: rgba(6, 8, 12, 0.94);
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
-  scrollbar-width: none;
-  padding: 30px 50px;
   min-height: 110px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* تم تغييره من center إلى flex-start */
   margin: 0 auto;
   max-width: 95%;
+  min-width: 0;
+  flex-wrap: nowrap;
+  scroll-behavior: smooth; /* إضافة سلوك تمرير ناعم */
 }
-
 .tabs-nav::-webkit-scrollbar {
-  display: none;
+  width: 12px;
+  height: 12px;
 }
-
+.tabs-nav::-webkit-scrollbar-thumb {
+  background: 
+    linear-gradient(180deg, 
+      rgba(93, 64, 212, 0.26), 
+      rgba(0, 229, 255, 0.16),
+      rgba(0, 255, 157, 0.12));
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 .tab-btn {
   flex: 0 1 auto;
   min-width: 250px;
@@ -884,17 +848,14 @@ header {
   box-shadow: 0 8px 30px rgba(93, 64, 212, 0.3);
   letter-spacing: 0.5px;
 }
-
 .tab-btn:hover {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 15px 40px rgba(93, 64, 212, 0.4);
 }
-
 .tab-btn.active {
   transform: translateY(-5px) scale(1.04);
   box-shadow: 0 12px 35px rgba(0, 255, 157, 0.35);
 }
-
 .tab-btn::after {
   content: '';
   position: absolute;
@@ -908,27 +869,22 @@ header {
   transition: transform var(--fast) var(--quantum);
   transform-origin: center;
 }
-
 .tab-btn:hover::after {
   transform: translateX(-50%) scaleX(1);
 }
-
 .tab-btn.active::after {
   transform: translateX(-50%) scaleX(1);
   background: var(--nebula-green);
 }
-
 .tab-content {
   display: none;
   padding: 25px;
   animation: fadeIn var(--fast) var(--stellar);
   min-height: 150px;
 }
-
 .tab-content.active {
   display: block;
 }
-
 @keyframes fadeIn {
   from { 
     opacity: 0; 
@@ -939,7 +895,6 @@ header {
     transform: translateY(0);
   }
 }
-
 /* ========== INFO GRID (Stellar Cartography Data) ========== */
 .info-grid {
   display: grid;
@@ -948,7 +903,6 @@ header {
   align-items: start;
   padding: 0 24px;
 }
-
 .info-item {
   display: flex;
   justify-content: space-between;
@@ -970,7 +924,6 @@ header {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   margin-bottom: 15px;
 }
-
 .info-item::before {
   content: '';
   position: absolute;
@@ -982,17 +935,14 @@ header {
   opacity: 0;
   transition: opacity var(--fast);
 }
-
 .info-item:hover {
   transform: translateY(-7px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
   border-color: rgba(0, 255, 157, 0.08);
 }
-
 .info-item:hover::before {
   opacity: 1;
 }
-
 .info-label {
   font-weight: 600;
   color: var(--stellar-white);
@@ -1001,7 +951,6 @@ header {
   word-break: break-word;
   line-height: 1.4;
 }
-
 .info-value {
   color: var(--nebula-cyan);
   font-weight: 700;
@@ -1014,7 +963,6 @@ header {
   line-height: 1.4;
   text-shadow: 0 0 4px rgba(0, 229, 255, 0.15);
 }
-
 /* For long values (addresses/hash) allow overflow wrapping and monospace readability */
 .info-value.mono {
   font-family: 'Fira Code', monospace;
@@ -1022,7 +970,6 @@ header {
   word-break: break-all;
   white-space: normal;
 }
-
 /* status dot */
 .status-indicator {
   width: 12px;
@@ -1034,19 +981,16 @@ header {
   flex: 0 0 auto;
   box-shadow: 0 0 8px currentColor;
 }
-
 .status-success { background: var(--success); }
 .status-warning { background: var(--warning); }
 .status-error { background: var(--error); }
-
 /* ========== TECHNOLOGY CARDS (Stellar Technology Matrix) ========== */
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, min极速模式max(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
   align-items: start;
 }
-
 .tech-card {
   padding: 20px;
   border-radius: 16px;
@@ -1068,7 +1012,6 @@ header {
   transform: translateZ(0);
   will-change: transform, box-shadow;
 }
-
 .tech-card::before {
   content: '';
   position: absolute;
@@ -1080,17 +1023,14 @@ header {
   opacity: 0;
   transition: opacity var(--fast);
 }
-
 .tech-card:hover {
   transform: translateY(-9px);
   box-shadow: 0 30px 70px rgba(0, 200, 255, 0.08);
   border-color: var(--nebula-green);
 }
-
-.极速模式tech-card:hover::before {
+.tech-card:hover::before {
   opacity: 1;
 }
-
 .tech-name {
   font-weight: 700;
   font-size: 1.1rem;
@@ -1102,7 +1042,6 @@ header {
   word-break: break-word;
   text-shadow: 0 0 6px rgba(93, 64, 212, 0.2);
 }
-
 .tech-details {
   display: flex;
   justify-content: space-between;
@@ -1111,14 +1050,12 @@ header {
   margin-bottom: 8px;
   flex-wrap: wrap;
 }
-
 .tech-version {
   color: var(--stellar-mute);
   font-weight: 600;
   white-space: normal;
   font-size: 0.95rem;
 }
-
 .tech-confidence {
   padding: 7px 12px;
   border-radius: 18px;
@@ -1131,16 +1068,6 @@ header {
   font-size: 0.95rem;
   box-shadow: 0 0 10px rgba(0, 255, 157, 0.15);
 }
-
-.tech-source {
-  color: var(--stellar-mute);
-  font-size: 0.88rem;
-  margin-bottom: 8px;
-  word-break: break-word;
-  line-height: 1.4;
-}
-
-/* confidence bar */
 .confidence-bar {
   width: 100%;
   height: 14px;
@@ -1150,22 +1077,19 @@ header {
   margin-top: 8px;
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
-
 .confidence-fill {
   height: 100%;
   width: 10%;
   background: linear-gradient(90deg, var(--nebula-green), var(--nebula-cyan));
   box-shadow: 0 7px 22px rgba(0, 255, 157, 0.08) inset;
-  transition: width .5极速模式 var(--quantum);
+  transition: width var(--medium) var(--quantum);
   transform: translateZ(0);
   will-change: width;
 }
-
 /* expanded raw content should not overflow parent */
 .tech-card-expanded {
   padding: 14px;
 }
-
 .tech-raw {
   font-family: 'Fira Code', monospace;
   font-size: 13px;
@@ -1180,7 +1104,6 @@ header {
   border: 1px solid rgba(122, 92, 255, 0.08);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
 }
-
 /* ========== JSON SECTION (Stellar Data Core) ========== */
 .json-section {
   margin-top: 22px;
@@ -1194,7 +1117,6 @@ header {
   z-index: 2;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
-
 .json-header {
   display: flex;
   justify-content: space-between;
@@ -1203,7 +1125,6 @@ header {
   border-bottom: 1px solid rgba(122, 92, 255, 0.06);
   gap: 14px;
 }
-
 .copy-btn {
   padding: 11px 16px;
   border-radius: 12px;
@@ -1219,13 +1140,11 @@ header {
   font-size: 0.98rem;
   box-shadow: 0 6px 18px rgba(93, 64, 212, 0.25);
 }
-
 .copy-btn.copied {
   background: linear-gradient(135deg, var(--success), var(--nebula-cyan));
   transform: scale(1.03);
   box-shadow: 0 0 22px rgba(16, 185, 129, 0.3);
 }
-
 .json-container {
   max-height: 560px;
   overflow: auto;
@@ -1233,24 +1152,22 @@ header {
   padding: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
-
 .json-content {
   white-space: pre-wrap;
   font-family: 'Fira Code', monospace;
   font-size: 14px;
   color: var(--stellar-white);
   word-break: break-word;
-  line-height: 极速模式;
+  line-height: 1.5;
   letter-spacing: 0.2px;
 }
-
 /* ========== EVIDENCE ITEMS (Stellar Evidence Matrix) ========== */
 .evidence-item {
   padding: 14px 18px;
   border-radius: 12px;
   background: 
     linear-gradient(180deg, 
-      rgba(7, 9极速模式, 16, 0.72), 
+      rgba(7, 9, 16, 0.72), 
       rgba(5, 7, 13, 0.66));
   border: 1px solid rgba(122, 92, 255, 0.06);
   display: flex;
@@ -1260,8 +1177,7 @@ header {
   word-break: break-all;
   transition: all var(--fast) var(--quantum);
 }
-
-.evidence-item .path {
+.evidence-item.path {
   color: var(--stellar-white);
   font-weight: 800;
   font-family: 'Fira Code', monospace;
@@ -1269,15 +1185,13 @@ header {
   word-break: break-all;
   flex: 1;
 }
-
-.evidence-item .meta {
+.evidence-item.meta {
   color: var(--stellar-mute);
   font-size: 13px;
   white-space: nowrap;
   margin-left: 12px;
   min-width: 120px;
 }
-
 /* ========== FOOTER (Stellar Observatory) ========== */
 footer {
   margin-top: 52px;
@@ -1294,12 +1208,10 @@ footer {
   z-index: 2;
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
 }
-
 .creator-info {
   margin-bottom: 20px;
   text-align: center;
 }
-
 .creator-name {
   color: var(--nebula-green);
   font-weight: 700;
@@ -1308,7 +1220,6 @@ footer {
   display: block;
   margin: 12px auto;
 }
-
 .creator-blurb {
   font-size: 0.95rem;
   max-width: 600px;
@@ -1316,12 +1227,10 @@ footer {
   line-height: 1.5;
   text-align: center;
 }
-
 .team-info {
   margin: 24px 0 16px;
   text-align: center;
 }
-
 .team-name {
   color: var(--nebula-cyan);
   font-weight: 700;
@@ -1330,7 +1239,6 @@ footer {
   display: block;
   margin: 12px auto;
 }
-
 .social-links {
   margin: 16px 0;
   text-align: center;
@@ -1339,7 +1247,6 @@ footer {
   align-items: center;
   gap: 12px;
 }
-
 .social-link {
   display: inline-block;
   color: var(--nebula-cyan);
@@ -1354,32 +1261,30 @@ footer {
   width: 100%;
   text-align: center;
 }
-
 .social-link:hover {
   background: rgba(0, 255, 157, 0.08);
   color: var(--nebula-green);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 255, 157, 0.1);
 }
-
 .copyright-info {
   margin-top: 24px;
   font-size: 0.9rem;
   opacity: 0.85;
   text-align: center;
 }
-
 /* ========== SCROLLBAR POLISH (Stellar Navigation Track) ========== */
 .json-container::-webkit-scrollbar, 
 .modal::-webkit-scrollbar, 
-.tech-raw::-webkit-scrollbar {
+.tech-raw::-webkit-scrollbar,
+.tabs-nav::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
-
 .json-container::-webkit-scrollbar-thumb, 
 .modal::-webkit-scrollbar-thumb, 
-.tech-raw::-webkit-scrollbar-thumb {
+.tech-raw::-webkit-scrollbar-thumb,
+.tabs-nav::-webkit-scrollbar-thumb {
   background: 
     linear-gradient(180deg, 
       rgba(93, 64, 212, 0.26), 
@@ -1389,12 +1294,11 @@ footer {
   border: 1.5px solid rgba(255, 255, 255, 0.03);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
-.json-container::-webkit-scrollbar-track {
+.json-container::-webkit-scrollbar-track,
+.tabs-nav::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 10px;
 }
-
 /* ========== FOCUS & ACCESSIBILITY (Stellar Navigation Focus) ========== */
 :focus {
   outline: 3.5px solid rgba(0, 255, 157, 0.15);
@@ -1402,7 +1306,6 @@ footer {
   border-radius: 7px;
   box-shadow: 0 0 12px rgba(0, 255, 157, 0.25);
 }
-
 .tab-btn:focus, 
 .scan-btn:focus, 
 .copy-btn:focus {
@@ -1411,7 +1314,6 @@ footer {
     0 0 16px rgba(0, 255, 157, 0.2);
   transform: translateY(-2.5px);
 }
-
 /* ========== RESPONSIVE TWEAKS (Stellar Navigation Adaptation) ========== */
 @media (max-width: 1280px) {
   .cosmic-container { padding: 32px; }
@@ -1419,7 +1321,6 @@ footer {
   .info-label { max-width: 54%; }
   .info-value { max-width: 46%; }
 }
-
 @media (max-width: 1024px) {
   .input-group { flex-direction: column; gap: 16px; }
   .tab-btn { min-width: 130px; padding: 12px 20px; flex: 1 0 45%; }
@@ -1428,7 +1329,6 @@ footer {
   .overview-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
   .scanner-interface { padding: 32px; }
 }
-
 @media (max-width: 768px) {
   .logo-glow { font-size: clamp(1.8rem, 7.2vw, 3.0rem); }
   .tagline { font-size: 1.05rem; }
@@ -1444,17 +1344,14 @@ footer {
   .overview-grid { grid-template-columns: 1fr; }
   .tab-btn { min-width: 120px; padding: 10px 16px; flex: 1 0 48%; }
   footer { padding: 26px; }
-  
   /* Centered footer elements for mobile */
   .creator-info, .team-info, .social-links {
     text-align: center;
   }
-  
   .social-links {
     flex-direction: column;
   }
 }
-
 @media (max-width: 480px) {
   .cosmic-container { padding: 24px 18px; }
   .logo-glow { font-size: clamp(1.6rem, 8.2vw, 2.6rem); letter-spacing: 2px; }
@@ -1464,27 +1361,24 @@ footer {
   .scan-btn { padding: 12px 20px; min-width: 140px; font-size: 0.95rem; }
   .loading-text { font-size: 1.15rem; }
   .loading-subtext { font-size: 0.95rem; }
-  .pulse-ring { width: 90极速模式; height: 90px; }
+  .pulse-ring { width: 90px; height: 90px; }
   .section-title { font-size: 1.35rem; }
   .card-value { font-size: 1.05rem; }
   .info-label { font-size: 0.92rem; }
   .info-value { font-size: 0.92rem; }
 }
-
 /* تحسينات للشاشات الكبيرة */
 @media (min-width: 1600px) {
   .tabs-nav {
     gap: 55px;
     padding: 35px 55px;
   }
-  
   .tab-btn {
     min-width: 260px;
     padding: 36px 52px;
     font-size: 1.25rem;
   }
 }
-
 /* تحسينات للشاشات المتوسطة */
 @media (max-width: 1200px) {
   .tabs-nav {
@@ -1492,7 +1386,6 @@ footer {
     padding: 25px 35px;
     min-height: 95px;
   }
-  
   .tab-btn {
     min-width: 200px;
     padding: 26px 36px;
@@ -1500,7 +1393,6 @@ footer {
     font-size: 1.15rem;
   }
 }
-
 /* تحسينات للشاشات الصغيرة */
 @media (max-width: 1024px) {
   .tabs-nav {
@@ -1508,23 +1400,21 @@ footer {
     padding: 20px 25px;
     min-height: 85px;
   }
-  
   .tab-btn {
     min-width: 170px;
     padding: 22px 32px;
     margin: 0 10px;
     font-size: 1.1rem;
     gap: 18px;
+    border-radius: 20px;
   }
 }
-
 @media (max-width: 768px) {
   .tabs-nav {
     gap: 20px;
     padding: 16px 20px;
     min-height: 80px;
   }
-  
   .tab-btn {
     min-width: 150px;
     padding: 20px 28px;
@@ -1534,14 +1424,12 @@ footer {
     border-radius: 20px;
   }
 }
-
 @media (max-width: 480px) {
   .tabs-nav {
     gap: 15px;
     padding: 14px 16px;
     min-height: 75px;
   }
-  
   .tab-btn {
     min-width: 130px;
     padding: 18px 24px;
@@ -1551,37 +1439,33 @@ footer {
     border-radius: 18px;
   }
 }
-
 /* Touch-friendly elements for mobile */
 @media (hover: none) and (pointer: coarse) {
   .tab-btn, .scan-btn, .copy-btn {
-      min-height: 48px;
+    min-height: 48px;
   }
-  
   .url-input {
-      font-size: 16px;
+    font-size: 16px;
   }
 }
-
 /* ========== REDUCED MOTION (Stellar Navigation Comfort) ========== */
 @media (prefers-reduced-motion: reduce) {
   * { 
-    animation-duration: 0.01ms !important; 
-    animation-iteration-count: 1 !important; 
-    transition-duration: 0.01ms !important; 
+    animation-duration: 0.01ms!important;
+    animation-iteration-count: 1!important; 
+    transition-duration: 0.01ms!important; 
   }
   #starfield, #nebula-clouds, #cosmic-particles, #event-horizon, #gravitational-lensing {
-    display: none !important;
+    display: none!important;
   }
   .btn-icon, .pulse-ring {
-    animation: none !important;
+    animation: none!important;
   }
 }
-
 /* ========== PRINT (Stellar Data Archive) ========== */
 @media print {
   body { 
-    background: #fff; 
+    background: #fff;
     color: #000; 
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1589,15 +1473,15 @@ footer {
   #starfield, #nebula-clouds, #cosmic-particles, 
   #event-horizon, #gravitational-lensing, 
   .scanner-interface::after { 
-    display: none !important; 
+    display: none!important;
   }
   .scanner-interface {
-    box-shadow: none !important;
-    border: 1px solid #ccc !important;
+    box-shadow: none!important;
+    border: 1px solid #ccc!important;
   }
   .tech-raw, .json-content {
-    background: #f8f8f8 !important;
-    color: #333 !important;
+    background: #f8f8f8!important;
+    color: #333!important;
   }
   a[href]:after {
     content: " (" attr(href) ")";
