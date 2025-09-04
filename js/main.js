@@ -324,8 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // API call
   async function performReconScan(normalizedUrl) {
-    // Replace with your real API endpoint if different
-    const apiEndpoint = 'https://superrecontool04aj-249dfe2cbae5.hosted.ghaymah.systems/recon';
+    // Using same-origin proxy endpoint so requests go to /recon on this host (nginx will proxy to real API)
+    const apiEndpoint = '/recon';
     const url = `${apiEndpoint}?url=${encodeURIComponent(normalizedUrl)}`;
     log('Fetching:', url);
     try {
@@ -334,8 +334,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const resp = await fetch(url, {
         method: 'GET',
         headers: { 'Accept': 'application/json, text/plain, */*' },
-        mode: 'cors',
-        credentials: 'omit',
+        mode: 'same-origin',
+        credentials: 'same-origin',
         signal: controller.signal
       });
       clearTimeout(timeout);
